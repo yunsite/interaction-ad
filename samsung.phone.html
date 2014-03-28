@@ -1,0 +1,172 @@
+<!DOCTYPE>
+<html>
+ <head>
+  <title> 三星产品PAD端功能展示  </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+
+  <link rel="stylesheet" href="./style/base.css" />
+ </head>
+
+ <body>
+
+	<script type="text/javascript">
+		// 三星产品PAD端功能展示
+		//  PAD 端
+		Config = {
+			mainType:'menu', //scroll, menu , point
+			navigaterStyle:'#pages{padding-bottom:35px;}#body #navigater a{display:block; -webkit-box-flex:1;width:400px;background:#000;height:35px;font:200 16px/35px \'微软雅黑\';color:#fff;}#body #navigater a:nth-child(2n){background:#1b1f22;}#body #navigater a.active{background:#0072dc;}',
+			pages:[
+				{
+					type:'oneImg',
+					pageName:'首页',
+					content:{
+						background:'./phone/index01.jpg',
+						anchors:[ //图片上的链接
+							{
+								href:'http://www.youku.com/',
+								style:'margin:188px 0 0 -363px;display:block;height:29px;width:110px;', //位置在屏幕中心
+								callback:function(){}
+							}
+						],
+						
+
+					},
+				},
+				{
+					type:'videos',
+					pageName:'畅快视频',
+					content:{
+						background:'./phone/index02.jpg',
+						width:'458',
+						height:'219',
+						top:'46',
+						videos:[
+							{
+								videoId:'XNjgxMjg0OTky',//视频
+								title:'"赵四"搞怪变打油诗人', // 视频名
+								thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+								left:'0',
+								top:'0',
+								width:'333',
+								height:'201'
+							},
+							{
+								videoId:'XNjgxMjg0OTky',//视频ID
+								title:'"赵四"搞怪变打油诗人', // 视频名
+								thumbnail:'./galaxy/index2-2.png', // 视频截图
+								left:'353',
+								top:'0',
+								width:'101',
+								height:'67'
+							},
+							{
+								videoId:'XNjg2NzMyODcy',//视频ID
+								title:'"赵四"搞怪变打油诗人', // 视频名
+								thumbnail:'./galaxy/index2-2.png' ,// 视频截图
+								left:'353',
+								top:'74',
+								width:'101',
+								height:'67'
+							},
+							{
+								videoId:'XNjgxMjg0OTky',//视频ID
+								title:'"赵四"搞怪变打油诗人', // 视频名
+								thumbnail:'./galaxy/index2-2.png', // 视频截图
+								left:'353',
+								top:'147',
+								width:'101',
+								height:'67'
+							},
+						]
+					},
+				},
+				{
+					type:'album',
+					pageName:'精彩图集',
+					content:{
+						innerStyle:'.albumInner dl{background:#fff;-webkit-border-radius:10px;padding:5px;-webkit-box-shadow:0 0 6px rgba(0,0,0,0.5);}',
+						background:'./phone/index03.jpg',
+						width:'458',
+						height:'219',
+						top:'20',
+						contentBox:{
+							left:'5',
+							top:'7',
+							width:'343',
+							height:'215'
+						},
+						images:[
+
+							{
+								thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+								left:'353',
+								top:'5',
+								width:'101',
+								height:'67',
+								showType:'360',
+								image: [
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+								]
+								// 图册 
+							},
+							{
+								thumbnail:'./galaxy/index2-2.png', // 视频截图
+								left:'353',
+								top:'79',
+								width:'101',
+								height:'67',
+								image:[
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									] // 图册 
+							},
+							{
+								thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+								left:'353',
+								top:'152',
+								width:'101',
+								height:'67',
+								showType:'scroll',
+								image:[
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									] // 图册 
+							},
+
+						]
+					},
+				},
+				{
+					type:'scroll',
+					pageName:'4G优势',
+					content:{
+						background:'./phone/index04.jpg',
+						images:[
+									'./galaxy/index4-1.png',
+									'./galaxy/index4-2.png',
+									'./galaxy/index4-3.png',
+									'./galaxy/index4-4.png'
+						]
+					}
+				}
+			]
+
+		}
+
+
+	</script>
+	<script data-main='javascript/config' type="text/javascript" src='javascript/requier.2.1.js'></script>
+ </body>
+</html>
+
+

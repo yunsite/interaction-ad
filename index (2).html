@@ -1,0 +1,283 @@
+<!DOCTYPE>
+<html>
+ <head>
+  <title> 三星产品PAD端功能展示  </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+
+  <link rel="stylesheet" href="./style/base.css" />
+ </head>
+
+ <body>
+
+	<script type="text/javascript">
+		// 三星产品PAD端功能展示
+		//  PAD 端
+		Config = {
+			mainType:'menu', //scroll, menu , point
+			navigaterStyle:'#body #navigater a{display:block; -webkit-box-flex:1;width:400px;background:#000;height:45px;font:200 21px/45px \'微软雅黑\';color:#fff;}#body #navigater a:nth-child(2n){background:#1b1f22;}#body #navigater a.active{background:#0072dc;}',
+			pages:[
+				{
+					type:'oneImg',
+					pageName:'首页',
+					content:{
+						background:'./galaxy/index.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(ele,arg){
+							console.log(ele,arg);
+						},
+						anchors:[ //图片上的链接
+							{
+								href:'http://www.youku.com/',
+								style:'margin:-60px 0 0 -643px;display:block;height:35px;width:153px;', //位置在屏幕中心
+								// 此节点上的callback
+								event:{
+									eventType:'click',
+									callback:function(){
+										alert('dddd');
+									}
+								}
+							}
+						]
+						
+
+					},
+				},
+				{
+					type:'videos',
+					pageName:'畅快体验视频',
+					content:{
+						background:'./galaxy/index2.jpg',
+						videos:[
+							{
+								videoId:'XNjgxMjg0OTky',//视频ID
+								title:'"赵四"搞怪变打油诗人', // 视频名
+								thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+								event:{
+									eventType:'click',
+									callback:function(){
+										alert('1');
+									}
+								}
+							},
+							{
+								videoId:'XNjgxMjg0OTky',//视频ID
+								title:'"赵四"搞怪变打油诗人', // 视频名
+								thumbnail:'./galaxy/index2-2.png', // 视频截图
+								event:{
+									eventType:'click',
+									callback:function(){
+										alert('2');
+									}
+								}
+							},
+							{
+								videoId:'XNjgxMjg0OTky',//视频ID
+								title:'"赵四"搞怪变打油诗人', // 视频名
+								thumbnail:'./galaxy/index2-2.png', // 视频截图
+								event:{
+									eventType:'click',
+									callback:function(){
+										alert('3');
+									}
+								}
+							},
+							{
+								videoId:'XNjgxMjg0OTky',//视频ID
+								title:'"赵四"搞怪变打油诗人', // 视频名
+								thumbnail:'./galaxy/index2-2.png', // 视频截图
+							},
+						]
+					},
+				},
+				{
+					type:'album',
+					pageName:'NOTE 精彩图集',
+					content:{
+						background:'./galaxy/index3.jpg',
+						images:[
+							{
+								thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+								showType:'360',
+								image: [
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+								]
+								// 图册 
+							},
+							{
+								thumbnail:'./galaxy/index2-2.png', // 视频截图
+								image:[
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									] // 图册 
+							},
+							{
+								thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+								showType:'scroll',
+								image:[
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									] // 图册 
+							},
+
+
+						]
+					},
+				},
+				{
+					type:'scroll',
+					pageName:'三星4Gw优势',
+					content:{
+						background:'',
+						images:[
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+									'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+									'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+						]
+					},
+				},
+
+				{
+					type:'productProfile', // 产品介绍
+					pageName:'产品介绍',
+					content:{
+						background:'./galaxy/dior.jpg',
+						product:[
+							{
+								title:'DIOR迪奥桀骜男士运动淡香水',
+								imgsrc:'./galaxy/dior-1.jpg', //图片地址，
+								info:'<h1>DIOR迪奥桀骜男士古龙淡香水淡香水</h1>'+
+									'<p>桀骜清新淡香水中佛手柑纯净馥郁的气息，完美诠释DIOR迪奥•桀傲的现代时尚风格。'+
+									'蕴含的独特麝香芳香，宛若经典永恒的纯白衬衫般，散发随意迷醉气息'+
+									'极简的优雅：毫无造作之感，尽显时尚典范。'+
+									'卡拉布里的佛手柑——摩洛哥的葡萄柚——白麝香</p>',
+								href:'产品相关跳转链接地址'
+							},
+							{
+								title:'DIOR迪奥桀骜男士古龙淡香水',
+								imgsrc:'./galaxy/dior-2.jpg', //图片地址，
+								info:'产品介绍产品介绍产品介绍产品介绍产品介绍产品介绍',
+								href:'产品相关跳转链接地址'
+							},
+							{
+								title:'DIOR迪奥桀傲香氛',
+								imgsrc:'./galaxy/dior-3.jpg', //图片地址，
+								info:'产品介绍产品介绍产品介绍产品介绍产品介绍产品介绍',
+								href:'产品相关跳转链接地址'
+							},
+						]
+					}
+				},
+
+				{
+					type:'custom', //自定义
+					pageName:'探索更多',
+					content:{
+						background:'./galaxy/index5.jpg', //背景图片
+						innerHTML:'<div class=\'custom_a\'> 自定义 区域<br /> 可添加HTML数据 </div>',
+						callback:function(ele){console.log('test',ele)}
+
+					}
+				},
+				{
+					type:'pointProfile', // 汽车拼点介绍
+					pageName:'汽车介绍',
+					content:{
+						background:'./galaxy/index6.jpg', // 背景图片
+						point:[
+							{
+								showType:'href', // 图片
+								style   :'position:absolute;left:-40px;top:-90px;display:block;height:38px;width:38px;background-image:url(\"./galaxy/point.png\");background-repeat:no-repeat;background-size:cover;;',
+								href    :'http://www.youku.com/', // 图片
+								info    :'图片介绍'
+							},
+
+							{
+								showType:'img', // 图片
+								style   :'position:absolute;left:-160px;top:-30px;display:block;height:38px;width:38px;background-image:url(\"./galaxy/point.png\");background-repeat:no-repeat;background-size:cover;;',
+								image   :['./galaxy/dior-2.jpg','./galaxy/dior-2.jpg','./galaxy/dior-2.jpg',], // 图片
+								info    :'图片介绍'
+							},
+							{
+								showType:'img', // 图片
+								style   :'position:absolute;left:-280px;top:30px;display:block;height:38px;width:38px;background-image:url(\"./galaxy/point.png\");background-repeat:no-repeat;background-size:cover;;',
+								image   :['./galaxy/dior-2.jpg','./galaxy/dior-2.jpg','./galaxy/dior-2.jpg',], // 图片
+								info    :'图片介绍'
+							},
+
+
+							{
+								showType:'changeColor', // 汽车换色
+								style   :'position:absolute;left:100px;top:100px;display:block;height:38px;width:38px;background-image:url(\"./galaxy/point.png\");background-repeat:no-repeat;background-size:cover;;',
+								image   :['./galaxy/dior-2.jpg','./galaxy/dior-2.jpg','./galaxy/dior-2.jpg',], // 图片
+								info    :'图片介绍'
+							},
+							{
+								showType:'rotation', // 360旋转
+								style   :'position:absolute;left:240px;top:0;display:block;height:38px;width:38px;background-image:url(\"./galaxy/point.png\");background-repeat:no-repeat;background-size:cover;;',
+								image   :['./galaxy/dior-2.jpg','./galaxy/dior-2.jpg','./galaxy/dior-2.jpg',], // 图片
+								info    :'图片介绍'
+							},
+
+						]
+					}
+				},
+
+				{
+					type:'videosAndImg',
+					pageName:'活动展示',
+					content:{
+						background:'./galaxy/bmw.jpg',
+						images:[
+							{
+								title:'参赛选手需承诺，本人所提供的信息均真实有内蒙古大草原内蒙古大草原手需人所提供的信息均真实', // 图片名
+								src:'./galaxy/video-img1.jpg' // 图片地址
+							},
+							{
+								title:'"赵四"搞怪变打油诗人', // 图片名
+								src:'./galaxy/video-img1.jpg' // 图片地址
+							},
+							{
+								title:'"赵四"搞怪变打油诗人', // 图片名
+								src:'./galaxy/video-img1.jpg' // 图片地址
+							},
+							
+						],
+						videos:[
+							{
+								videoId:'XNjgxMjg0OTky',//视频ID
+								title:'参赛选手需承诺，本人所提供的信息均真实有内蒙古大草', // 视频名
+								thumbnail:'./galaxy/video1.jpg' // 视频截图
+							},
+							{
+								videoId:'XNjgxMjg0OTky',//视频ID
+								title:'参赛选手需承诺，本人所提供的信息均真实有内蒙古大草原内蒙古大草原手需人所提供的信息均真实', // 视频名
+								thumbnail:'./galaxy/video2.jpg' // 视频截图
+							},
+						]
+					},
+				},
+
+			]
+
+		}
+
+
+	</script>
+	<script data-main='javascript/config' type="text/javascript" src='javascript/requier.2.1.js'></script>
+ </body>
+</html>
+
+
