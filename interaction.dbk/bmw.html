@@ -1,0 +1,220 @@
+<!DOCTYPE>
+<html>
+ <head>
+  <title> 宝马产品PAD端功能展示  </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <link rel="stylesheet" href="./style/base.css" />
+ </head>
+ <body>
+
+	<script type="text/javascript">
+		// 宝马产品PAD端功能展示
+		//  PAD 端
+		Config = {
+			mainType:'scroll-X', //scroll-X,scroll-Y, menu , point
+			navigaterStyle:'#body #navigater{left:50%;bottom:10px;}#body #navigater a{display:block;opacity:0.8; -webkit-box-flex:1;width:10px;background:#000;height:10px;-webkit-border-radius:5px;margin-left:5px;-webkit-box-shadow:0 0 2px rgba(225,225,225,0.6)}#body #navigater a:nth-child(2n){background:#1b1f22;}#body #navigater a.active{background:#0072dc;}',
+			pages:[
+				{
+					type:'oneImg',
+					pageName:'首页',
+					content:{
+						background:'./bmw/index.jpg',
+						anchors:[ //图片上的链接
+							{
+								href:'http://www.youku.com/',
+								style:'-webkit-transform:translate(-375px,-126px);display:block;height:38px;width:120px;background:transparent;', //位置在屏幕中心
+							}
+						],
+						callback:function(ele,arg){
+							console.log(ele,arg);
+						}
+
+						
+
+					},
+				},
+
+
+
+				{
+					type:'custom', //自定义
+					pageName:'活动介绍',
+					content:{
+						background:'./bmw/index2.jpg', //背景图片
+						innerStyle:'.introduction{position:relative;width:570px;height:400px;text-align:left;margin-left:300px;}.introduction dt{padding-left:10px}'+
+						'.introduction dd{padding:20px 40px 30px;background:url(\'./bmw/introduction.png\') repeat 0 0;-webkit-border-radius:10px;-webkit-box-shadow:inset 0 0 10px rgba(0,0,0,0.67)}'+
+						'.introduction .hdjs,.introduction .rcjs,.introduction .hdjs,.introduction .csxz{-webkit-box-shadow:0 0  5px rgba(0,0,0,0.35);font:800 24px/57px \'微软雅黑\';margin-right:-8px;-webkit-border-radius:5px;-webkit-border-bottom-left-radius:0;-webkit-border-bottom-right-radius:0;display:inline-block; padding:0 15px;background:-webkit-gradient(linear ,0 0,0 100%,from(#90a4c0),color-stop(0.5, #90a4c0),color-stop(0.5, #8199b7),to(#8199b7) );}'+
+						'.introduction dt .active{background:-webkit-gradient(linear ,0 0,0 100%,from(#d0e0f9),color-stop(0.5, #d0e0f9),color-stop(0.5, #acc6e3),to(#acc6e3) );z-index:2;position:relative;}'+
+						'.introduction dd div{font:200 16px/32px \'微软雅黑\'; color:#fff;}'+
+						'.introduction img{position:absolute;left:-1000px;-webkit-transition: left 800ms ease-in ;top:300px;}',
+						innerHTML:'<div class=\'introduction\'>'+
+						  '<dl>'+
+							  '<dt>'+
+								  '<a href=\'javascript:void(0)\' class=\'hdjs active\'>活动规则</a>'+
+								  '<a href=\'javascript:void(0)\' class=\'rcjs \'>日常介绍</a>'+
+								  '<a href=\'javascript:void(0)\' class=\'csxz\'>参赛须知</a>'+
+							  '</dt>'+
+							  '<dd>'+
+								  '<div style=\'display:block\'>在线注册报名后，就有机会参与线下区域选拔，于北京、成都、上海、广州四大城市，展开激烈角逐。经过体能、智慧、驾驶技能等全方位比拼，最终全国将决出共32位精英勇者，组队启程BMW X之旅！</div>'+
+								  '<div style=\'display:none\'>报名时间：<br />'+
+									'北京站/成都站：2013年8月1日-9月30日<br />'+
+									'上海站/广州站：2013年8月1日-10月15日<br />'+
+									'区域选拔：<br />'+
+									'北京：2013年10月19日-10月20日<br />'+
+									'成都：2013年10月19日-10月20日<br />'+
+									'上海：2013年11月2日-11月3日<br />'+
+									'广州：2013年11月2日-11月3日<br /></div>'+
+								  '<div style=\'display:none\'>参赛选手需承诺，本人所提供的信息均真实有效；如有虚假，本人自愿承担所有后果；参加选手为年满22周岁的中国公民，持有有效的中华人民共和国驾驶执照，具有两年以上的驾驶经验，并能够适应各种道路状况和处理各种突发事件；参加选手需理解本次BMW X之旅要求，并具备与本次BMW X之旅整个过程和所有挑战相适合的良好健康状况.</div>'+
+							  '</dd>'+
+						  '</dl>'+
+						  '<img class=\'car\' src=\'./bmw/page2.png\'>'+
+						  '</div>',
+						callback:function(ele){
+							var navBar = Array.prototype.splice.call(ele.querySelectorAll('dt a'),0,ele.querySelectorAll('dt a').length);
+							var content = Array.prototype.splice.call(ele.querySelectorAll('dd div'),0,ele.querySelectorAll('dd div').length);
+							navBar.forEach(function(item,index){
+								item.addEventListener('click',function(){
+									console.log(this);
+									var active = ele.querySelector('dt a.active');
+									active && (active.className =  active.className.replace('active',''));
+									this.className += ' active';
+
+									content.forEach(function(itemDiv,i){
+										itemDiv.style.display = i == index?'block':'none';
+									})
+
+									
+
+
+								},false);
+							
+							});
+							setTimeout(function(){
+								ele.querySelector('.car').style.left = '-380px';
+							},20);
+						}
+					}
+				},
+
+
+				{
+					type:'videosAndImg',
+					pageName:'活动展示',
+					content:{
+						background:'./galaxy/bmw.jpg',
+						images:[
+							{
+								title:'参赛选手需承诺，本人所提供的信息均真实有内蒙古大草原内蒙古大草原手需人所提供的信息均真实', // 图片名
+								src:'./galaxy/video-img1.jpg' // 图片地址
+							},
+							{
+								title:'"赵四"搞怪变打油诗人', // 图片名
+								src:'./galaxy/video-img1.jpg' // 图片地址
+							},
+							{
+								title:'"赵四"搞怪变打油诗人', // 图片名
+								src:'./galaxy/video-img1.jpg' // 图片地址
+							},
+							
+						],
+						videos:[
+							{
+								videoId:'XNjgxMjg0OTky',//视频ID
+								title:'参赛选手需承诺，本人所提供的信息均真实有内蒙古大草', // 视频名
+								thumbnail:'./galaxy/video1.jpg' // 视频截图
+							},
+							{
+								videoId:'XNjgxMjg0OTky',//视频ID
+								title:'参赛选手需承诺，本人所提供的信息均真实有内蒙古大草原内蒙古大草原手需人所提供的信息均真实', // 视频名
+								thumbnail:'./galaxy/video2.jpg' // 视频截图
+							},
+						]
+					},
+				},
+				{
+					type:'custom', //自定义
+					pageName:'预约试驾',
+					content:{
+						background:'./bmw/index4.jpg', //背景图片
+						innerStyle:'.custom_active{margin-right:230px;margin-top:-150px;position:relative;}.custom_active tr{height:40px;}.custom_active input,.custom_active select{ text-indent:0.2em;width:245px; height:30px;} .custom_active .nianfen{margin-right:5px;} .custom_active .nianfen,.custom_active .yuefen{width:120px;}'+
+						'.custom_active img{position:absolute;left:-900px;-webkit-transition: left 800ms ease-in ;top:210px;}',
+						innerHTML:'<div class=\'custom_active\'>'+
+						  '<form action=\'\' method=\'get\'>'+
+							'<table width=\'530\' border=\'0\'>'+
+							  '<tr>'+
+								'<td><input name=\'name\' type=\'text\'  value=\'姓名\'/></td>'+
+								'<td><input name=\'mail\' type=\'text\' value=\'邮箱\'/></td>'+
+							  '</tr>'+
+							  '<tr>'+
+								'<td><select class=\'nianfen\'>'+
+									'<option>出生年份</option>'+
+									'<option>1985</option>'+
+								  '</select>'+
+								  '<select class=\'yuefen\'>'+
+									'<option>月(选填)</option>'+
+									'<option>10</option>'+
+								  '</select></td>'+
+								'<td><input name=\'number\' type=\'text\' value=\'手机号\'/></td>'+
+							  '</tr>'+
+							  '<tr>'+
+								'<td><select>'+
+									'<option>所在省份</option>'+
+									'<option>1985</option>'+
+								  '</select></td>'+
+								'<td><select>'+
+									'<option>所在城市</option>'+
+									'<option>1985</option>'+
+								  '</select></td>'+
+							  '</tr>'+
+							  '<tr>'+
+								'<td><select>'+
+									'<option>想要购买的品牌</option>'+
+									'<option>1985</option>'+
+								  '</select></td>'+
+								'<td><select>'+
+									'<option>车型</option>'+
+									'<option>1985</option>'+
+								  '</select></td>'+
+							  '</tr>'+
+							  '<tr>'+
+								'<td><select>'+
+									'<option>预计购习的时间</option>'+
+									'<option>1985</option>'+
+								  '</select></td>'+
+								'<td><select>'+
+									'<option>购车预算</option>'+
+									'<option>1985</option>'+
+								  '</select></td>'+
+							  '</tr>'+
+							  '<tr>'+
+								'<td></td>'+
+								'<td><input value=\'提交申请\' type=\'submit\' /></td>'+
+							  '</tr>'+
+							'</table>'+
+						  '</form>'+
+						  '<img class=\'car\' src=\'./bmw/page4.png\'>'+
+						  '</div>',
+						callback:function(ele){
+							setTimeout(function(){
+								ele.querySelector('.car').style.left = '-100px';
+							},20);
+						}
+
+					}
+				},
+
+
+			]
+
+		}
+
+
+	</script>
+	
+	<script data-main='javascript/config' type="text/javascript" src='javascript/requier.2.1.js'></script>
+ </body>
+</html>
+
+

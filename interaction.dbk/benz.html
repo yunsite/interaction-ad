@@ -1,0 +1,87 @@
+<!DOCTYPE>
+<html>
+ <head>
+  <title> 三星产品PAD端功能展示  </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+
+  <link rel="stylesheet" href="./style/base.css" />
+ </head>
+
+ <body>
+
+	<script type="text/javascript">
+		// 三星产品PAD端功能展示
+		//  PAD 端
+		Config = {
+			mainType:'point', //scroll, menu , point
+			pages:[
+
+				{
+					type:'pointProfile', // 汽车拼点介绍
+					pageName:'汽车介绍',
+					content:{
+						background:'./galaxy/index6.jpg', // 背景图片
+						innerStyle:'.pointPInner .hideImageWarp{top:0;right:0;z-index:2;}div[id^=imagesItem] img{left:0;top:0;}#imagesItem3 .active{display:block!important;}#imagesItem4 img{display:none;}#imagesItem4 .active{display:block;}.changeColorBar{ position:absolute;right:10px;bottom:10px;z-index:2;}.changeColorBar li{float:left;margin:0 8px;width:30px;height:30px;border:2px solid red;}.opacityLay{background:red;}',
+						point:[
+							{
+								showType:'img', // 图片
+								style   :'position:absolute;left:-40px;top:-90px;display:block;height:38px;width:38px;background-image:url(\"./galaxy/point.png\");background-repeat:no-repeat;background-size:cover;;',
+								image   :'./bz260/benz01.jpg', // 图片
+								info    :'图片介绍',
+								callback:function(){
+									console.log();
+								}
+							},
+
+							{
+								showType:'img', // 图片
+								style   :'position:absolute;left:-160px;top:-30px;display:block;height:38px;width:38px;background-image:url(\"./galaxy/point.png\");background-repeat:no-repeat;background-size:cover;;',
+								image   :'./bz260/benz02.jpg', // 图片
+								info    :'图片介绍'
+							},
+							{
+								showType:'img', // 图片
+								style   :'position:absolute;left:-280px;top:30px;display:block;height:38px;width:38px;background-image:url(\"./galaxy/point.png\");background-repeat:no-repeat;background-size:cover;;',
+								image   :'./bz260/benz03.jpg', // 图片
+								info    :'图片介绍'
+							},
+
+
+							{
+								showType:'changeColor', // 汽车换色
+								style   :'position:absolute;left:100px;top:100px;display:block;height:38px;width:38px;background-image:url(\"./galaxy/point.png\");background-repeat:no-repeat;background-size:cover;;',
+								image   :['./bz260/benz03.jpg','./bz260/benz02.jpg','./bz260/benz01.jpg'], // 图片
+								info    :'图片介绍'
+							},
+							{
+								showType:'rotation', // 360旋转
+								style   :'position:absolute;left:240px;top:0;display:block;height:38px;width:38px;background-image:url(\"./galaxy/point.png\");background-repeat:no-repeat;background-size:cover;;',
+								image   :['./bz260/benz03.jpg','./bz260/benz02.jpg','./bz260/benz01.jpg'], // 图片
+								info    :'图片介绍'
+							},
+							{
+								showType:'href', // 链接
+								style   :'position:absolute;left:0;top:300px;display:block;height:40px;width:120px;background-image:url(\"./bz260/getmore.jpg\");background-repeat:no-repeat;background-size:cover;;',
+								href    :'http://www.youku.com/', // 图片
+								info    :'图片介绍',
+								callback:function(){alert('----------')}
+							},
+
+						]
+					}
+			
+				},
+
+			]
+
+		}
+
+
+	</script>
+	<script data-main='javascript/config' type="text/javascript" src='javascript/requier.2.1.js'></script>
+ </body>
+</html>
+
+
