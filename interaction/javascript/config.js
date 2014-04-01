@@ -49,11 +49,11 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 	function InteractionAD(){
 		this.temp={
 		// 头图大图
-		oneImg:'<a href=\'#{href}\' style=\'#{style}\'></a>',
+		anchors:'<a class=\'#{className}\' href=\'#{href}\' style=\'#{style}\'></a>',
 		// 全视频
-		videos:'<div #{style} id=\'video-#{videoId}\'><a href=\'javascript:void(0)\' data-videoid=\'#{videoId}\'><img class=\'playVideo\' src=\'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\' /><img class=\'video\' src=\'#{thumbnail}\' /></a><b>#{title}</b></div>',
+		video:'<div class=\'#{className}\' style=\'#{style}\' id=\'video-#{videoId}\'><a href=\'javascript:void(0)\' data-videoid=\'#{videoId}\'><img class=\'playVideo\' src=\'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\' /><img class=\'video\' src=\'#{thumbnail}\' /></a><b>#{title}</b></div>',
 		// 相册
-		album:'<div class=\'item\' #{style}><a href=\'javascript:void(0)\'><img src=\'#{thumbnail}\' /></a></div>',
+		album:'<div class=\'#{className}\' #{style}><a href=\'javascript:void(0)\'><img src=\'#{thumbnail}\' /></a></div>',
 		// 图片滚动
 		scroll:'<div></div>',// 由于数据格式比较简单 特殊情况没有模板
 		// 产品介绍
@@ -75,23 +75,23 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 	InteractionAD.prototype={
 		constructor:InteractionAD,
 		// 头图大图
-		oneImg:function(wrap){
-
+		anchors:function(content){
 			return this.createPage({
-					className:'oneImgInner',
-					background:wrap.content.background,
-					temp:this.temp.oneImg
-				},function(temp){
-					var wraphtml='',i=0,anchors = wrap.content.anchors;
-					for(i;i<anchors.length;){
-						wraphtml += temp.evaluate(anchors[i++]);
-					}
-					return wraphtml;
+					temp:this.temp.anchors,
+					style:content
+				},function(temp,style){
+					var pushArg={
+							title:content.content.title||'优酷互动广告',
+							href:content.content.href||'javascript:void(0)',
+							style:style,
+							className:content.content.className||'item-anchors'
+						}
+					return temp.evaluate(pushArg);
 				});
 
 
 		},
-		oneImgEvent:function(ele,arg){
+		anchorsEvent:function(ele,arg){
 		
 			arg.content.callback && arg.content.callback(ele,arg);
 
@@ -107,28 +107,25 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 		},
 		// 全视频
-		videos:function(wrap){
-			
+		video:function(content){
 			return this.createPage({
-					className:'videosInner',
-					background:wrap.content.background,
-					temp:this.temp.videos
-				},function(temp){
-					var videoIdStyle = ' style=\'width:'+ wrap.content['width']+'px;height:'+wrap.content['height']+'px;margin-top:'+wrap.content['top']+'px;\''
-					var wraphtml='<div class=\'videoInnerDl\' '+ videoIdStyle +'>',i=0,videos=wrap.content.videos,vl;
-					for(vl=videos.length;i<vl;i++){
-						var height = videos[i]['height']?'height:'+videos[i]['height']+'px;':'';	
-						var width  = videos[i]['width'] ?'width:' +videos[i]['width']+'px;':'';	
-						var postop = videos[i]['top']   ?'top:'   +videos[i]['top']+'px;':'';	
-						var left   = videos[i]['left']  ?'left:'  +videos[i]['left']+'px;':'';	
-						videos[i]['style'] =' style=\''+ height+width+postop+left+ '\'';
-						wraphtml += temp.evaluate(videos[i]) ;
-						
+					style:content,
+					temp:this.temp.video
+				},function(temp,style){
+					console.log(temp,style,content)
+					var content2 = content.content;
+					var pushArg={
+						style:style,
+						videoId:content2.videoId,
+						thumbnail:content2.thumb,
+						title:content2.title,
+						className:content2.className||'item-video'
 					}
-					return wraphtml+'</div>';
+					return temp.evaluate(pushArg);
+
 				});
 		},
-		videosEvent:function(ele,arg){
+		videoEvent:function(ele,arg){
 			
 			var playVideos = ele.querySelectorAll('.playVideo'),
 				playvideo = temp.toArray(playVideos);
@@ -148,24 +145,21 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		
 		},
 		// 相册
-		album:function(wrap){
+		album:function(content){
 
 			return this.createPage({
-					className:'albumInner',
-					background:wrap.content.background,
+					style:content,
 					temp: this.temp.album
-				},function(temp){
-					var albumStyle = ' style=\'width:'+ wrap.content['width']+'px;height:'+wrap.content['height']+'px;margin-top:'+wrap.content['top']+'px;\''
-					var albumCB = wrap.content.contentBox;
-					var contentBox = ' style=\'width:'+ albumCB['width']+'px;height:'+ albumCB['height']+'px;top:'+albumCB['top']+'px;left:'+albumCB['left']+'px;\''
-					var wraphtml='<dl '+ albumStyle +'><dt '+contentBox +'></dt><dd>',i=0,item=wrap.content.images,vl;
-					for(vl=item.length;i<vl;i++){
-						var height = item[i]['height']?'height:'+item[i]['height']+'px;':'';	
-						var width  = item[i]['width'] ?'width:' +item[i]['width']+'px;':'';	
-						var postop = item[i]['top']   ?'top:'   +item[i]['top']+'px;':'';	
-						var left   = item[i]['left']  ?'left:'  +item[i]['left']+'px;':'';	
-						item[i]['style'] =' style=\''+ height+width+postop+left+ '\'';
-						wraphtml += temp.evaluate(item[i]);
+				},function(temp,style){
+					var content2 = content.content;
+					var wraphtml='<dl><dt style=\''+style +'\' ></dt><dd>';
+					for(i=0,vl=content2.length;i<vl;i++){
+						var height = content2[i]['height']?'height:'+content2[i]['height']+'px;':'';	
+						var width  = content2[i]['width'] ?'width:' +content2[i]['width']+'px;':'';	
+						var postop = content2[i]['top']   ?'top:'   +content2[i]['top']+'px;':'';	
+						var left   = content2[i]['left']  ?'left:'  +content2[i]['left']+'px;':'';	
+						content2[i]['style'] =' style=\''+ height+width+postop+left+ '\'';
+						wraphtml += temp.evaluate(content2[i]);
 					}
 					return wraphtml+'</dd></dl>';
 				});
@@ -702,11 +696,17 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 			arg.content.callback   && arg.content.callback(ele)
 		},
 		createPage:function( ARGUMENTS ,callback){
-			
+			console.log(ARGUMENTS);
+			var _style = ARGUMENTS.style,
+				top    = _style.top   ?'top:'   +_style.top    +'px;':'',
+				left   = _style.left  ?'left:'  +_style.left   +'px;':'',
+				height = _style.height?'height:'+_style.height +'px;':'',
+				width  = _style.width ?'width:' +_style.width  +'px;':'';
+
 			var temp_oneImg = new temp.template( ARGUMENTS.temp ),
-				wraphtml_start   = '<div class=\''+ ARGUMENTS.className +'\' style=\'height:100%;'+ (ARGUMENTS.background ?'background:url('+ ARGUMENTS.background +') no-repeat 50% 50%;' :'')+' \' >';
-				wraphtml_content = callback && callback(temp_oneImg);
-				wraphtml_end     = '</div>';
+				wraphtml_start   = '';//'<div class=\''+ ARGUMENTS.className +'\' style=\'height:100%;'+ (ARGUMENTS.background ?'background:url('+ ARGUMENTS.background +') no-repeat 50% 50%;' :'')+' \' >';
+				wraphtml_content = callback && callback(temp_oneImg,top+left+height+width);
+				wraphtml_end     = ''; //'</div>';
 				temp_oneImg = null;
 			return wraphtml_start + wraphtml_content + wraphtml_end;
 
@@ -812,14 +812,12 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 			Elements['body']['navigater']['list'] =Array();
 
 		for(var i=0,ip=pages.length;i<ip;i++){
-
-			var type = pages[i]['type'],typeId= type+i  ,pagesItem = {};
+			var typeId= 'pages_'+i  ,pagesItem = {};
 		
-				pagesItem[ 'body.pages.' + typeId ] = {'class':type,'id':typeId ,'style':'display:block;float:left;'};
+				pagesItem[ 'body.pages.' + typeId ] = {'class':typeId,'id':typeId ,'style':'display:block;float:left;'};
 
 
-			if(!temp_ADS[type]){continue;};
-
+		//	if(!temp_ADS[type]){continue;};
 			createContent.pages.appendChild(createElements( pagesItem ));//temp_ADS[type](pages[i]);
 
 
@@ -834,20 +832,33 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				navigaterClick({
 						currentAnchor:currentNav,
 						temp:temp_ADS,
-						type:type,
-						arg:pages[i] 
+						page:pages[i]['page'],
+						pageId:typeId
 					} ,function(ele,ADS){
 						if( Elements['body']['pages'][ ele.id ] && Elements['body']['pages'][ ele.id ]['childNode'] ){ return ;}
 							//var startloading = new temp.loading(ele)
 							// 得到page 的页面数据 string HTML
-							var ADSTEMP =  ADS.temp[ ADS.type ].call( ADS.temp ,ADS.arg) ;
+							var pageContentHtml = Array();
+							ADS['page']['contents'].forEach(function(ITEMTEMP,ADSIndex){
+
+								var ADSTEMP =  ADS.temp[ ITEMTEMP.type ].call( ADS.temp ,ITEMTEMP) ;
+									pageContentHtml.push(ADSTEMP);
+									// 给子节点绑定事件
+									ADS.temp[ ADS.type+'Event' ] && ADS.temp[ ADS.type+'Event' ].call( ADS.temp ,ele,ADSTEMP);
+								
 							
-							// 添加到page节点上
-							(Elements['body']['pages'][ ele.id ]['childNode'] = ADSTEMP ) &&
-								(ele.innerHTML = ADSTEMP) &&
-								// 给子节点绑定事件
-								ADS.temp[ ADS.type+'Event' ] && 
-								ADS.temp[ ADS.type+'Event' ].call( ADS.temp ,ele,ADS.arg);
+							});
+							
+							var pageWrap = {'tag':'div'};
+								pageWrap[ 'body.pages.'+ ADS.pageId +'.content' ] = {
+											'id':'id'+ADS.page.className,
+											'class':ADS.page.className,
+											'style':'background:url('+ADS.page.background+') no-repeat 50% 50%;background-size:cover;'
+											}
+							
+							ele.appendChild(createElements(pageWrap)).innerHTML = '<div class=\'pageInner\'>'+pageContentHtml.join('')+'</div>';	
+
+
 					});
 
 
@@ -870,7 +881,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		//加载背景图片
 		arg.forEach(function(item,index){
 			var thisCallee = arguments.callee
-			temp.loadImg(item.content.background,{
+			temp.loadImg(item.page.background,{
 					loaded:function(image){
 						//console.log("complete : "+ image.complete +"\nreadyState : "+image.readyState) 
 						image.complete && index == 0 &&  setTimeout(function(){ startloading.done(); },200);

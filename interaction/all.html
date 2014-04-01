@@ -1,0 +1,350 @@
+<!DOCTYPE>
+<html>
+ <head>
+  <title> 三星产品PAD端功能展示  </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+
+  <link rel="stylesheet" href="./style/base.css" />
+ </head>
+
+ <body>
+
+	<script type="text/javascript">
+		// 三星产品PAD端功能展示
+		//  PAD 端
+		Config = {
+			mainType:'menu', //scroll, menu , point
+			navigaterStyle:'#body #navigater a{display:block; -webkit-box-flex:1;width:400px;background:#000;height:45px;font:200 21px/45px \'微软雅黑\';color:#fff;}#body #navigater a:nth-child(2n){background:#1b1f22;}#body #navigater a.active{background:#0072dc;}',
+			pages:[
+				{
+					pageName:'首页',
+					page:{
+						background:'./galaxy/index.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						innerStyle:'',
+						className:'pagesindex',
+						contents:[
+							{
+								type    :'anchors',
+								top     :'10',
+								left    :'20',
+								width   :'30',
+								height  :'40',
+								callback:function(){},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									href :'http://www.youku.com',
+								}
+							},	
+							{
+								type    :'video',
+								top     :'1',
+								left    :'2',
+								width   :'3',
+								height  :'4',
+								callback:function(){},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									videoId:'XNjgxMjg0OTky',
+									thumb:'./galaxy/index2-1.jpg',
+								}
+							},	
+							{
+								type    :'album',
+								top     :'',  //  相册展示框的大小及位置
+								left    :'',
+								width   :'',
+								height  :'',
+								callback:function(){},
+								content :[
+									{
+									      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+										  left:'619',
+										  top:'0',
+										  width:'194',
+										  height:'109',
+										  showType:'360',
+										  callback:function(){},
+										  images: [
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+										  ]
+												  // 图册 
+									},
+									{
+									      thumbnail:'./galaxy/index2-2.png', // 视频截图
+										  left:'619',
+										  top:'129',
+										  width:'194',
+										  height:'109',
+										  callback:function(){},
+										  images:[
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+										  ] // 图册 
+									},
+									{
+									      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+										  left:'619',
+										  top:'0',
+										  width:'194',
+										  height:'109',
+										  showType:'scroll',
+										  callback:function(){},
+										  images: [
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+										  ]
+												  // 图册 
+									},
+								]
+							},	
+						
+						]
+
+					},
+
+				},
+				{
+					pageName:'畅快视频',
+					page:{
+						background:'./galaxy/index2.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						className:'pages2',
+						innerStyle:'',
+						contents:[
+							{
+								type    :'album',
+								top     :'',  //  相册展示框的大小及位置
+								left    :'',
+								width   :'',
+								height  :'',
+								callback:function(){},
+								content :[
+									{
+									      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+										  left:'619',
+										  top:'0',
+										  width:'194',
+										  height:'109',
+										  showType:'360',
+										  callback:function(){},
+										  images: [
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+										  ]
+												  // 图册 
+									},
+									{
+									      thumbnail:'./galaxy/index2-2.png', // 视频截图
+										  left:'619',
+										  top:'129',
+										  width:'194',
+										  height:'109',
+										  callback:function(){},
+										  images:[
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+										  ] // 图册 
+									},
+									{
+									      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+										  left:'619',
+										  top:'0',
+										  width:'194',
+										  height:'109',
+										  showType:'scroll',
+										  callback:function(){},
+										  images: [
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+										  ]
+												  // 图册 
+									},
+								]
+							},	
+							{
+								type    :'bigScroll',
+								top     :'',
+								left    :'',
+								width   :'',
+								height  :'',
+								callback:function(){},
+								content :{
+									discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
+									images:[
+										'./galaxy/index4-1.png',
+										'./galaxy/index4-2.png',
+										'./galaxy/index4-3.png',
+										'./galaxy/index4-4.png'
+									],
+								}
+							},	
+							{
+								type    :'iframe',
+								top     :'',
+								left    :'',
+								width   :'',
+								height  :'',
+								innerStyle:'',
+								callback:function(){},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									videoId:'XNjgxMjg0OTky',
+									thumb:'./galaxy/index2-1.jpg',
+								}
+							},	
+						
+						]
+
+					},
+
+				},
+				{
+					pageName:'精彩图集',
+					page:{
+						background:'./galaxy/index2.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						innerStyle:'',
+						className:'pages3',
+						contents:[
+							{
+								type    :'album',
+								top     :'',  //  相册展示框的大小及位置
+								left    :'',
+								width   :'',
+								height  :'',
+								callback:function(){},
+								content :[
+									{
+									      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+										  left:'619',
+										  top:'0',
+										  width:'194',
+										  height:'109',
+										  showType:'360',
+										  callback:function(){},
+										  images: [
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+										  ]
+												  // 图册 
+									},
+									{
+									      thumbnail:'./galaxy/index2-2.png', // 视频截图
+										  left:'619',
+										  top:'129',
+										  width:'194',
+										  height:'109',
+										  callback:function(){},
+										  images:[
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+										  ] // 图册 
+									},
+									{
+									      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+										  left:'619',
+										  top:'0',
+										  width:'194',
+										  height:'109',
+										  showType:'scroll',
+										  callback:function(){},
+										  images: [
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+										  ]
+												  // 图册 
+									},
+								]
+							},	
+						
+						]
+
+					},
+
+				},
+				{
+					pageName:'精彩图集',
+					page:{
+						background:'./galaxy/index2.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						innerStyle:'',
+						className:'pages4',
+						contents:[
+							{
+								type    :'bigScroll',
+								top     :'',
+								left    :'',
+								width   :'',
+								height  :'',
+								callback:function(){},
+								content :{
+									discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
+									images:[
+										'./galaxy/index4-1.png',
+										'./galaxy/index4-2.png',
+										'./galaxy/index4-3.png',
+										'./galaxy/index4-4.png'
+									],
+								}
+							},	
+							{
+								type    :'iframe',
+								top     :'',
+								left    :'',
+								width   :'',
+								height  :'',
+								innerStyle:'',
+								callback:function(){},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									videoId:'XNjgxMjg0OTky',
+									thumb:'./galaxy/index2-1.jpg',
+								}
+							},	
+						
+						]
+
+					},
+
+				},
+
+			]
+
+		}
+
+
+	</script>
+	<script data-main='javascript/config' type="text/javascript" src='javascript/requier.2.1.js'></script>
+ </body>
+</html>
+
+
