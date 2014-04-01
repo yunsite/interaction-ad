@@ -30,43 +30,47 @@
 							{
 								type    :'anchors',
 								top     :'10',
-								left    :'20',
+								left    :'-120',
 								width   :'30',
 								height  :'40',
-								callback:function(){},
+								'z-index':'2',
+								callback:function(){ alert('anchors')},
 								content :{
 									title:'"赵四"搞怪变打油诗人',
 									href :'http://www.youku.com',
 								}
 							},	
-							{
-								type    :'video',
-								top     :'1',
-								left    :'2',
-								width   :'3',
-								height  :'4',
-								callback:function(){},
-								content :{
-									title:'"赵四"搞怪变打油诗人',
-									videoId:'XNjgxMjg0OTky',
-									thumb:'./galaxy/index2-1.jpg',
-								}
-							},	
+						]
+
+					},
+
+				},
+				{
+					pageName:'精彩图集',
+					page:{
+						background:'./galaxy/index2.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						innerStyle:'',
+						className:'pagesindex',
+						contents:[
 							{
 								type    :'album',
-								top     :'',  //  相册展示框的大小及位置
-								left    :'',
-								width   :'',
-								height  :'',
+								top     :'-170',  //  相册展示框的大小及位置
+								left    :'-370',
+								width   :'590',
+								height  :'355',
+								'z-index':'2',
 								callback:function(){},
 								content :[
 									{
 									      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
-										  left:'619',
-										  top:'0',
+										  left:'235',
+										  top:'-170',
 										  width:'194',
 										  height:'109',
 										  showType:'360',
+										  'z-index':'2',
 										  callback:function(){},
 										  images: [
 												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
@@ -80,10 +84,11 @@
 									},
 									{
 									      thumbnail:'./galaxy/index2-2.png', // 视频截图
-										  left:'619',
-										  top:'129',
+										  left:'235',
+										  top:'-48',
 										  width:'194',
 										  height:'109',
+										  'z-index':'2',
 										  callback:function(){},
 										  images:[
 												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
@@ -91,10 +96,11 @@
 									},
 									{
 									      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
-										  left:'619',
-										  top:'0',
+										  left:'235',
+										  top:'76',
 										  width:'194',
 										  height:'109',
+										  'z-index':'2',
 										  showType:'scroll',
 										  callback:function(){},
 										  images: [
@@ -116,6 +122,76 @@
 
 				},
 				{
+					pageName:'测试视频',
+					page:{
+						background:'./galaxy/index.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						innerStyle:'',
+						className:'pagesindex',
+						contents:[
+							{
+								type    :'video',
+								top     :'-170',
+								left    :'-370',
+								width   :'590',
+								height  :'355',
+								'z-index':'2',
+								callback:function(){},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									videoId:'XNjgxMjg0OTky',
+									thumb:'./galaxy/index2-1.jpg',
+								}
+							},	
+							{
+								type    :'video',
+								top     :'-170',
+								left    :'235',
+								width   :'194',
+								height  :'109',
+								'z-index':'2',
+								callback:function(){},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									videoId:'XNjgxMjg0OTky',
+									thumb:'./galaxy/index2-1.jpg',
+								}
+							},	
+							{
+								type    :'video',
+								top     :'-48',
+								left    :'235',
+								width   :'194',
+								height  :'109',
+								'z-index':'2',
+								callback:function(){},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									videoId:'XNjgxMjg0OTky',
+									thumb:'./galaxy/index2-1.jpg',
+								}
+							},	
+							{
+								type    :'video',
+								top     :'76',
+								left    :'235',
+								width   :'194',
+								height  :'109',
+								'z-index':'2',
+								callback:function(){},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									videoId:'XNjgxMjg0OTky',
+									thumb:'./galaxy/index2-1.jpg',
+								}
+							},	
+						]
+
+					},
+
+				},
+				{
 					pageName:'畅快视频',
 					page:{
 						background:'./galaxy/index2.jpg',
@@ -130,6 +206,7 @@
 								left    :'',
 								width   :'',
 								height  :'',
+								'z-index':'2',
 								callback:function(){},
 								content :[
 									{
@@ -137,6 +214,7 @@
 										  left:'619',
 										  top:'0',
 										  width:'194',
+										  'z-index':'2',
 										  height:'109',
 										  showType:'360',
 										  callback:function(){},
@@ -156,6 +234,7 @@
 										  top:'129',
 										  width:'194',
 										  height:'109',
+										  'z-index':'2',
 										  callback:function(){},
 										  images:[
 												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
@@ -167,6 +246,7 @@
 										  top:'0',
 										  width:'194',
 										  height:'109',
+										  'z-index':'2',
 										  showType:'scroll',
 										  callback:function(){},
 										  images: [
@@ -182,7 +262,7 @@
 								]
 							},	
 							{
-								type    :'bigScroll',
+								type    :'scroll',
 								top     :'',
 								left    :'',
 								width   :'',
@@ -204,6 +284,7 @@
 								left    :'',
 								width   :'',
 								height  :'',
+								'z-index':'2',
 								innerStyle:'',
 								callback:function(){},
 								content :{
@@ -300,10 +381,11 @@
 						className:'pages4',
 						contents:[
 							{
-								type    :'bigScroll',
+								type    :'scroll',
 								top     :'',
 								left    :'',
 								width   :'',
+								'z-index':'2',
 								height  :'',
 								callback:function(){},
 								content :{
@@ -322,6 +404,7 @@
 								left    :'',
 								width   :'',
 								height  :'',
+								'z-index':'2',
 								innerStyle:'',
 								callback:function(){},
 								content :{

@@ -271,30 +271,14 @@
 })();
 
 ;(function(){
-	function itemAddEvent(confArray,domNode,callback){
-		//confArray
-		//[ //图片上的链接
-		//	{
-		//		event:{
-		//			eventType:'click',
-		//			callback:function(){
-		//				alert('dddd');
-		//			}
-		//		}
-		//	}
-		//]
-
+	function itemAddEvent(arg){
+		// arg ={node :'node',type:'click',callback:function(){} }
 		// domNode
 		// 节点列表
-		domNode.forEach(function(item,index){
 
-			console.log(confArray[index]['event']);
-			console.log(item);
-
-			confArray[index]['event'] && item.addEventListener( confArray[index]['event']['eventType'] || 'click',function(){
-				confArray[index]['event']['callback'] && confArray[index]['event']['callback']();
+		(arg.node.nodeType ==1  || arg.node.nodeType ==9) && arg.node.addEventListener( arg.type || 'click',function(){
+			arg.callback && arg.callback(arg.node);
 			},false);
-		})
 	}
 	window.itemAddEvent = itemAddEvent;	
 })();
