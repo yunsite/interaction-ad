@@ -55,26 +55,11 @@ html,body,#body{width:100%;height:100%;overflow:hidden;}
 #body #pages .set___album dt{background:rgba(0,0,0,0.3);} 
 #body #pages .set___album img{width:100%;height:100%;overflow:hidden;}
 
-#body #pages .album dl{position:relative;}
-#body #pages .album dl dt .item{height:100%;width:100%;overflow:hidden;}
-
-#body #pages .album dt{position:absolute;}
-
-
-#body #pages .album dd div{opacity:0.7;position:absolute;}
-#body #pages .album b{display:block;position:absolute;bottom:0;background:rgba(0,0,0,0.8);width:100%;color:#fff;font:200 16px/30px '微软雅黑';}
-
-#body #pages .album img{width:100%;height:100%; }
-#body #pages .album dd a:before{content:'';display:block;border:2px  solid #CCC;position:absolute;width:100%;height:100%;-webkit-box-sizing:border-box;}
-#body #pages .album dd .active a:before{border:5px solid #0072dc;}
-#body #pages .album dt img{box-shadow:0px 0px 8px #ccc;}
 
 
 /* 图片滚动 */
 
-#body #pages .scrollInner {}
-#body #pages .scrollItem {width:100%;height:100%;display:block;float:left;}
-#body #pages .scrollItem  img,#body #pages .scrollItem a{width:100%;height:100%;display:block;}
+#body #pages .set___scroll img{width:100%;height:100%;}
 
 
 

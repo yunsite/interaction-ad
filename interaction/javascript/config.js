@@ -55,7 +55,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		// 相册
 		album:'<div class=\'#{className}\' #{style}><a href=\'javascript:void(0)\'><img src=\'#{thumbnail}\' /></a></div>',
 		// 图片滚动
-		scroll:'<div></div>',// 由于数据格式比较简单 特殊情况没有模板
+		image:'<img style=\'#{style}\' src=\'#{imgSrc}\' title=\'#{title}\' />',
 		// 产品介绍
 		productProfile:'<div class=\'productItem\'><img src=#{imgsrc} /><b>#{title}</b></div>',
 		// 汽车拼点介绍
@@ -256,23 +256,28 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		},
 
 		// 图片滚动
-		scroll:function(wrap){
+		scroll:function(content){
 			return this.createPage({
-					className:'scrollInner',
-					background:wrap.content.background,
-					temp: this.temp.scroll
-				},function(temp){
-					var i=0,item=wrap.content.images,vl=item.length,wraphtml='<div id=\'scrollItems\' style=\'width:'+(vl*100)+'%\'>';
-					for(;i<vl;){
-						wraphtml += '<div class=\'scrollItem\' style=\'width:'+(100/vl).toFixed(5)+'%\' ><a href=\'javascript:void(0)\'><img src=\''+item[i++]+'\' /></a></div>';
-						//wraphtml += temp.evaluate(item[i++]) + (i===1 ? '</dt><dd>':'');
+					temp: this.temp.image,
+					style: content
+				},function(temp,style){
+					console.log(content,temp,style)	;
+					var wraphtml = '<div class=\'scrollCon\' style=\''+style+'\'>';
+					var title    = content.content.discribe,
+						images   = content.content.images,
+						imagesLen= images.length,
+						i=0;
+
+					
+					for(;i<imagesLen;i++){
+						wraphtml += temp.evaluate({imgSrc:images[i],title:title,style:'display:block;'});
 					}
 					return wraphtml+'</div>';
 				});		
 		
 		
 		},
-		scrollEvent:function(ele){
+		scroll_Event:function(ele){
 
 			var myScroll = new iScroll(ele.querySelector('.scrollInner'), {
 				snap: 'div',
@@ -660,21 +665,20 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 		},
 		// 页面自定义
-		custom:function(wrap){
+		custom:function(content){
 			// 
 			return this.createPage({
-					className:'customInner',
-					background:wrap.content.background,
-					temp: '<div class=\'productItem\'>#{innerHTML}</div>'//this.temp.scroll
-				},function(temp){
-					var wraphtml='',item=wrap.content;
+					temp: '<div class=\'productItem\' style=\'#{style}\'>#{innerHTML}</div>',//this.temp.scroll
+					style:content
+				},function(temp,style){
+					console.log(style);
 					
-						wraphtml += temp.evaluate(item);
 					
-					return wraphtml;
-				});			
+					return temp.evaluate({style:style,innerHTML:content.content.innerHTML});				
+			});			
 		},
 		customEvent:function(ele,arg){
+			console.log(ele,arg)
 			arg.content.innerStyle && createStyle(arg.content.innerStyle);
 			arg.content.callback   && arg.content.callback(ele)
 		},
@@ -685,7 +689,8 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				height = _style.height     ?'height:'  +_style.height     +'px;':'',
 				width  = _style.width      ?'width:'   +_style.width      +'px;':'';
 				z_index= _style['z-index'] ?'z-index:' +_style['z-index']       :'';
-				console.log(_style)
+				_style.innerStyle && createStyle(_style.innerStyle);
+
 			var temp_oneImg = new temp.template( ARGUMENTS.temp ),
 				wraphtml_start   = '';//'<div class=\''+ ARGUMENTS.className +'\' style=\'height:100%;'+ (ARGUMENTS.background ?'background:url('+ ARGUMENTS.background +') no-repeat 50% 50%;' :'')+' \' >';
 				wraphtml_content = callback && callback(temp_oneImg,'position:absolute;'+top+left+height+width+z_index);
@@ -890,7 +895,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 		var navigater = Elements.body.navigater;
 		// 派发点击事件 
-		simulationEvent({ele:navigater[ navigater.list['1'] ]['node'] });
+		simulationEvent({ele:navigater[ navigater.list['3'] ]['node'] });
 
 
 

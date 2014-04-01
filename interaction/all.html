@@ -202,21 +202,21 @@
 						contents:[
 							{
 								type    :'album',
-								top     :'',  //  相册展示框的大小及位置
-								left    :'',
-								width   :'',
-								height  :'',
+								top     :'-170',  //  相册展示框的大小及位置
+								left    :'-370',
+								width   :'590',
+								height  :'355',
 								'z-index':'2',
 								callback:function(){},
 								content :[
 									{
 									      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
-										  left:'619',
-										  top:'0',
+										  left:'235',
+										  top:'-170',
 										  width:'194',
-										  'z-index':'2',
 										  height:'109',
-										  showType:'360',
+										  type:'360',
+										  'z-index':'2',
 										  callback:function(){},
 										  images: [
 												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
@@ -230,8 +230,8 @@
 									},
 									{
 									      thumbnail:'./galaxy/index2-2.png', // 视频截图
-										  left:'619',
-										  top:'129',
+										  left:'235',
+										  top:'-48',
 										  width:'194',
 										  height:'109',
 										  'z-index':'2',
@@ -242,12 +242,12 @@
 									},
 									{
 									      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
-										  left:'619',
-										  top:'0',
+										  left:'235',
+										  top:'76',
 										  width:'194',
 										  height:'109',
 										  'z-index':'2',
-										  showType:'scroll',
+										  type:'scroll',
 										  callback:function(){},
 										  images: [
 												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
@@ -263,10 +263,11 @@
 							},	
 							{
 								type    :'scroll',
-								top     :'',
-								left    :'',
-								width   :'',
-								height  :'',
+								top     :'-200',
+								left    :'-370',
+								width   :'570',
+								height  :'400',
+								'z-index':'10',
 								callback:function(){},
 								content :{
 									discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
@@ -279,18 +280,18 @@
 								}
 							},	
 							{
-								type    :'iframe',
-								top     :'',
-								left    :'',
-								width   :'',
-								height  :'',
-								'z-index':'2',
-								innerStyle:'',
+								type    :'custom',
+								top     :'-200',
+								left    :'-200',
+								width   :'500',
+								height  :'300',
+								'z-index':'1',
+								innerStyle:'.productItem{background:rgba(0,0,0,0.2)}',
 								callback:function(){},
 								content :{
-									title:'"赵四"搞怪变打油诗人',
-									videoId:'XNjgxMjg0OTky',
 									thumb:'./galaxy/index2-1.jpg',
+									innerHTML:'可自订定内容。。。',
+									innerStyle:'body{display:block;}'
 								}
 							},	
 						
