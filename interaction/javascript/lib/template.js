@@ -314,40 +314,95 @@ define(function(){
 		}
 	
 	// 360度旋转
-	function slider360 (node,callback){
-
-			if(node.nodeType !== 1 &&  node.nodeType !== 9) {return ;}
-			var node = node, flag=false,
-				moveLength=0,
-				touchStart=[0,0] ,//X,Y
-				touchMove=[0,0],
-				touchEnd=[0,0];
-
-			node.addEventListener('touchstart',function(e){
-					flag = true;
-					touchStart =[e.touches['0']['pageX'],e.touches['0']['pageY']];
-					callback.touchstart && callback.touchstart(node,touchEnd);
-			},false);
-			node.addEventListener('touchmove',function(e){
-					if(flag){
-						touchMove=[e.touches['0']['pageX'],e.touches['0']['pageY']],
-						callback.touchmove && callback.touchmove(node,[touchMove[0]-touchStart[0],touchMove[1]-touchStart[1]]);	
-						touchStart = touchMove ;
-						
-
+	function FN3dEye(m){
+		var item             = m.itemEle,
+			imagePath        = m.imagePath,
+			imageLeng        = imagePath.length,
+			loadingClassName = m.loadingClassName || 'loading',
+			callback         = m.callback || null,
+			background       = m.background || null,
+			blockImg         = m.blockImg || null,
+			loading,
+			offset=0,
+			range=1,
+			flag = false;
+			// 创建loading状态
+			;(function loadingStatus(){
+				loading = document.createElement('div');
+				loading.setAttribute('style','height:100%;width:100%;z-index:5;position:absolute;left:0;top:0;');
+				loading.setAttribute('class',loadingClassName);
+				item.appendChild(loading).innerHTML = "Loading...";
+			})();
+	
+		     function setBg(pos) {
+	            if (offset - pos > 25) {
+	                offset = pos;
+	                range = --range < 0 ? imageLeng-1 : range;
+					if(background){
+							item.style.backgroundImage = 'url('+imagePath[range]+')';
 					}
-			
-			},false);
-			node.addEventListener('touchend',function(e){
-					flag = false;
-					if(e.targetTouches.length < 1) { return;}
-					touchEnd = e.touches && [ e.touches['0']['pageX'],e.touches['0']['pageY'] ];
-					callback.touchend && callback.touchend(node,[touchEnd[0]-touchStart[0],touchEnd[1]-touchStart[1]]);
-					
-					
-			},false);
-
-		};
+					var showItem = item.querySelector('img:nth-last-child('+(range+1)+')');
+					if(blockImg){
+							item.querySelector('img.show').className = '';
+							showItem.className = 'show';
+					}
+					callback && callback(showItem,range);
+	            } else if (offset - pos < -25) {
+	                offset = pos;
+	                range = ++range > imageLeng-1 ? 0 : range;
+	
+					if(background){
+							item.style.backgroundImage = 'url('+imagePath[range]+')';
+					}
+					var showItem = item.querySelector('img:nth-last-child('+(range+1)+')');
+					if(blockImg){
+							item.querySelector('img.show').className = '';
+							showItem.className = 'show';
+					}
+					callback && callback(showItem,range);
+	            }
+	        }
+	
+			// 添加事件操作
+	        function addEvent() {
+				item.addEventListener('touchstart',function(){ flag = true;  },false);
+				document.addEventListener('touchend',function(){ flag = false; },false);
+				item.addEventListener('touchmove',function(e){ 
+	                e.preventDefault();
+	 					
+	               var touchPos = e.touches[0] || e.originalEvent.changedTouches[0];
+	                if (flag == true)
+	                    setBg(touchPos.pageX - this.offsetLeft);
+	                else
+	                    offset = touchPos.pageX - this.offsetLeft
+				},false);
+	        }
+			;(function pushImage(images,i){
+				var ThisFun = arguments.callee;
+				var img = document.createElement('img');
+					img.setAttribute('src',images[i]);
+					img.addEventListener('load',function(){
+						item.appendChild(this);
+						if(imageLeng-1 == i){
+							if(background){
+								item.style.backgroundImage = 'url('+images[i]+')';
+							}
+							if(blockImg){this.className      = 'show';}
+							item.style.overflow = 'hidden';
+						
+						}
+						if(i-- > 0){
+							ThisFun(images,i);
+						}else{
+							//图片加载完成后添加事件操作
+							addEvent();
+							setTimeout(function(){
+								loading.parentNode.removeChild(loading);
+							},200);
+						}
+					},false);
+			})(imagePath,imageLeng-1);
+	}
 
 
 
@@ -356,7 +411,7 @@ define(function(){
 
 
 	// 返回define 的类
-	return {itemAddEvent:itemAddEvent,toArray:toArray,playVideo:playVideo,template:Template,loading:loading,loadImg:loadImg,slider360:slider360,
+	return {itemAddEvent:itemAddEvent,toArray:toArray,playVideo:playVideo,template:Template,loading:loading,loadImg:loadImg,slider3d:FN3dEye,
 		namespace:function(){
 			function register(namespace){
 			// 局部变量

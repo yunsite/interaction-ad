@@ -54,8 +54,10 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		video:'<div class=\'#{className}\' style=\'#{style}\' id=\'video-#{videoId}\'><a href=\'javascript:void(0)\' data-videoid=\'#{videoId}\'><img class=\'playVideo\' src=\'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\' /><img class=\'video\' src=\'#{thumbnail}\' /></a><b>#{title}</b></div>',
 		// 相册
 		album:'<div class=\'#{className}\' #{style}><a href=\'javascript:void(0)\'><img src=\'#{thumbnail}\' /></a></div>',
-		// 图片滚动
+		// 图片
 		image:'<img style=\'#{style}\' src=\'#{imgSrc}\' title=\'#{title}\' />',
+		// 滚动
+		scroll:'<li style=\'#{style}\'><img src=\'#{imgSrc}\' title=\'#{title}\' /><b>#{lenTitle}</b></li>',
 		// 产品介绍
 		productProfile:'<div class=\'productItem\'><img src=#{imgsrc} /><b>#{title}</b></div>',
 		// 汽车拼点介绍
@@ -144,7 +146,8 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 						var width  = content2[i]['width']  ?'width:'  +content2[i]['width']+'px;':'';	
 						var postop = content2[i]['top']    ?'top:'    +content2[i]['top']+'px;':'';	
 						var left   = content2[i]['left']   ?'left:'   +content2[i]['left']+'px;':'';	
-						var z_index= content2[i]['z-index']?'z-index:'+content2[i]['z-index']+'px;':'';	
+						var z_index= content2[i]['z-index']?'z-index:'+content2[i]['z-index']:'';	
+						content2[i]['className'] = content2[i]['className']||'albumItem';
 						content2[i]['style'] =' style=\'position:absolute;'+ height+width+postop+left+z_index+ '\'';
 						wraphtml += temp.evaluate(content2[i]);
 					}
@@ -152,138 +155,122 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				});
 		
 		},
-		album_Event:function(ele,arg){
-			arg.content.innerStyle && createStyle(arg.content.innerStyle);
-			
-			var getImages = ele.querySelectorAll('dd > .item'),
-				itemDt = ele.querySelector('dt');
-				images = temp.toArray(getImages);
+		albumEvent:function(parentNode,arg,insertPageId){
+
+			var getImages  = parentNode.querySelectorAll('dd > div'),
+				itemDt = parentNode.querySelector('dt'),
+				images = temp.toArray(getImages),
+				that   = this;
 
 				images.forEach(function(image,index){
 					image.addEventListener('click',function(){
-						var showType = arg.content.images[index]['showType'];
-							
-							ele.querySelector('dd .active') && 
-									(ele.querySelector('dd .active').className = ele.querySelector('.active').className.replace('active',''));
-							
-							image.className = 'active';
+						var pageId = insertPageId || parentNode.parentNode.parentNode.id ;
 
-						var dtItmes = temp.toArray(ele.querySelectorAll('dt .item'));
-							dtItmes.forEach(function(ITEM){ITEM.style.display = ITEM.getAttribute('id') == 'item'+index ? 'block':'none';})
-						if( ele.querySelector('#item'+index) ){ return; }
+						var albumContent = arg.content[index],
+							showType     = albumContent['type'];
+							albumContent.left   = albumContent.top =  '0';
+							albumContent.height = parseInt(itemDt.style.height);
+							albumContent.width  = parseInt(itemDt.style.width);
+
+							console.log(albumContent,showType);
+
+
+						
+							
+							parentNode.querySelector('dd .active') && 
+									(parentNode.querySelector('dd .active').className = parentNode.querySelector('.active').className.replace('active',''));
+							
+							image.className += ' active';
+
+						var dtItmes = temp.toArray(parentNode.querySelectorAll('dt div[class*=_album_item_]'));
+							dtItmes.forEach(function(ITEM){ITEM.style.display = ITEM.className == pageId+'_album_item_'+index ? 'block':'none';})
+						if( parentNode.querySelector('.'+pageId+'_album_item_'+index) ){ return; }
+
+
+
+						console.log(showType);
 
 						var imagesNodes = document.createDocumentFragment();
 							dtInnerItem = document.createElement('div');
-							dtInnerItem.setAttribute('class','item');
-							dtInnerItem.setAttribute('id','item'+index);
 							imagesNodes.appendChild(dtInnerItem);
+							dtInnerItem.setAttribute('class',pageId+'_album_item_'+index);
+							itemDt.appendChild(dtInnerItem);
 
-								
-						var	imageItem = arg.content.images[index]['image'],
-							numberImages=0,
-							imageslength = imageItem.length;
-
-							// 循环添加图片
-							;(function(imageItem,callback){
-								var thisCallee = arguments.callee;
-								temp.loadImg( imageItem[ numberImages ] ,{
-									loaded:function(img){
-											img.setAttribute('style','position:absolute;left:0;top:0;display:none;')
-											dtInnerItem.appendChild(img);
-											if( numberImages++  !== imageslength-1 ){ 
-												thisCallee(imageItem,callback);
-											}else{
-												callback && callback();	
-											}	
-									},
-									error:function(){  }
-								})
-							})(imageItem,function(){
-									
-									itemDt.appendChild(imagesNodes) &&
-									(itemDt.querySelector('div[id=item'+index+'] img').className = 'active');
-								});
-
-
-							if( showType == '360'){
-							// 360 展示图片
-								var albumimages = temp.toArray(dtInnerItem.querySelectorAll('img'));
-									temp.slider360(dtInnerItem,{
-										touchstart:function(arg,Coordinate){
-										},
-										touchmove:function(arg,Coordinate){
-											
-											if( Math.abs( Coordinate[0]) % 1 === 0 ){
-
-												var active = arg.querySelector('.active')
-												active.className = active.className.replace('active','');
-
-												if( Coordinate[0] > 0 ){
-													if( active.nextSibling ){
-														active.nextSibling.className = 'active';
-													}else{
-														arg.querySelector('img:first-child').className = 'active';
-													}
-
-												}else{
-
-													if( active.previousSibling ){
-														active.previousSibling.className = 'active';
-													}else{
-														arg.querySelector('img:last-child').className = 'active';
-													}
-												}										
-											}
-
-										
-										},
-										touchend:function(arg,Coordinate){
-											
-										}
-									});
-							}
-
-							if( showType == 'scroll'){
+						switch(showType){
+							case 'slider3d':
+							case 'scroll' :
 							
-							
-							}
+							dtInnerItem.innerHTML  = that[showType](albumContent);
+							that[showType+'Event'](dtInnerItem,albumContent);
+
+							break;
+						
+						}
 							
 					},false);
 				});
-				simulationEvent({ele:ele.querySelector('dd > .item')})
+
+				simulationEvent({ele:parentNode.querySelector('dd > .albumItem')})
 
 
+		},
+		slider3d:function(content){
+			return this.createPage({
+					temp: this.temp.image,
+					style: content
+				},function(temp,style){
+					return '<div class=\'eye3d\' style=\''+style+'\'></div>';
+				});		
+		
+		},
+		slider3dEvent:function(parentNode,arg){
+			temp.slider3d({
+				itemEle:parentNode.querySelector('.eye3d'),
+				imagePath:arg.content.images,
+				callback:function(image,range){
+					arg.callback && arg.callback(image,range);
+				},
+				background:true,
+				blockImg :false,
+			})
 		},
 
 		// 图片滚动
 		scroll:function(content){
 			return this.createPage({
-					temp: this.temp.image,
+					temp: this.temp.scroll,
 					style: content
 				},function(temp,style){
 					console.log(content,temp,style)	;
-					var wraphtml = '<div class=\'scrollCon\' style=\''+style+'\'>';
-					var title    = content.content.discribe,
-						images   = content.content.images,
+
+					var images   = content.content.images,
 						imagesLen= images.length,
 						i=0;
+					var wraphtml = '<div class=\'scrollCon\' style=\'overflow:hidden;'+style+'\'><div style=\'width:'+(content.width*imagesLen)+'px;\'><ul class=\'scrollImg\' style=\'width:'+(content.width*imagesLen)+'px;\'>';
 
 					
 					for(;i<imagesLen;i++){
-						wraphtml += temp.evaluate({imgSrc:images[i],title:title,style:'display:block;'});
+						wraphtml += temp.evaluate({imgSrc:images[i]['img'],title:images[i]['title'],lenTitle:images[i]['lenTitle']||images[i]['title'],style:'position:relative;display:block;float:left;width:'+content.width+'px;'});
 					}
-					return wraphtml+'</div>';
+					return wraphtml+'</ul></div></div>';
 				});		
 		
 		
 		},
-		scroll_Event:function(ele){
+		scrollEvent:function(parentNode,arg){
 
-			var myScroll = new iScroll(ele.querySelector('.scrollInner'), {
-				snap: 'div',
+			var myScroll = new iScroll(parentNode.querySelector('.scrollCon'), {
+				snap: true,
 				momentum: false,
 				hScrollbar: false,
 				vScrollbar: false,
+				onBeforeScrollStart: function (e) {                 
+						if(e.srcElement.parentNode.className.indexOf("scrollImg") > -1 || e.srcElement.parentNode.parentNode.className.indexOf("scrollImg") > -1 ){                  
+								e.stopPropagation();
+						}                                                                                  
+						e.preventDefault();                                                                
+				},
+
 				onScrollEnd: function () {}
 			 });
 
@@ -409,7 +396,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				}
 
 		}();
-		createStyle(arg.content.innerStyle);
 
 			var ANCHOR  = ele.querySelectorAll('a'),il=ANCHOR.length,
 				items = temp.toArray(ANCHOR,il),
@@ -671,15 +657,11 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 					temp: '<div class=\'productItem\' style=\'#{style}\'>#{innerHTML}</div>',//this.temp.scroll
 					style:content
 				},function(temp,style){
-					console.log(style);
-					
-					
 					return temp.evaluate({style:style,innerHTML:content.content.innerHTML});				
 			});			
 		},
 		customEvent:function(ele,arg){
 			console.log(ele,arg)
-			arg.content.innerStyle && createStyle(arg.content.innerStyle);
 			arg.content.callback   && arg.content.callback(ele)
 		},
 		createPage:function( ARGUMENTS ,callback){
@@ -689,6 +671,8 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				height = _style.height     ?'height:'  +_style.height     +'px;':'',
 				width  = _style.width      ?'width:'   +_style.width      +'px;':'';
 				z_index= _style['z-index'] ?'z-index:' +_style['z-index']       :'';
+
+				console.log(_style.innerStyle);
 				_style.innerStyle && createStyle(_style.innerStyle);
 
 			var temp_oneImg = new temp.template( ARGUMENTS.temp ),
@@ -834,10 +818,11 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 								var pageInnerNode = document.createElement('div');
 									pageInnerNode.setAttribute('data-fn','bind');
 									pageInnerNode.setAttribute('class','set___'+ITEMTEMP.type);
-
+									
+									console.log(ITEMTEMP);
 									pageNode.appendChild(pageInnerNode).innerHTML =  ADS.temp[ ITEMTEMP.type ].call( ADS.temp ,ITEMTEMP);
 									// 给子节点绑定事件
-									ADS.temp[ ITEMTEMP.type+'Event' ] && ADS.temp[ ITEMTEMP.type+'Event' ].call( ADS.temp ,pageInnerNode,ITEMTEMP);
+									ADS.temp[ ITEMTEMP.type+'Event' ] && ADS.temp[ ITEMTEMP.type+'Event' ].call( ADS.temp ,pageInnerNode,ITEMTEMP,ADS.pageId);
 								
 							
 							});
@@ -846,7 +831,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 								pageWrap[ 'body.pages.'+ ADS.pageId +'.content' ] = {
 											'id':'id'+ADS.page.className,
 											'class':ADS.page.className,
-											'style':'background:url('+ADS.page.background+') no-repeat 50% 50%;background-size:contain;'
+											'style':'background:url('+ADS.page.background+') no-repeat 50% 50%;'//background-size:contain;'
 											}
 							var pageWrapNode = createElements(pageWrap)	;
 								pageWrapNode.appendChild(pageNode);
@@ -895,7 +880,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 		var navigater = Elements.body.navigater;
 		// 派发点击事件 
-		simulationEvent({ele:navigater[ navigater.list['3'] ]['node'] });
+		simulationEvent({ele:navigater[ navigater.list['0'] ]['node'] });
 
 
 
@@ -929,7 +914,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		;Config.mainType === 'scroll-X'   && (function(){
 			pagesNode.node.style.width = (arg.length *100) + '%';
 			arg.forEach(function(value,index){
-				pagesNode[ value['type']+index ]['node'].style.width = (100/arg.length).toFixed(6)+'%';
+				pagesNode[ 'pages_'+index ]['node'].style.width = (100/arg.length).toFixed(6)+'%';
 			});
 			createMyScroll('scroll-X');
 
@@ -937,7 +922,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		;Config.mainType === 'scroll-Y'   && (function(){
 			pagesNode.node.style.height = (arg.length *100) + '%';
 			arg.forEach(function(value,index){
-				pagesNode[ value['type']+index ]['node'].style.height = (100/arg.length).toFixed(6)+'%';
+				pagesNode[ 'pages_'+index ]['node'].style.height = (100/arg.length).toFixed(6)+'%';
 			});
 			createMyScroll('scroll-Y');
 
