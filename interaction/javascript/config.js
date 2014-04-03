@@ -52,7 +52,10 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		// 全视频
 		video:'<div class=\'#{className}\' style=\'#{style}\' id=\'video-#{videoId}\'><a href=\'javascript:void(0)\' data-videoid=\'#{videoId}\'><img class=\'playVideo\' src=\'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\' /><img class=\'video\' src=\'#{thumbnail}\' /></a><b>#{title}</b></div>',
 		// 相册
-		album:'<div class=\'#{className}\' #{style}><a href=\'javascript:void(0)\'><img src=\'#{thumbnail}\' /></a></div>',
+		album:[
+				'<dl><dt style=\'#{style}\'></dt><dd>#{html}</dd></dl>',
+				'<div class=\'#{className}\' style=\'#{style}\' ><a href=\'javascript:void(0)\'><img src=\'#{thumbnail}\' /></a></div>'
+			  ],
 		// 图片
 		image:'<img style=\'#{style}\' src=\'#{imgSrc}\' title=\'#{title}\' />',
 		// 滚动
@@ -154,33 +157,33 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		},
 		// 相册
 		album:function(content){
-
+			var that = this;
 			return this.createPage({
 					style:content,
-					temp: this.temp.album
+					temp: this.temp.album[0]
 				},function(temp,style){
-					var content2 = content.content;
-					var wraphtml='<dl><dt style=\''+style +'\' ></dt><dd>';
-					for(i=0,vl=content2.length;i<vl;i++){
-						var height = content2[i]['height'] ?'height:' +content2[i]['height']+'px;':'';	
-						var width  = content2[i]['width']  ?'width:'  +content2[i]['width']+'px;':'';	
-						var postop = content2[i]['top']    ?'top:'    +content2[i]['top']+'px;':'';	
-						var left   = content2[i]['left']   ?'left:'   +content2[i]['left']+'px;':'';	
-						var z_index= content2[i]['z-index']?'z-index:'+content2[i]['z-index']:'';	
-						content2[i]['className'] = content2[i]['className']||'albumItem';
-						content2[i]['style'] =' style=\'position:absolute;'+ height+width+postop+left+z_index+ '\'';
-						wraphtml += temp.evaluate(content2[i]);
+					
+					var	innerContent = content.content;
+					var contentLen = innerContent.length,pointHTML =[]; 	
+					for(var i=0;i<contentLen;i++){	
+						pointHTML.push(that.createPage.call(that,{
+								temp:that.temp.album[1],
+								style:innerContent[i]
+							},function(temp,style){
+								return temp.evaluate({className:innerContent[i]['className']||'albumItem',style:style,thumbnail:innerContent[i]['thumbnail']});
+							}));	
 					}
-					return wraphtml+'</dd></dl>';
+					return temp.evaluate({style:style,html:pointHTML.join('')});
 				});
 		
 		},
-		albumEvent:function(parentNode,arg,insertPageId){
+		albumEvent:function(parentNode,arg,insertPageId,pageitem){
 
 			var getImages  = parentNode.querySelectorAll('dd > div'),
-				itemDt = parentNode.querySelector('dt'),
-				images = temp.toArray(getImages),
-				that   = this;
+				itemDt     = parentNode.querySelector('dt'),
+				images     = temp.toArray(getImages),
+				that       = this;
+				album_item = pageitem || '_album_item_';
 
 				images.forEach(function(image,index){
 					image.addEventListener('click',function(){
@@ -192,26 +195,19 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 							albumContent.height = parseInt(itemDt.style.height);
 							albumContent.width  = parseInt(itemDt.style.width);
 
-
-
-						
-							
 							parentNode.querySelector('dd .active') && 
 									(parentNode.querySelector('dd .active').className = parentNode.querySelector('.active').className.replace('active',''));
 							
 							image.className += ' active';
 
-						var dtItmes = temp.toArray(parentNode.querySelectorAll('dt div[class*=_album_item_]'));
-							dtItmes.forEach(function(ITEM){ITEM.style.display = ITEM.className == pageId+'_album_item_'+index ? 'block':'none';})
-						if( parentNode.querySelector('.'+pageId+'_album_item_'+index) ){ return; }
-
-
-
+						var dtItmes = temp.toArray(parentNode.querySelectorAll('dt div[class*='+album_item+']'));
+							dtItmes.forEach(function(ITEM){ITEM.style.display = ITEM.className == pageId+album_item+index ? 'block':'none';})
+						if( parentNode.querySelector('.'+pageId+album_item+index) ){ return; }
 
 						var imagesNodes = document.createDocumentFragment();
 							dtInnerItem = document.createElement('div');
 							imagesNodes.appendChild(dtInnerItem);
-							dtInnerItem.setAttribute('class',pageId+'_album_item_'+index);
+							dtInnerItem.setAttribute('class',pageId+album_item+index);
 							itemDt.appendChild(dtInnerItem);
 
 						switch(showType){
@@ -228,7 +224,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 					},false);
 				});
 
-				simulationEvent({ele:parentNode.querySelector('dd > .albumItem')})
+				simulationEvent({ele:parentNode.querySelector('dd > div')})
 
 
 		},
@@ -297,58 +293,35 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 
 		},
-		// 产品介绍
-		productProfile:function(wrap){
-			
+		point:function(content){
+			var that = this;
 			return this.createPage({
-					className:'pPInner',
-					background:wrap.content.background,
-					temp: this.temp.productProfile
-				},function(temp){
-					var wraphtml='<div class=\'productItems\'>',i=0,item=wrap.content.product,vl;
-					for(vl=item.length;i<vl;){
-						wraphtml += temp.evaluate(item[i++]);
+					temp:this.temp.album[0],
+					style:content
+				},function(temp,style){
+
+
+					var	innerContent = content.content;
+					var contentLen = innerContent.length,pointHTML =[]; 	
+					for(var i=0;i<contentLen;i++){	
+						pointHTML.push(that.createPage.call(that,{
+								temp:that.temp.album[1],
+								style:innerContent[i]
+							},function(temp,style){
+								return temp.evaluate({className:innerContent[i]['className']||'pointItem',style:style,thumbnail:innerContent[i]['ponitImg']});
+							}));	
 					}
-					return wraphtml+'</div>';
-				});			
+					return temp.evaluate({style:style+';display:none;',html:pointHTML.join('')});
+
+
+
+				});	
+			
 		},
-		productProfileEvent:function(ele,arg){
-			var ITEM = ele.querySelectorAll('img'),il=ITEM.length,
-				items = temp.toArray(ITEM,il);
-				// foreach给子节点绑定事件
-				items.forEach(function(image,index){
-					
-					image.addEventListener('click',function(){
-							
-
-						if(ele.querySelector('.boxActive' + index)){  return false;};
-						var showProduct = ele.querySelector('.showProduct'),
-							thiscallee = arguments.callee;
-						if(showProduct){
-							showProduct.style.height = '0px';
-							setTimeout(function(){
-								showProduct.parentNode.removeChild(showProduct) && thiscallee();
-							},420);
-							return;
-						}
-						
-						var innerDiv =  document.createElement('div');
-							innerDiv.setAttribute('class','showProduct boxActive' + index);
-							innerDiv.setAttribute('style','-webkit-transition:height 400ms ease;') 
-						ele.querySelector('.productItems').appendChild(innerDiv).innerHTML = '<div class=\'box\'>'+arg.content.product[index]['info']+'</div>';
-
-							innerDiv.style.height = 'auto';
-						var innerHeight = innerDiv.offsetHeight;
-							innerDiv.style.height = '0px';
-							setTimeout(function(){
-								innerDiv.style.height = innerHeight+'px';
-							},1)
-
-					},false)
-
-
-				});
-
+		pointEvent:function(parentNode,arg,insertPageId){
+			
+			this.albumEvent.apply(this,[parentNode,arg,insertPageId,'_point_item_']);
+		
 		},
 		// 汽车拼点介绍
 		pointProfile:function(wrap){
@@ -839,8 +812,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 								var pageInnerNode = document.createElement('div');
 									pageInnerNode.setAttribute('data-fn','bind');
 									pageInnerNode.setAttribute('class','set___'+ITEMTEMP.type);
-									
-									pageNode.appendChild(pageInnerNode).innerHTML =  ADS.temp[ ITEMTEMP.type ].call( ADS.temp ,ITEMTEMP);
+									pageNode.appendChild(pageInnerNode).innerHTML =  ITEMTEMP.type && ADS.temp[ ITEMTEMP.type ] && ADS.temp[ ITEMTEMP.type ].call( ADS.temp ,ITEMTEMP) || '没有这个类型';
 									// 给子节点绑定事件
 									ADS.temp[ ITEMTEMP.type+'Event' ] && ADS.temp[ ITEMTEMP.type+'Event' ].call( ADS.temp ,pageInnerNode,ITEMTEMP,ADS.pageId);
 								
