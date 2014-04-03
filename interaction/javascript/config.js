@@ -43,7 +43,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 
 	var startloading = new temp.loading(document.body);
-	//console.log(temp);
 
 	
 	function InteractionAD(){
@@ -59,7 +58,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		// 滚动
 		scroll:'<li style=\'#{style}\'><img src=\'#{imgSrc}\' title=\'#{title}\' /><b>#{lenTitle}</b></li>',
 		// 产品介绍
-		productProfile:'<div class=\'productItem\'><img src=#{imgsrc} /><b>#{title}</b></div>',
+		imageAndTitle:'<div class=\'#{className}\' style=\'#{style}\'><img src=#{imgSrc} /><b>#{title}</b></div>',
 		// 汽车拼点介绍
 		pointProfile: '<a href=\'javascript:void(0)\' style=\'opacity:0;#{style}\' ></a>',
 		// 视频图片混排
@@ -76,6 +75,27 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 	InteractionAD.prototype={
 		constructor:InteractionAD,
+		// 添加图片
+		image:function(content){
+			return this.createPage({
+					temp:this.temp.imageAndTitle,
+					style:content
+				},function(temp,style){
+					var pusharg={
+							title:content.content.title || '优酷互动广告',
+							href:content.content.href   || 'javascript:void(0)',
+							imgSrc:content.content.src  || 'javascript:void(0)',
+							style:style,
+							className:content.content.className || 'item-anchors'
+						}
+					return temp.evaluate(pusharg);
+				});
+				
+		
+		},
+		imageEvent:function(parentNode,arg){
+			arg.callback && arg.callback(parentNode,arg,this)	
+		},
 		// 头图大图
 		anchors:function(content){
 			return this.createPage({
@@ -172,7 +192,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 							albumContent.height = parseInt(itemDt.style.height);
 							albumContent.width  = parseInt(itemDt.style.width);
 
-							console.log(albumContent,showType);
 
 
 						
@@ -188,7 +207,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 
 
-						console.log(showType);
 
 						var imagesNodes = document.createDocumentFragment();
 							dtInnerItem = document.createElement('div');
@@ -241,7 +259,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 					temp: this.temp.scroll,
 					style: content
 				},function(temp,style){
-					console.log(content,temp,style)	;
 
 					var images   = content.content.images,
 						imagesLen= images.length,
@@ -661,7 +678,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 			});			
 		},
 		customEvent:function(ele,arg){
-			console.log(ele,arg)
 			arg.content.callback   && arg.content.callback(ele)
 		},
 		createPage:function( ARGUMENTS ,callback){
@@ -672,7 +688,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				width  = _style.width      ?'width:'   +_style.width      +'px;':'';
 				z_index= _style['z-index'] ?'z-index:' +_style['z-index']       :'';
 
-				console.log(_style.innerStyle);
 				_style.innerStyle && createStyle(_style.innerStyle);
 
 			var temp_oneImg = new temp.template( ARGUMENTS.temp ),
@@ -811,6 +826,12 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 						if( Elements['body']['pages'][ ADS.pageId ] && Elements['body']['pages'][ ADS.pageId ]['content'] ){ return ;}
 							//var startloading = new temp.loading(ele)
+
+
+							// 给pages添加innerstyle 样式表 	
+							ADS['page']['innerStyle'] && createStyle(ADS['page']['innerStyle']);
+							
+							
 							
 							var pageNode = document.createDocumentFragment();
 							// 得到page 的页面数据 string HTML
@@ -819,7 +840,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 									pageInnerNode.setAttribute('data-fn','bind');
 									pageInnerNode.setAttribute('class','set___'+ITEMTEMP.type);
 									
-									console.log(ITEMTEMP);
 									pageNode.appendChild(pageInnerNode).innerHTML =  ADS.temp[ ITEMTEMP.type ].call( ADS.temp ,ITEMTEMP);
 									// 给子节点绑定事件
 									ADS.temp[ ITEMTEMP.type+'Event' ] && ADS.temp[ ITEMTEMP.type+'Event' ].call( ADS.temp ,pageInnerNode,ITEMTEMP,ADS.pageId);
@@ -835,7 +855,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 											}
 							var pageWrapNode = createElements(pageWrap)	;
 								pageWrapNode.appendChild(pageNode);
-							ele.appendChild(pageWrapNode);	
+								ele.appendChild(pageWrapNode);	
 
 
 					});
@@ -862,7 +882,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 			var thisCallee = arguments.callee
 			temp.loadImg(item.page.background,{
 					loaded:function(image){
-						//console.log("complete : "+ image.complete +"\nreadyState : "+image.readyState) 
 						image.complete && index == 0 &&  setTimeout(function(){ startloading.done(); },200);
 					},
 					error:function(image){

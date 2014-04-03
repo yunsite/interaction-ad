@@ -1,0 +1,232 @@
+<!DOCTYPE>
+<html>
+ <head>
+  <title> 三星产品PAD端功能展示  </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+
+  <link rel="stylesheet" href="./style/base.css" />
+ </head>
+
+ <body>
+
+	<script type="text/javascript">
+
+
+var totalImages=[];
+for(var i=2;i<52;i++){
+	totalImages.push('bmw/IMG/'+i+'.png');
+}
+
+
+
+		// 三星产品PAD端功能展示
+		//  PAD 端
+		Config = {
+			mainType:'scroll-Y', //scroll-X,scroll-Y, menu , point
+			navigaterStyle:'#body #navigater{right:10px;bottom:50%;display:block;}#body #navigater a{display:block; -webkit-box-flex:1;width:10px;background:#000;height:10px;-webkit-border-radius:5px;margin-bottom:5px;-webkit-box-shadow:0 0 2px rgba(225,225,225,0.6)}#body #navigater a:nth-child(2n){background:#1b1f22;}#body #navigater a.active{background:#0072dc;}',
+			pages:[
+				{
+					pageName:'首页',
+					page:{
+						background:'./dior/index1.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						className:'dior01',
+						contents:[
+							{
+								type    :'anchors',
+								innerStyle:'.dior01 .item-anchors{display:block;background:url(./dior/playbox.png) 50% 50%;overflow:hidden;text-indent:-300em;}', //位置在屏幕中心
+								top     :'-58',
+								left    :'-42',
+								width   :'83',
+								height  :'117',
+								'z-index':'2',
+								callback:function(){ alert('anchors')},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									href :'http://www.youku.com',
+								}
+							},	
+						]
+
+					},
+
+				},
+				{
+					pageName:'影片加长片段',
+					page:{
+						background:'./dior/index2.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						innerStyle:'',
+						className:'pagesindex',
+						contents:[
+							{
+								type    :'video',
+								top     :'-170',
+								left    :'-370',
+								width   :'590',
+								height  :'355',
+								'z-index':'2',
+								callback:function(){},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									videoId:'XNjgxMjg0OTky',
+									thumb:'./galaxy/index2-1.jpg',
+								}
+							},	
+							{
+								type    :'video',
+								top     :'-170',
+								left    :'235',
+								width   :'194',
+								height  :'109',
+								'z-index':'2',
+								callback:function(){},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									videoId:'XNjgxMjg0OTky',
+									thumb:'./galaxy/index2-1.jpg',
+								}
+							},	
+							{
+								type    :'video',
+								top     :'-48',
+								left    :'235',
+								width   :'194',
+								height  :'109',
+								'z-index':'2',
+								callback:function(){},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									videoId:'XNjgxMjg0OTky',
+									thumb:'./galaxy/index2-1.jpg',
+								}
+							},	
+							{
+								type    :'video',
+								top     :'76',
+								left    :'235',
+								width   :'194',
+								height  :'109',
+								'z-index':'2',
+								callback:function(){},
+								content :{
+									title:'赵四搞怪变打油诗人',
+									videoId:'XNjgxMjg0OTky',
+									thumb:'./galaxy/index2-1.jpg',
+								}
+							},	
+						]
+
+					},
+
+				},
+				{
+					pageName:'产品介绍',
+					page:{
+						background:'./galaxy/dior.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						className:'pages2',
+						innerStyle:'.showProduct b{color:#fff;display: block;font: 200 20px/40px \'宋体\';}',
+						contents:[
+							{
+								type    :'image',
+								top     :'-170',
+								left    :'-470',
+								width   :'300',
+								height  :'262',
+								'z-index':'2',
+								callback:function(ele,arg,Interaction){
+									console.log(ele,arg,Interaction)	
+								
+								},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									src:'./galaxy/dior-1.jpg',
+									className:'showProduct',
+									innerHTML:'',
+									innerStyle:'',
+								}
+							},	
+							{
+								type    :'image',
+								top     :'-170',
+								left    :'-150',
+								width   :'300',
+								height  :'262',
+								'z-index':'2',
+								callback:function(){},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									src:'./galaxy/dior-2.jpg',
+									className:'showProduct',
+								}
+							},	
+							{
+								type    :'image',
+								top     :'-170',
+								left    :'170',
+								width   :'300',
+								height  :'262',
+								'z-index':'2',
+								callback:function(){},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									src:'./galaxy/dior-3.jpg',
+									className:'showProduct',
+								}
+							},	
+						
+						]
+
+					},
+
+				},
+				{
+					pageName:'探索更多',
+					page:{
+						background:'./galaxy/index5.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						className:'pages2',
+						innerStyle:'',
+						contents:[
+							{
+								type    :'custom',
+								top     :'-240',
+								left    :'-400',
+								width   :'500',
+								height  :'300',
+								'z-index':'1',
+								innerStyle:'.custom_a{color:#fff;font:200 21px/60px \'宋体\';text-align:left;width:900px;}'+
+											'.custom_a h1{font:800 48px/100px \'宋体\';}'+
+											'.custom_c input{width:425px;height:40px;font:800 21px/40px \'宋体\';text-indent:0.3em;background:#333;border:1px solid #000;color:#fff;}'+
+											'.custom_d input{height:40px;font:800 21px/40px \'宋体\';}',
+								callback:function(){},
+								content :{
+									innerHTML:'<div class=\'custom_a\'><h1>探索更多</h1><div class=\'custom_b\'>订阅Dior迪奥电子快报，了解Dior迪奥桀骜男士香氛的所有资讯</div><div class=\'custom_c\'>电子邮箱：<input type=\'text\' placeholder=\'电子邮箱\'></div><div class=\'custom_d\'>点击确认，表明您已同意接收来自Dior迪奥的最新资讯<br/><input type=\'button\' value=\' 提 交 \'></div></div>',
+									innerStyle:'body{display:block;}'
+								}
+							},	
+						
+						]
+
+					},
+
+				},
+
+			]
+
+		}
+
+
+	</script>
+	<script data-main='javascript/config' type="text/javascript" src='javascript/requier.2.1.js'></script>
+ </body>
+</html>
+
+
