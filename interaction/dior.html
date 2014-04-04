@@ -124,6 +124,120 @@ for(var i=2;i<52;i++){
 					},
 
 				},
+
+				{
+					pageName:'产品介绍',
+					page:{
+						background:'./galaxy/dior.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						innerStyle:'.benzPoint dt{background:#ccc;border:25px solid rgba(225,225,225,0.7);}',
+						className:'product',
+						contents:[
+							{
+								type    :'productImg',
+								top     :'-190',  //  相册展示框的大小及位置
+								left    :'-370',
+								width   :'690',
+								height  :'355',
+								'z-index':'20',
+								callback:function(){},
+								innerStyle:'.pointShadow{background-color:rgba(0,0,0,0.5)}.popuClose{background:url(\'style/closeBut.gif\')}'+
+											'.leftBar,.rightBar{background:url(\'style/turnleftRight.png\')} .leftBar{background-position:100% 0;}.rightBar{}',
+								leftBar :{
+										className:'leftBar',
+										innerStyle:'',
+										left:'10',
+										top:'150',
+										height:'50',
+										width:'33',
+										'z-index':'34',
+									
+									},
+								rightBar:{
+										className:'rightBar',
+										innerStyle:'',
+										left:'640',
+										top:'150',
+										height:'50',
+										width:'33',
+										'z-index':'34',
+									
+									},
+								shadow:{
+										className:'pointShadow',
+										left:'0',
+										top:'0',
+										height:window.innerHeight,
+										width:window.innerWidth,
+										position:'fixed',
+									
+									},
+								closeBox:{
+										className:'popuClose',
+										innerStyle:'',
+										left:'656',
+										top:'0',
+										height:'34',
+										width:'34',
+										'z-index':'34',
+									},
+								content :[
+									{
+									    pointImg:'./galaxy/dior-1.jpg', // 视频截图
+										left:'-470',
+										top:'-170',
+										width:'38',
+										height:'38',
+										type:'image',
+										'z-index':'2',
+										callback:function(){},
+										content :{
+											src:totalImages[0],
+											title:'aaaaa',
+											className:'test_image'
+										}
+												  // 图册 
+									},
+									{
+									    pointImg:'./galaxy/dior-2.jpg', // 视频截图
+										type    :'image',
+										left:'-150',
+										top:'-170',
+										width:'38',
+										height:'38',
+										'z-index':'2',
+										innerStyle:'.eye3d{background-position:50% 50%;}',
+										callback:function(){},
+										content :{
+											src:totalImages[15],
+											title:'aaaaa',
+											className:'test_image02'
+										}
+									},	
+									{
+									    pointImg:'./galaxy/dior-3.jpg', // 视频截图
+										type    :'slider3d',
+										left:'170',
+										top:'-170',
+										width:'38',
+										height:'38',
+										'z-index':'2',
+										innerStyle:'',
+										callback:function(){},
+										content :{
+											discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
+											images:totalImages,
+										}
+									},	
+								]
+							},	
+						
+						]
+
+					},
+
+				},
 				{
 					pageName:'产品介绍',
 					page:{
@@ -218,7 +332,6 @@ for(var i=2;i<52;i++){
 					},
 
 				},
-
 			]
 
 		}

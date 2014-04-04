@@ -308,6 +308,83 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 
 		},
+		productImg:function(content){
+				console.log('dddd')
+				return this.point.call(this,content);
+		},
+		productImgEvent:function(parentNode,arg,insertPageId){
+			
+			this.towLay.apply(this,[parentNode,{
+				arg:arg,
+				insertPageId:insertPageId,
+				pageitem:'_product_item_',
+				callback:function(Arguments){
+					
+					var pointDt  = Arguments.parentNode.querySelector('dt');
+						pointDt.style.display = 'block';
+
+
+					if( Elements.body.pages.point &&
+						Elements.body.pages.point.close && 
+						Elements.body.pages.point.left  && 
+						Elements.body.pages.point.right &&
+						Elements.body.pages.point.shadow
+						){
+						
+						Elements.body.pages.point.shadow.node.style.display = 'block';
+						
+							return ;
+						}
+					var dtHeight = parseInt(pointDt.style.height),
+						dtWidth  = parseInt(pointDt.style.width),
+						dtTop    = parseInt(pointDt.style.top),
+						dtLeft   = parseInt(pointDt.style.left),
+						winHeight= window.innerHeight,
+						winWidth = window.innerWidth;
+						
+						pointDt.style['transition'] = 'all 200ms ease-out';	
+							
+                    var styleCloseBox = temp.getAttribute(arg.closeBox),
+                        styleLeftBar  = temp.getAttribute(arg.leftBar),
+                        styleShadow   = temp.getAttribute(arg.shadow),
+                        styleRightBar = temp.getAttribute(arg.rightBar);
+
+					var pointBox = document.createDocumentFragment(),
+						closeBox = createElements({'body.pages.point.close' :{'class':styleCloseBox.className  ,'id':'id'+styleCloseBox.className ,'style':styleCloseBox.style}}),
+						boxLeft  = createElements({'body.pages.point.left'  :{'class':styleLeftBar.className   ,'id':'id'+styleLeftBar.className  ,'style':styleLeftBar.style}}),
+						boxRight = createElements({'body.pages.point.right' :{'class':styleRightBar.className  ,'id':'id'+styleRightBar.className ,'style':styleRightBar.style}}),
+						boxShadow= createElements({'body.pages.point.shadow':{'class':styleShadow.className    ,'id':'id'+styleShadow.className   ,'style':styleShadow.style}});
+
+						pointBox.appendChild(closeBox);
+						pointBox.appendChild(boxLeft);
+						pointBox.appendChild(boxRight);
+						parentNode.appendChild(boxShadow);
+
+						pointDt.appendChild(pointBox);
+						closeBox.addEventListener('click',function(){ 
+							pointDt.style.display = 'none';
+							Elements.body.pages.point.shadow.node.style.display = 'none';
+							
+							},false);
+						boxLeft.addEventListener('click',function(){ 
+									
+							var thisNodeEle = parentNode.querySelector('dd > div.active ').nextSibling,
+								NodeEle     = thisNodeEle?thisNodeEle:parentNode.querySelector('dd > div:first-child');
+
+							simulationEvent({ele:NodeEle});
+							
+							},false);
+						boxRight.addEventListener('click',function(){ 
+							var thisNodeEle = parentNode.querySelector('dd > div.active ').previousSibling,
+								NodeEle     = thisNodeEle?thisNodeEle:parentNode.querySelector('dd > div:last-child');
+
+							simulationEvent({ele:NodeEle});
+							
+							},false);
+				
+				}
+				}]);
+			},
 		point:function(content){
 			var that = this;
 			return this.createPage({
