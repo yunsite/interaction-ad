@@ -431,8 +431,24 @@ define(function(){
 			};
 			// 返回注册后的对象
 			return register;
-		}()
+		}(),
 	
+	// 获得 top left width height
+	getAttribute:function(Arguments){
+			// Arguments { className ,top ,left ,width ,height ,z-index }
+			var Attribute = {
+					className:Arguments.className||'autoName',
+					style: (Arguments.left     ?'left:'     +Arguments.left     +'px;':'') +
+						   (Arguments.top      ?'top:'      +Arguments.top      +'px;':'') +
+						   (Arguments.width    ?'width:'    +Arguments.width    +'px;':'') +
+						   (Arguments.height   ?'height:'   +Arguments.height   +'px;':'') +
+						   'position:'+  (Arguments.position ? Arguments.position+';' :'absolute;') +
+						   (Arguments['z-index'] ?'z-index:' +Arguments['z-index'] :'')
+				
+				}
+			return Attribute; 
+		}
+
 	};
 })
 

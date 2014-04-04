@@ -40,8 +40,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 	}
 
 
-
-
 	var startloading = new temp.loading(document.body);
 
 	
@@ -63,14 +61,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		// 产品介绍
 		imageAndTitle:'<div class=\'#{className}\' style=\'#{style}\'><img src=#{imgSrc} /><b>#{title}</b></div>',
 		// 汽车拼点介绍
-		pointProfile: '<a href=\'javascript:void(0)\' style=\'opacity:0;#{style}\' ></a>',
-		// 视频图片混排
-		videosAndImg:[
-				'<div class=\'videoItem\' id=\'video-#{videoId}\'><a id=\'#{videoId}\' href=\'javascript:void(0)\'>'+
-				'<img class=\'playVideo\' src=\'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\' />'+
-				'<img src=\'#{thumbnail}\' /></a><b>#{title}</b></div>',
-				'<div class=\'imageItem\' style=\'width:#{width}\'><img src=\'#{src}\' /><b>#{title}</b></div>'
-			],
+		background: '<div class=\'#{className}\' style=\'#{style}\' ></div>',
 		// 页面自定义
 		custom:''
 		}
@@ -78,6 +69,58 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 	InteractionAD.prototype={
 		constructor:InteractionAD,
+		towLay:function(parentNode,Arguments){
+			// Arguments = {arg:arg,insertPageId:insertPageId,pageitem:pageitem}	
+			var getImages  = parentNode.querySelectorAll('dd > div'),
+				itemDt     = parentNode.querySelector('dt'),
+				images     = temp.toArray(getImages),
+				that       = this;
+				album_item = Arguments.pageitem || '_album_item_';
+
+				images.forEach(function(image,index){
+					image.addEventListener('click',function(){
+						var pageId = Arguments.insertPageId || parentNode.parentNode.parentNode.id ;
+
+						var albumContent = Arguments.arg.content[index],
+							showType     = albumContent['type'];
+							albumContent.left   = albumContent.top =  '0';
+							albumContent.height = parseInt(itemDt.style.height);
+							albumContent.width  = parseInt(itemDt.style.width);
+
+							parentNode.querySelector('dd .active') && 
+									(parentNode.querySelector('dd .active').className = parentNode.querySelector('.active').className.replace('active',''));
+							
+							image.className += ' active';
+
+						var dtItmes = temp.toArray(parentNode.querySelectorAll('dt div[class*='+album_item+']'));
+							dtItmes.forEach(function(ITEM){ITEM.style.display = ITEM.className == pageId+album_item+index ? 'block':'none';})
+
+						Arguments.callback && Arguments.callback({parentNode:parentNode,index:index,len:images.length});
+						if( parentNode.querySelector('.'+pageId+album_item+index) ){ return; }
+
+						var imagesNodes = document.createDocumentFragment();
+							dtInnerItem = document.createElement('div');
+							imagesNodes.appendChild(dtInnerItem);
+							dtInnerItem.setAttribute('class',pageId+album_item+index);
+							itemDt.appendChild(dtInnerItem);
+
+						switch(showType){
+							case 'slider3d':
+							case 'scroll' :
+							case 'image' :
+							
+							dtInnerItem.innerHTML  = that[showType](albumContent);
+							that[showType+'Event'](dtInnerItem,albumContent);
+
+							break;
+						
+						}
+							
+					},false);
+				});
+
+		
+		},
 		// 添加图片
 		image:function(content){
 			return this.createPage({
@@ -99,6 +142,21 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		imageEvent:function(parentNode,arg){
 			arg.callback && arg.callback(parentNode,arg,this)	
 		},
+		background:function(content){
+			return this.createPage({
+					temp:this.temp.background,
+					style:content
+				},function(temp,style){
+					var pusharg={
+							style:style,
+							className:content.content.className ||'item-background',
+						}
+					return temp.evaluate(pusharg);
+				});
+				
+		
+		},
+			
 		// 头图大图
 		anchors:function(content){
 			return this.createPage({
@@ -179,52 +237,9 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		},
 		albumEvent:function(parentNode,arg,insertPageId,pageitem){
 
-			var getImages  = parentNode.querySelectorAll('dd > div'),
-				itemDt     = parentNode.querySelector('dt'),
-				images     = temp.toArray(getImages),
-				that       = this;
-				album_item = pageitem || '_album_item_';
-
-				images.forEach(function(image,index){
-					image.addEventListener('click',function(){
-						var pageId = insertPageId || parentNode.parentNode.parentNode.id ;
-
-						var albumContent = arg.content[index],
-							showType     = albumContent['type'];
-							albumContent.left   = albumContent.top =  '0';
-							albumContent.height = parseInt(itemDt.style.height);
-							albumContent.width  = parseInt(itemDt.style.width);
-
-							parentNode.querySelector('dd .active') && 
-									(parentNode.querySelector('dd .active').className = parentNode.querySelector('.active').className.replace('active',''));
-							
-							image.className += ' active';
-
-						var dtItmes = temp.toArray(parentNode.querySelectorAll('dt div[class*='+album_item+']'));
-							dtItmes.forEach(function(ITEM){ITEM.style.display = ITEM.className == pageId+album_item+index ? 'block':'none';})
-						if( parentNode.querySelector('.'+pageId+album_item+index) ){ return; }
-
-						var imagesNodes = document.createDocumentFragment();
-							dtInnerItem = document.createElement('div');
-							imagesNodes.appendChild(dtInnerItem);
-							dtInnerItem.setAttribute('class',pageId+album_item+index);
-							itemDt.appendChild(dtInnerItem);
-
-						switch(showType){
-							case 'slider3d':
-							case 'scroll' :
-							
-							dtInnerItem.innerHTML  = that[showType](albumContent);
-							that[showType+'Event'](dtInnerItem,albumContent);
-
-							break;
-						
-						}
-							
-					},false);
-				});
-
-				simulationEvent({ele:parentNode.querySelector('dd > div')})
+			// Arguments = {arg:arg,insertPageId:insertPageId,pageitem:pageitem}	
+			this.towLay.apply(this,[parentNode,{arg:arg,insertPageId:insertPageId,pageitem:'_album_item_'}]);
+			simulationEvent({ele:parentNode.querySelector('dd > div.albumItem ')});
 
 
 		},
@@ -308,7 +323,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 								temp:that.temp.album[1],
 								style:innerContent[i]
 							},function(temp,style){
-								return temp.evaluate({className:innerContent[i]['className']||'pointItem',style:style,thumbnail:innerContent[i]['ponitImg']});
+								return temp.evaluate({className:innerContent[i]['className']||'pointItem',style:style,thumbnail:innerContent[i]['pointImg']});
 							}));	
 					}
 					return temp.evaluate({style:style+';display:none;',html:pointHTML.join('')});
@@ -319,326 +334,83 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 			
 		},
 		pointEvent:function(parentNode,arg,insertPageId){
-			
-			this.albumEvent.apply(this,[parentNode,arg,insertPageId,'_point_item_']);
-		
-		},
-		// 汽车拼点介绍
-		pointProfile:function(wrap){
-		
-			return this.createPage({
-					className:'pointPInner',
-					background:wrap.content.background,
-					temp:this.temp.pointProfile
-				},function(temp){
-					var wraphtml='<div style=\'position:relative;height:1px;width:1px;\'>',i=0,item=wrap.content.point,vl;
-					for(vl=item.length;i<vl;){
-						wraphtml += temp.evaluate(item[i++]);
-					}
-					return wraphtml+'</div>';
-				});	
-		},
-		pointProfileEvent:function(ele,arg){
-
-		var createImageWarp = function (){
-		
-			var warp = document.createElement('div');
-			    ele.querySelector('.pointPInner div').appendChild(warp);
-				warp.setAttribute('style','height:0;position:absolute;z-index:2;overflow:hidden;border:20px solid #fff;opacity:0;');
-				warp.setAttribute('class','showImageWarp');
-			var opacityLay = document.createElement('div');
-				opacityLay.className = 'opacityLay';
-				opacityLay.setAttribute('style','background:rgba(0,0,0,0.3);display:none;position:absolute;z-index:1;height:'+window.innerHeight+'px;width:'+window.innerWidth+'px;margin-top:-'+(window.innerHeight/2)+'px;margin-left:-'+(window.innerWidth/2)+'px;');
-				opacityLay.style['-webkit-transition'] = 'all 200ms ease-out';
-			    ele.querySelector('.pointPInner div').appendChild(opacityLay);
-			var close = document.createElement('span');
-				close.setAttribute('style','display:block;position:absolute;');
-				close.setAttribute('class','hideImageWarp');
-				close.addEventListener('click',function(){
-					opacityLay.style.background = 'rgba(0,0,0,0)';
-					warp.style['opacity'] = 0;
-					setTimeout(function(){
-						opacityLay.style.display = 'none';
-						warp.style.display = 'none';
-					},200)
-				},false);
-				warp.appendChild(close);	
-				return function(item,Attribute){
+			console.log(arg);	
+			// Arguments = {arg:arg,insertPageId:insertPageId,pageitem:pageitem}	
+			this.towLay.apply(this,[parentNode,{
+				arg:arg,
+				insertPageId:insertPageId,
+				pageitem:'_point_item_',
+				callback:function(Arguments){
 					
-					item &&  (item.nodeType == 1 || item.nodeType == 9 )&& warp.appendChild(item);
-					warp.style.display = 'block';
-					opacityLay.style.display = 'block';
-					opacityLay.style.background = 'rgba(0,0,0,0.4)';
-					warp.style.height='auto';
-					var width  =  Attribute && Attribute.width || warp.offsetWidth,
-						height =  Attribute && Attribute.height ||warp.offsetHeight;
-					warp.style.height = warp.style.width = 	warp.style['marginTop']   = warp.style['marginLeft']  = '0px';
+//					Arguments.parentNode,Arguments.index,Arguments.len;
+					var pointDt  = Arguments.parentNode.querySelector('dt');
+						pointDt.style.display = 'block';
 
-					setTimeout(function(){
-					warp.style['opacity'] =  '1';
-					warp.style['width']   =  width;
-					warp.style['height']  =  height;
-					warp.style['marginTop']   =  parseInt(height)/-2 +'px';
-					warp.style['marginLeft']  =  parseInt(width)/-2 +'px';
-					warp.style['-webkit-transition'] = 'all 200ms ease-out';
-					
-					},100);
-				}
 
-		}();
-
-			var ANCHOR  = ele.querySelectorAll('a'),il=ANCHOR.length,
-				items = temp.toArray(ANCHOR,il),
-				// 存储元素的宽高
-				width=[],height=[];
-				// foreach给子节点绑定事件
-				items.forEach(function(anchor,index){
-					anchor.style['-webkit-transform-origin'] = 'center center';
-					height.push(anchor.style['height']) && (anchor.style['height'] = '0px');
-					width.push(anchor.style['width']) && (anchor.style['width'] = '0px');
-					anchor.addEventListener('click',function(anchorItem,i){
-						// ..
-						// showImageWarp('imagesItem'+index);
-						var pointItem = arg.content.point[index];
-
-						var imagesItem = temp.toArray(ele.querySelectorAll('div[id^=imagesItem]'));
-							imagesItem.forEach(function(imagesItemEle,itemIndex){
-								imagesItemEle.style.display = imagesItemEle.id.replace('imagesItem','') ==index ?'block':'none';
-							
-							})
+					if( Elements.body.pages.point &&
+						Elements.body.pages.point.close && 
+						Elements.body.pages.point.left  && 
+						Elements.body.pages.point.right &&
+						Elements.body.pages.point.shadow
+						){
 						
-						if( ele.querySelector('#imagesItem'+index) ){createImageWarp(null,{width:pointItem['__width'],height:pointItem['__height']});return ;}
-
-
+						Elements.body.pages.point.shadow.node.style.display = 'block';
 						
-						var image = document.createElement('div');
-						image.setAttribute('id','imagesItem'+index);
-						switch(pointItem['showType']){
-							case 'changeColor': 
-
-
-
-							var PIImage = pointItem['image'],
-								PIImageLen = PIImage.length,
-								changeColorImages = document.createDocumentFragment();
-								changeColorUL = document.createElement('ul');
-								changeColorUL.setAttribute('class','changeColorBar');
-								changeColorImages.appendChild(changeColorUL);
-							(function(insertItem){
-									var ThisCallee = arguments.callee;
-									temp.loadImg(PIImage[insertItem],{loaded:function(img){
-										var liBar =  document.createElement('li')
-										changeColorUL.appendChild(liBar);
-
-										liBar.addEventListener('click',function(){
-											var parentNode = this.parentNode.parentNode,
-												oldNode = parentNode.querySelector('img[class=active]')	;
-												 oldNode && (oldNode.className =oldNode.className.replace('active',''));
-												img.className = 'active';
-										},false);
-
-
-
-
-										changeColorImages.appendChild(img);
-										img.style.display= 'none';
-										if(insertItem <  PIImageLen-1){
-											ThisCallee( ++insertItem );
-										}else{
-											pointItem['__height'] = img.height;
-											pointItem['__width']  = img.width;
-											image.appendChild(changeColorImages) && createImageWarp(image,{height:img.height,width:img.width});
-											simulationEvent({ele:ele.querySelector('.changeColorBar li:nth-of-type(1)')});
-										}
-									}})	
-							
-							
-							})(0);
-
-
-
-							break;
-							case 'rotation': 
-							var PIImage = pointItem['image'],
-								PIImageLen = PIImage.length,
-								changeColorImages = document.createDocumentFragment();
-							(function(insertItem){
-									var ThisCallee = arguments.callee;
-									temp.loadImg(PIImage[insertItem],{loaded:function(img){
-										insertItem === 0 && img.setAttribute('class','active');
-										changeColorImages.appendChild(img);
-										
-										if(insertItem <  PIImageLen-1){
-											ThisCallee( ++insertItem );
-										}else{
-											pointItem['__height'] = img.height;
-											pointItem['__width']  = img.width;
-											image.appendChild(changeColorImages) && createImageWarp(image,{height:img.height,width:img.width});
-
-												var albumimages = temp.toArray(ele.querySelectorAll('div[id^=imagesItem'+index+'] img'));
-													temp.slider360(ele.querySelector('div[id^=imagesItem'+index+']'),{
-														touchstart:function(arg,Coordinate){
-														},
-														touchmove:function(arg,Coordinate){
-															
-															if( Math.abs( Coordinate[0]) % 1 === 0 ){
-				
-																var active = arg.querySelector('.active')
-																active.className = active.className.replace('active','');
-				
-																if( Coordinate[0] > 0 ){
-																	if( active.nextSibling ){
-																		active.nextSibling.className = 'active';
-																	}else{
-																		arg.querySelector('img:first-child').className = 'active';
-																	}
-				
-																}else{
-				
-																	if( active.previousSibling ){
-																		active.previousSibling.className = 'active';
-																	}else{
-																		arg.querySelector('img:last-child').className = 'active';
-																	}
-																}										
-															}
-				
-														
-														},
-														touchend:function(arg,Coordinate){
-															
-														}
-													});
-										}
-
-									
-									}})	
-							
-							
-							})(0);
-								
-							break;
-							case 'img': 
-								temp.loadImg(pointItem['image'],{loaded:function(img){
-									pointItem['__height'] = img.height;
-									pointItem['__width']  = img.width;
-									image.appendChild(img) && createImageWarp(image,{height:img.height,width:img.width});	
-								}})	
-							break;
-							case 'href': 
-								pointItem.callback && pointItem.callback();
-								window.location.href = pointItem['href'];
-							break;
-							default:
-								alert('no showType');						
+							return ;
 						}
+					var dtHeight = parseInt(pointDt.style.height),
+						dtWidth  = parseInt(pointDt.style.width),
+						dtTop    = parseInt(pointDt.style.top),
+						dtLeft   = parseInt(pointDt.style.left),
+						winHeight= window.innerHeight,
+						winWidth = window.innerWidth;
+						
+						pointDt.style['transition'] = 'all 200ms ease-out';	
+							
+                    var styleCloseBox = temp.getAttribute(arg.closeBox),
+                        styleLeftBar  = temp.getAttribute(arg.leftBar),
+                        styleShadow   = temp.getAttribute(arg.shadow),
+                        styleRightBar = temp.getAttribute(arg.rightBar);
+					var pointBox = document.createDocumentFragment(),
+						closeBox = createElements({'body.pages.point.close' :{'class':styleCloseBox.className  ,'id':'id'+styleCloseBox.className ,'style':styleCloseBox.style}}),
+						boxLeft  = createElements({'body.pages.point.left'  :{'class':styleLeftBar.className   ,'id':'id'+styleLeftBar.className  ,'style':styleLeftBar.style}}),
+						boxRight = createElements({'body.pages.point.right' :{'class':styleRightBar.className  ,'id':'id'+styleRightBar.className ,'style':styleRightBar.style}}),
+						boxShadow= createElements({'body.pages.point.shadow':{'class':styleShadow.className    ,'id':'id'+styleShadow.className   ,'style':styleShadow.style}});
 
-						return false;
+						pointBox.appendChild(closeBox);
+						pointBox.appendChild(boxLeft);
+						pointBox.appendChild(boxRight);
+						parentNode.appendChild(boxShadow);
 
-					},false);
+						pointDt.appendChild(pointBox);
+						closeBox.addEventListener('click',function(){ 
+							pointDt.style.display = 'none';
+							Elements.body.pages.point.shadow.node.style.display = 'none';
+							
+							},false);
+						boxLeft.addEventListener('click',function(){ 
+									
+							var thisNodeEle = parentNode.querySelector('dd > div.active ').nextSibling,
+								NodeEle     = thisNodeEle?thisNodeEle:parentNode.querySelector('dd > div:first-child');
 
-				});
+							simulationEvent({ele:NodeEle});
+							
+							},false);
+						boxRight.addEventListener('click',function(){ 
+							var thisNodeEle = parentNode.querySelector('dd > div.active ').previousSibling,
+								NodeEle     = thisNodeEle?thisNodeEle:parentNode.querySelector('dd > div:last-child');
 
-				// 添加动画效果
-				var i = 0, setOpacity =	setInterval(function(){
+							simulationEvent({ele:NodeEle});
+							
+							},false);
 					
-					items[i].style['opacity'] =  '1';
-					items[i].style['width']   =  width[i];
-					items[i].style['height']  =  height[i];
-					items[i].style['marginTop']   =  parseInt(height[i])/-2 +'px';
-					items[i].style['marginLeft']  =  parseInt(width[i])/-2 +'px';
-					items[i].style['-webkit-transition'] = 'all 200ms ease-out';
+					
+					
 
-					i++ && i == il && clearInterval(setOpacity);
 				
-				},200);
-
-
-
-
-
-
-		},
-
-
-
-		// 视频图片混排
-		videosAndImg:function(wrap){
-			
-			var videosHtml =  this.createPage({
-					className:'videosToPInner',
-					background:false || null,
-					temp: this.temp.videosAndImg[0]
-				},function(temp){
-					var wraphtml='',i=0,item=wrap.content.videos,vl;
-					for(vl=item.length;i<vl;){
-						wraphtml += temp.evaluate(item[i++]);
-					}
-					return wraphtml;
-				});	
-
-			var imagesHtml =  this.createPage({
-					className:'imagesToPInner',
-					background:false || null,
-					temp: this.temp.videosAndImg[1]
-				},function(temp){
-					var i=0,item=wrap.content.images,vl=item.length,
-						wraphtml='<a class=\'prev\' href=\'javascript:void(0)\'></a><a class=\'next\' href=\'javascript:void(0)\'></a>'+
-						'<div id=\'scrollImg\'><div class=\'scrollContent\' style=\'width:'+(vl*100)+'%\'>';
-					for(;i<vl;){
-						item[i]['width']= (100/vl).toFixed(5)+'%';
-						wraphtml += temp.evaluate(item[i++]);
-					}
-					return wraphtml+'</div></div>';
-				});	
-			
-			return '<div class=\'videosAndImgInner\' style=\'height:100%;background:url('+wrap.content.background+') no-repeat 50% 50%;\'><div class=\'videosAndImgItems\'>'+ videosHtml + imagesHtml+'</div></div>';
-
-		},
-		videosAndImgEvent:function(ele,arg){
-			require(['http://player.youku.com/jsapi'], function (doc) {
-				var videos = temp.toArray(ele.querySelectorAll('.playVideo'));
-				videos.forEach(function(video,index){
-					video.parentNode.addEventListener('click',function(){
-						var videoId = this.getAttribute('id');
-						temp.playVideo({id:videoId});
-					},false);
-				});
-			});
-
-			var prevBar = ele.querySelector('.prev'),
-				nextBar = ele.querySelector('.next');
-
-
-
-			var videosAndImg_myScroll = new iScroll('scrollImg', {
-				snap: 'div',
-				momentum: false,
-				hScrollbar: false,
-				vScrollbar: false,
-				onBeforeScrollStart: function (e) {
-					if(e.srcElement.parentNode.className.indexOf("imageItem") > -1 ){
-						e.stopPropagation();
-					}
-					e.preventDefault();
-				},
-				onScrollEnd: function () {
-					if( this.pagesX.length-2 < this.currPageX ){ nextBar.style.opacity = '0.4';}else{nextBar.style.opacity = '1';}
-					if( 1 > this.currPageX ){ prevBar.style.opacity = '0.4';}else{prevBar.style.opacity = '1';}
-					//document.querySelector('#indicator > li.active').className = '';
-					//document.querySelector('#indicator > li:nth-child(' + (this.currPageX+1) + ')').className = 'active';
 				}
-			 });
-
-			 setTimeout(function(){
-				 videosAndImg_myScroll.refresh();
-				 prevBar.style.opacity = '0.4';
-				 prevBar.addEventListener('click',function(){ videosAndImg_myScroll.scrollToPage('prev', 0) },false);
-				 nextBar.addEventListener('click',function(){ videosAndImg_myScroll.scrollToPage('next', 0) },false);
-				},0)
-
-
-
+				}]);
+		
 		},
 		// 页面自定义
 		custom:function(content){
@@ -655,20 +427,13 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		},
 		createPage:function( ARGUMENTS ,callback){
 			var _style = ARGUMENTS.style,
-				top    = _style.top        ?'top:'     +_style.top        +'px;':'',
-				left   = _style.left       ?'left:'    +_style.left       +'px;':'',
-				height = _style.height     ?'height:'  +_style.height     +'px;':'',
-				width  = _style.width      ?'width:'   +_style.width      +'px;':'';
-				z_index= _style['z-index'] ?'z-index:' +_style['z-index']       :'';
-
+				parseStyle  = temp.getAttribute(_style);
 				_style.innerStyle && createStyle(_style.innerStyle);
 
 			var temp_oneImg = new temp.template( ARGUMENTS.temp ),
-				wraphtml_start   = '';//'<div class=\''+ ARGUMENTS.className +'\' style=\'height:100%;'+ (ARGUMENTS.background ?'background:url('+ ARGUMENTS.background +') no-repeat 50% 50%;' :'')+' \' >';
-				wraphtml_content = callback && callback(temp_oneImg,'position:absolute;'+top+left+height+width+z_index);
-				wraphtml_end     = ''; //'</div>';
+				wraphtml_content = callback && callback(temp_oneImg,parseStyle.style);
 				temp_oneImg = null;
-			return wraphtml_start + wraphtml_content + wraphtml_end;
+			return  wraphtml_content;
 
 		}
 	}
@@ -920,12 +685,8 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		})();
 
 		;Config.mainType === 'point'   &&  (Elements.body.navigater.node.style.display = 'none');
-			
-
 		
 	});
-	
-
 
 })
 

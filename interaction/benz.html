@@ -33,61 +33,123 @@ for(var i=2;i<52;i++){
 						background:'./galaxy/index6.jpg',
 						// 当节点构建完成后调用该callback
 						callback:function(){},
-						innerStyle:'',
+						innerStyle:'.benzPoint dt{background:#ccc;border:25px solid rgba(225,225,225,0.7);}',
 						className:'benzPoint',
 						contents:[
+			//				{
+			//					type:'background',
+			//					height:'200',
+			//					width:'100',
+			//					top:'20',
+			//					left:'40',
+			//					'z-index':'1',
+			//					innerStyle:'',
+			//					content:{
+			//							className:'background_color'	
+			//						}
+			//				},
 							{
 								type    :'point',
-								top     :'-170',  //  相册展示框的大小及位置
+								top     :'-190',  //  相册展示框的大小及位置
 								left    :'-370',
-								width   :'590',
+								width   :'690',
 								height  :'355',
-								'z-index':'2',
+								'z-index':'20',
 								callback:function(){},
+								innerStyle:'.pointShadow{background-color:rgba(0,0,0,0.5)}.popuClose{background:url(\'style/closeBut.gif\')}'+
+											'.leftBar,.rightBar{background:url(\'style/turnleftRight.png\')} .leftBar{background-position:100% 0;}.rightBar{}',
+								closeBox:{
+										className:'popuClose',
+										innerStyle:'',
+										left:'656',
+										top:'0',
+										height:'34',
+										width:'34',
+										'z-index':'34',
+									},
+								leftBar :{
+										className:'leftBar',
+										innerStyle:'',
+										left:'10',
+										top:'150',
+										height:'50',
+										width:'33',
+										'z-index':'34',
+									
+									},
+								rightBar:{
+										className:'rightBar',
+										innerStyle:'',
+										left:'640',
+										top:'150',
+										height:'50',
+										width:'33',
+										'z-index':'34',
+									
+									},
+								shadow:{
+										className:'pointShadow',
+										left:'0',
+										top:'0',
+										height:window.innerHeight,
+										width:window.innerWidth,
+										position:'fixed',
+									
+									},
 								content :[
 									{
-									    ponitImg:'./galaxy/index2-1.jpg', // 视频截图
-										left:'235',
-										top:'-170',
-										width:'194',
-										height:'109',
-										type:'slider3d',
+									    pointImg:'./galaxy/point.png', // 视频截图
+										left:'-40',
+										top:'-110',
+										width:'38',
+										height:'38',
+										type:'image',
 										'z-index':'2',
+										callback:function(){},
+										content :{
+											src:totalImages[0],
+											title:'aaaaa',
+											className:'test_image'
+										}
+												  // 图册 
+									},
+									{
+									    pointImg:'./galaxy/point.png', // 视频截图
+										type    :'image',
+										left:'-160',
+										top:'-50',
+										width:'38',
+										height:'38',
+										'z-index':'2',
+										innerStyle:'.eye3d{background-position:50% 50%;}',
+										callback:function(){},
+										content :{
+											src:totalImages[15],
+											title:'aaaaa',
+											className:'test_image02'
+										}
+									},	
+									{
+									    pointImg:'./galaxy/point.png', // 视频截图
+										type    :'slider3d',
+										left:'235',
+										top:'-58',
+										width:'38',
+										height:'38',
+										'z-index':'2',
+										innerStyle:'',
 										callback:function(){},
 										content :{
 											discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
 											images:totalImages,
 										}
-												  // 图册 
-									},
-									{
-									    ponitImg:'./galaxy/index2-1.jpg', // 视频截图
-										type    :'slider3d',
-										left:'235',
-										top:'-48',
-										width:'194',
-										height:'109',
-										'z-index':'2',
-										innerStyle:'.eye3d{background-position:50% 50%;}',
-										callback:function(){},
-										content :{
-											discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
-											images: [
-												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
-												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
-												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
-												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
-												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
-												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
-										 	]
-										}
 									},	
 									{
-									      ponitImg:'./galaxy/index2-1.jpg', // 视频截图
-										  left:'235',
-										  top:'76',
-										  width:'194',
-										  height:'109',
+									      pointImg:'./galaxy/point.png', // 视频截图
+										  left:'-280',
+										  top:'30',
+										  width:'38',
+										  height:'38',
 										  'z-index':'2',
 										  type:'scroll',
 										  callback:function(){},
