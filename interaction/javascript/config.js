@@ -103,21 +103,27 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 							imagesNodes.appendChild(dtInnerItem);
 							dtInnerItem.setAttribute('class',pageId+album_item+index);
 							itemDt.appendChild(dtInnerItem);
+//
+//						switch(showType){
+//							case 'slider3d':
+//							case 'scroll' :
+//							case 'image' :
+//							break;
+//						}
 
-						switch(showType){
-							case 'slider3d':
-							case 'scroll' :
-							case 'image' :
-							
+						if( showType && that[showType] ){
 							dtInnerItem.innerHTML  = that[showType](albumContent);
 							that[showType+'Event'](dtInnerItem,albumContent);
-
-							break;
-						
-						}
+							
+							
+							}
 							
 					},false);
 				});
+
+			//	itemDt.addEventListener('touchmove',function(e){
+			//			e.stopPropagation();
+			//		},false);
 
 		
 		},
@@ -309,7 +315,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 		},
 		productImg:function(content){
-				console.log('dddd')
 				return this.point.call(this,content);
 		},
 		productImgEvent:function(parentNode,arg,insertPageId){
@@ -713,7 +718,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 		var navigater = Elements.body.navigater;
 		// 派发点击事件 
-		simulationEvent({ele:navigater[ navigater.list['0'] ]['node'] });
+		simulationEvent({ele:navigater[ navigater.list['2'] ]['node'] });
 
 
 

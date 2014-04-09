@@ -238,7 +238,7 @@
 
 			closeBox  =  document.createElement('div');
 			closeBox.setAttribute('id', videoArg.closeId );
-			closeBox.setAttribute('style','display:block;width:35px;height:25px;opacity:0.8;position:absolute;top:0;right:0;z-index:1001;background:url(http://r4.ykimg.com/0510000052999E0B6714C031D205BC08) no-repeat 50% 50%;border: 10px solid transparent;border-bottom-width:15px;border-left-width:15px;background-size:cover');
+			closeBox.setAttribute('style','display:block;width:35px;height:25px;opacity:0.8;position:absolute;top:0;right:0;z-index:1001;background:url(http://r4.ykimg.com/0510000052999E0B6714C031D205BC08) no-repeat 50% 50%;padding:0 0 15px 15px;background-size:30px 28px;');
 			document.querySelector('#'+videoArg.boxWarp ).style.display='none';
 			body.appendChild(closeBox);
 			body.appendChild(playBox);
@@ -282,6 +282,65 @@
 	}
 	window.itemAddEvent = itemAddEvent;	
 })();
+
+
+
+(function(){
+ // loading状态 W 画布大小
+ function loading(arg) {
+	this.modle(arg);
+	this.controller();
+ }
+ loading.prototype={
+	modle:function(arg){
+	// 区块分割个数
+	this.blockSize = arg.blockNum;
+	this.autoSize = arg.improve;
+	this.name = arg.name || "loading";
+	//创建一张方形的loading图
+	var blockSize = Math.abs(arg.height/2);
+	this.section = document.getCSSCanvasContext("2d", this.name ,arg.height,arg.height);
+	//画布的高度
+	this.blockH=blockSize;
+	// 组件的宽度
+	this.sectionW=blockSize*6/64;
+	// 组件的高度
+	this.sectionH= blockSize*17/64;
+	this.time=arg.time||60;
+		  },
+	view:function(alpha){
+			 //创建一个组件
+			 this.section.beginPath();
+			 this.section.fillStyle = 'rgba(0,0,0,'+alpha+')';
+					 this.section.arc(0,this.blockH-this.sectionH-this.sectionW/2-this.autoSize,this.sectionW/2,0,Math.PI,true);
+					 this.section.arc(0,this.blockH-this.sectionW/2-this.autoSize,this.sectionW/2,Math.PI,0,true);
+					 this.section.closePath();
+					 this.section.fill();
+					 },
+	controller:function(){
+	var THISV = this,radius=2;
+	this.section.translate(this.blockH,this.blockH);
+	(function animation(radius){
+	 THISV.section.rotate(Math.PI*2/THISV.blockSize); //在当前位置的基础上开始移动
+	 for(var i=1;THISV.blockSize>=i;i++){
+	 THISV.section.rotate((Math.PI*2)/THISV.blockSize);
+	 THISV.view(i/THISV.blockSize);
+	 }
+	 setTimeout(function(){
+		 THISV.section.clearRect(-THISV.blockH,-THISV.blockH,THISV.blockH*2,THISV.blockH*2);
+		 radius = radius>=THISV.blockSize?1:radius+1; 
+		 THISV.section.save();//保存一下当前的位置
+		 animation(radius);
+		 },THISV.time)
+	 })(radius);
+		   }
+ }
+//V new  loading({name:'loading',height:80,blockNum:12,improve:17,time:100});
+	new loading({name:'d3eye',height:80,blockNum:12,improve:17,time:100});
+
+})();
+
+
 
 
 
@@ -329,9 +388,10 @@ define(function(){
 			// 创建loading状态
 			;(function loadingStatus(){
 				loading = document.createElement('div');
-				loading.setAttribute('style','height:100%;width:100%;z-index:5;position:absolute;left:0;top:0;');
+				loading.setAttribute('style','background:rgba(200,200,200,0.2) -webkit-canvas(d3eye) no-repeat 50% 50% ;height:100%;width:100%;z-index:5;position:absolute;left:0;top:0;');
 				loading.setAttribute('class',loadingClassName);
-				item.appendChild(loading).innerHTML = "Loading...";
+
+				item.appendChild(loading);
 			})();
 	
 		     function setBg(pos) {
@@ -397,8 +457,17 @@ define(function(){
 							//图片加载完成后添加事件操作
 							addEvent();
 							setTimeout(function(){
-								loading.parentNode.removeChild(loading);
-							},200);
+								console.log(loading.style.opacity)
+								var opacity,opacityTimer =	setInterval(function(){
+										opacity = (loading.style.opacity||1 )-0.02;
+										if(opacity < 0){
+											loading.parentNode.removeChild(loading);
+												clearInterval(opacityTimer);
+												console.log(opacityTimer)	
+											}
+										loading.style.opacity = opacity;
+									},40)
+							},500);
 						}
 					},false);
 			})(imagePath,imageLeng-1);
