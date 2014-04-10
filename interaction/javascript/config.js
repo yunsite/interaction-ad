@@ -670,7 +670,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 								pageWrap[ 'body.pages.'+ ADS.pageId +'.content' ] = {
 											'id':'id'+ADS.page.className,
 											'class':ADS.page.className,
-											'style':'background:url('+ADS.page.background+') no-repeat 50% 50%;'//background-size:contain;'
+											'style':'background:url('+ADS.page.background+') no-repeat 50% 50%;background-size:contain;'
 											}
 							var pageWrapNode = createElements(pageWrap)	;
 								pageWrapNode.appendChild(pageNode);
@@ -691,6 +691,40 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 	};
 
+	//实现 styleSheets 修改样式
+	function getSheetsAttribute(arg){
+		// arg={sheetsId:'createStyle',class}
+		// document.styleSheets[1].ownerNode.id
+		//selectorText
+
+		var styleSheets,mark=false,sheetRule;
+		if(document.styleSheets.length>0){
+			styleSheets = temp.toArray(document.styleSheets);
+			styleSheets.forEach(function(item){
+					if(item.ownerNode.id === arg.sheetsId){
+					var rules= temp.toArray(item.cssRules);
+					rules.forEach(function(rule,i){
+						if(rule.selectorText.replace(/\"/g,'') == arg.selector.replace(/\"/g,'')){
+						mark = true;
+						sheetRule = {StyleSheet:item,index:i};
+						}
+						})
+					}
+					});
+		}
+		if(!mark){
+			var styleAttr =[];
+			var style = document.createElement("style");
+			style.setAttribute("type", "text/css");
+			style.setAttribute("id", "setScale");
+			for(var m in arg.style){  styleAttr.push(m +':'+arg.style[m]); } ;
+			style.appendChild(document.createTextNode( arg.selector+'{'+ styleAttr.join(';')+'}'  ));
+			!document.querySelector('#setScale') && document.querySelector('head').appendChild(style);
+			return arguments.callee(arg);
+		}else{
+			return sheetRule;
+		}
+	}
 
 
 	renderAd(window.Config,document.querySelector('body'),function(pagesNode,arg){
@@ -701,7 +735,31 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 			var thisCallee = arguments.callee
 			temp.loadImg(item.page.background,{
 					loaded:function(image){
-						image.complete && index == 0 &&  setTimeout(function(){ startloading.done(); },200);
+						image.complete && index == 0 &&  setTimeout(function(){
+							var backgroundImageHeight = image.height,
+							backgroundImageWidth  = image.width,
+							winHeight,winWidth,scaleHeight,scaleWidth,settransform;
+
+							function setScale(){
+							winHeight   = window.innerHeight;
+							winWidth    = window.innerWidth;
+
+							scaleHeight = winHeight/backgroundImageHeight;
+							scaleWidth  = winWidth/backgroundImageWidth;
+							if(settransform){
+								settransform.StyleSheet.deleteRule(settransform.index);
+								settransform.StyleSheet.insertRule('div[data-fn=bind]{-webkit-transform:scale('+ (scaleWidth>scaleHeight?scaleHeight:scaleWidth) +')}',settransform.index-1<0?0:settransform.index-1);
+							}else{
+								settransform = getSheetsAttribute({sheetsId:'setScale',selector:'div[data-fn="bind"]',style:{'-webkit-transform':'scale('+ (scaleWidth>scaleHeight?scaleHeight:scaleWidth) +')'}});
+							}
+
+							};
+							setScale();
+							window.addEventListener('resize',function(){ setScale() },false);
+
+
+						startloading.done();
+						},200);
 					},
 					error:function(image){
 						//item.content.background = 'http://static.youku.com/index/img/header/yklogo.png';
@@ -718,7 +776,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 		var navigater = Elements.body.navigater;
 		// 派发点击事件 
-		simulationEvent({ele:navigater[ navigater.list['2'] ]['node'] });
+		simulationEvent({ele:navigater[ navigater.list['0'] ]['node'] });
 
 
 
