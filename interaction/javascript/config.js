@@ -113,7 +113,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 						if( showType && that[showType] ){
 							dtInnerItem.innerHTML  = that[showType](albumContent);
-							that[showType+'Event'](dtInnerItem,albumContent);
+							that[showType+'Event'] && that[showType+'Event'](dtInnerItem,albumContent);
 							
 							
 							}
@@ -175,6 +175,8 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 							style:style,
 							className:content.content.className||'item-anchors'
 						}
+						
+					console.log(pushArg)
 					return temp.evaluate(pushArg);
 				});
 
@@ -313,6 +315,29 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				},0)
 
 
+		},
+		changeColor:function(content){
+			return this.createPage({
+					temp: this.temp.image,
+					style: content
+				},function(temp,style){
+					
+					var images   = content.content.images,
+						imagesLen= images.length,
+						i=0;
+					var wraphtml = '',handler='';
+
+					for(;i<imagesLen;i++){
+						handler += '<li class=\'changeHandler'+i+'\' data-item=\'item+'+i+'\'></li>'; 
+						wraphtml += temp.evaluate({imgSrc:images[i]['img'],title:images[i]['title'],style:style});
+					}
+
+					return '<div class=\'changeColor\' style=\''+style+'\'>'+ wraphtml +'</div><ul>'+handler+'</ul>';
+				});		
+			// this.album(content)
+		},
+		changeColorEvent:function(parentNode,arg){
+			console.log(parentNode)
 		},
 		productImg:function(content){
 				return this.point.call(this,content);

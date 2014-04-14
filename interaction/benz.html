@@ -49,6 +49,21 @@ for(var i=2;i<52;i++){
 			//						}
 			//				},
 							{
+								type    :'anchors',
+								top     :'230',
+								left    :'-60',
+								width   :'120',
+								height  :'40',
+								innerStyle:'.benzPoint .theone{background:url(\'./phone/phone-v/benz-v-lj.jpg\') no-repeat 50% 50%;background-size:contain;}',
+								'z-index':'2',
+								callback:function(){ alert('anchors')},
+								content :{
+									className:'theone',
+									title:'"赵四"搞怪变打油诗人',
+									href :'http://www.youku.com',
+								}
+							},	
+							{
 								type    :'point',
 								top     :'-190',  //  相册展示框的大小及位置
 								left    :'-370',
@@ -108,7 +123,7 @@ for(var i=2;i<52;i++){
 										callback:function(){},
 										content :{
 											src:totalImages[0],
-											title:'aaaaa',
+											title:'&nbsp;',
 											className:'test_image'
 										}
 												  // 图册 
@@ -121,11 +136,11 @@ for(var i=2;i<52;i++){
 										width:'38',
 										height:'38',
 										'z-index':'2',
-										innerStyle:'.eye3d{background-position:50% 50%;}',
+										innerStyle:'.eye3d{background-position:50% 50%;background-size:contain;background-repeat:no-repeat;}',
 										callback:function(){},
 										content :{
 											src:totalImages[15],
-											title:'aaaaa',
+											title:'&nbsp;',
 											className:'test_image02'
 										}
 									},	
@@ -152,6 +167,95 @@ for(var i=2;i<52;i++){
 										  height:'38',
 										  'z-index':'2',
 										  type:'scroll',
+										  callback:function(){},
+										  content :{
+										  		discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
+										  		images:[
+										 			{title:'',img:'./galaxy/index4-1.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
+										 			{title:'',img:'./galaxy/index4-2.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
+										 			{title:'',img:'./galaxy/index4-3.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
+										 			{title:'',img:'./galaxy/index4-4.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'}
+										 		],
+										}
+									},
+									{
+										type    :'album',
+									    pointImg:'./galaxy/point.png', // 视频截图
+										top     :'-90',  //  相册展示框的大小及位置
+										left    :'-230',
+										width   :'38',
+										height  :'38',
+										'z-index':'2',
+										innerStyle:'.benzPoint dt dt{border:none;}',
+										callback:function(){},
+										content :[
+											{
+											      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+												  left:'530',
+												  top:'280',
+												  width:'40',
+												  height:'40',
+												  innerStyle:'.pagesAlbum .eye3d{background-position: 50% 50%;background-size: contain;background-repeat: no-repeat;}',
+												  type:'slider3d',
+												  'z-index':'2',
+												  callback:function(){},
+												  content :{
+													discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
+													images: [
+														  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+														  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+														  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+														  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+														  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
+														  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
+												 	]
+												}
+														  // 图册 
+											},
+											{
+											      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+												type    :'slider3d',
+												  left:'490',
+												  top:'280',
+												width:'40',
+												height:'40',
+												'z-index':'2',
+												innerStyle:'.eye3d{background-position:50% 50%;}',
+												callback:function(){},
+												content :{
+													discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
+													images:totalImages,
+												}
+											},	
+											{
+											      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
+												  left:'450',
+												  top:'280',
+												  width:'40',
+												  height:'40',
+												  'z-index':'2',
+												  type:'scroll',
+												  callback:function(){},
+												  content :{
+												    discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
+												 	images:[
+												 		{title:'',img:'./galaxy/index4-1.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
+												 		{title:'',img:'./galaxy/index4-2.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
+												 		{title:'',img:'./galaxy/index4-3.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
+												 		{title:'',img:'./galaxy/index4-4.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'}
+												 	],
+												}
+											},
+										]
+									},	
+									{
+									      pointImg:'./galaxy/point.png', // 视频截图
+										  left:'80',
+										  top:'50',
+										  width:'38',
+										  height:'38',
+										  'z-index':'2',
+										  type:'changeColor',
 										  callback:function(){},
 										  content :{
 										  		discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',

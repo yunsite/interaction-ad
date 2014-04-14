@@ -145,7 +145,8 @@ for(var i=2;i<52;i++){
 								'z-index':'20',
 								callback:function(){},
 								innerStyle:'.pointShadow{background-color:rgba(0,0,0,0.5)}.popuClose{background:url(\'style/closeBut.gif\')}'+
-											'.leftBar,.rightBar{background:url(\'style/turnleftRight.png\')} .leftBar{background-position:100% 0;}.rightBar{}',
+											'.leftBar,.rightBar{background:url(\'style/turnleftRight.png\')} .leftBar{background-position:100% 0;}.rightBar{}'+
+											'.custom_active{position:relative;}.infoImg{position: absolute;left: 10px;top: 10px;width: 360px;height:330px;}.info{left: 370px;position: absolute;top: 40px;padding: 10px;box-sizing: border-box;}',
 								leftBar :{
 										className:'leftBar',
 										innerStyle:'',
@@ -168,10 +169,10 @@ for(var i=2;i<52;i++){
 									},
 								shadow:{
 										className:'pointShadow',
-										left:-window.innerWidth/2,
-										top:-window.innerHeight/2,
-										height:window.innerHeight,
-										width:window.innerWidth,
+										left:-(window.innerWidth),
+										top:-(window.innerHeight),
+										height:window.innerHeight*2,
+										width:window.innerWidth*2,
 										position:'absolute',
 									
 									},
@@ -193,66 +194,16 @@ for(var i=2;i<52;i++){
 										height:'260',
 										'z-index':'1',
 									    pointImg:'./galaxy/dior-1.jpg', // 视频截图
-										innerStyle:'.custom_active{position:relative;}.custom_active tr{height:40px;}.custom_active input,.custom_active select{ text-indent:0.2em;width:245px; height:30px;} .custom_active .nianfen{margin-right:5px;} .custom_active .nianfen,.custom_active .yuefen{width:120px;}'+
-										'.custom_active img{position:absolute;left:-900px;-webkit-transition: left 800ms ease-in ;top:210px;}',
+										innerStyle:'',
 										callback:function(){},
 										content :{
 											thumb:'./galaxy/index2-1.jpg',
 											innerHTML:'<div class=\'custom_active\'>'+
-											  '<form action=\'\' method=\'get\'>'+
-												'<table width=\'530\' border=\'0\'>'+
-												  '<tr>'+
-													'<td><input name=\'name\' type=\'text\'  value=\'姓名\'/></td>'+
-													'<td><input name=\'mail\' type=\'text\' value=\'邮箱\'/></td>'+
-												  '</tr>'+
-												  '<tr>'+
-													'<td><select class=\'nianfen\'>'+
-														'<option>出生年份</option>'+
-														'<option>1985</option>'+
-													  '</select>'+
-													  '<select class=\'yuefen\'>'+
-														'<option>月(选填)</option>'+
-														'<option>10</option>'+
-													  '</select></td>'+
-													'<td><input name=\'number\' type=\'text\' value=\'手机号\'/></td>'+
-												  '</tr>'+
-												  '<tr>'+
-													'<td><select>'+
-														'<option>所在省份</option>'+
-														'<option>1985</option>'+
-													  '</select></td>'+
-													'<td><select>'+
-														'<option>所在城市</option>'+
-														'<option>1985</option>'+
-													  '</select></td>'+
-												  '</tr>'+
-												  '<tr>'+
-													'<td><select>'+
-														'<option>想要购买的品牌</option>'+
-														'<option>1985</option>'+
-													  '</select></td>'+
-													'<td><select>'+
-														'<option>车型</option>'+
-														'<option>1985</option>'+
-													  '</select></td>'+
-												  '</tr>'+
-												  '<tr>'+
-													'<td><select>'+
-														'<option>预计购习的时间</option>'+
-														'<option>1985</option>'+
-													  '</select></td>'+
-													'<td><select>'+
-														'<option>购车预算</option>'+
-														'<option>1985</option>'+
-													  '</select></td>'+
-												  '</tr>'+
-												  '<tr>'+
-													'<td></td>'+
-													'<td><input value=\'提交申请\' type=\'submit\' /></td>'+
-												  '</tr>'+
-												'</table>'+
-											  '</form>'+
-											  '<img class=\'car\' src=\'./bmw/page4.png\'>'+
+												'<div class=\'infoImg\'><img src=\'./galaxy/dior-1.jpg\'></div>'+
+												'<div class=\'info\'>'+
+													'<h2>DIOR迪奥桀骜男士古龙淡香水淡香水1</h2>'+
+													'<p>1111桀骜清新淡香水中佛手柑纯净馥郁的气息，完美诠释DIOR迪奥•桀傲的现代时尚风格。蕴含的独特麝香芳香，宛若经典永恒的纯白衬衫般，散发随意迷醉气息极简的优雅：毫无造作之感，尽显时尚典范。卡拉布里的佛手柑——摩洛哥的葡萄柚——白麝香</p>'+
+												'</div>'+
 											  '</div>',
 											callback:function(ele){
 												setTimeout(function(){
@@ -262,34 +213,55 @@ for(var i=2;i<52;i++){
 										}
 									},	
 									{
-									    pointImg:'./galaxy/dior-2.jpg', // 视频截图
-										type    :'image',
+										type    :'custom',
 										left:'-150',
 										top:'-170',
 										width:'297',
 										height:'260',
 										'z-index':'2',
-										innerStyle:'.eye3d{background-position:50% 50%;}',
+									    pointImg:'./galaxy/dior-2.jpg', // 视频截图
+										innerStyle:'',
 										callback:function(){},
 										content :{
-											src:totalImages[15],
-											title:'&nbsp;',
-											className:'test_image02'
+											thumb:'./galaxy/index2-1.jpg',
+											innerHTML:'<div class=\'custom_active\'>'+
+												'<div class=\'infoImg\'><img src=\'./galaxy/dior-2.jpg\'></div>'+
+												'<div class=\'info\'>'+
+													'<h2>DIOR迪奥桀骜男士古龙淡香水淡香水2</h2>'+
+													'<p>2222桀骜清新淡香水中佛手柑纯净馥郁的气息，完美诠释DIOR迪奥•桀傲的现代时尚风格。蕴含的独特麝香芳香，宛若经典永恒的纯白衬衫般，散发随意迷醉气息极简的优雅：毫无造作之感，尽显时尚典范。卡拉布里的佛手柑——摩洛哥的葡萄柚——白麝香</p>'+
+												'</div>'+
+											  '</div>',
+											callback:function(ele){
+												setTimeout(function(){
+													ele.querySelector('.car').style.left = '-100px';
+												},20);
+											}
 										}
 									},	
 									{
-									    pointImg:'./galaxy/dior-3.jpg', // 视频截图
-										type    :'slider3d',
+										type    :'custom',
 										left:'170',
 										top:'-170',
 										width:'297',
 										height:'260',
 										'z-index':'2',
+									    pointImg:'./galaxy/dior-3.jpg', // 视频截图
 										innerStyle:'',
 										callback:function(){},
 										content :{
-											discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
-											images:totalImages,
+											thumb:'./galaxy/index2-1.jpg',
+											innerHTML:'<div class=\'custom_active\'>'+
+												'<div class=\'infoImg\'><img src=\'./galaxy/dior-3.jpg\'></div>'+
+												'<div class=\'info\'>'+
+													'<h2>DIOR迪奥桀骜男士古龙淡香水淡香水3</h2>'+
+													'<p>3333桀骜清新淡香水中佛手柑纯净馥郁的气息，完美诠释DIOR迪奥•桀傲的现代时尚风格。蕴含的独特麝香芳香，宛若经典永恒的纯白衬衫般，散发随意迷醉气息极简的优雅：毫无造作之感，尽显时尚典范。卡拉布里的佛手柑——摩洛哥的葡萄柚——白麝香</p>'+
+												'</div>'+
+											  '</div>',
+											callback:function(ele){
+												setTimeout(function(){
+													ele.querySelector('.car').style.left = '-100px';
+												},20);
+											}
 										}
 									},	
 								]
