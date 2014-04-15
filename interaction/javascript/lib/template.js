@@ -429,12 +429,12 @@ define(function(){
 				document.addEventListener('touchend',function(){ flag = false; },false);
 				item.addEventListener('touchmove',function(e){ 
 	                e.preventDefault();
-	 					
 	               var touchPos = e.touches[0] || e.originalEvent.changedTouches[0];
-	                if (flag == true)
+	                if (flag == true){
 	                    setBg(touchPos.pageX - this.offsetLeft);
-	                else
+	                }else{
 	                    offset = touchPos.pageX - this.offsetLeft
+					}
 				},false);
 	        }
 			;(function pushImage(images,i){
@@ -516,8 +516,27 @@ define(function(){
 				
 				}
 			return Attribute; 
-		}
-
+		},
+		getScript:function( src, callback ){
+		  if(typeof(arguments[0]) != 'string'){ return; }
+		  var callback = typeof(arguments[1]) == 'function' ? callback : function(){};
+		  var head = document.getElementsByTagName('HEAD')[0];
+		  var script = document.createElement('SCRIPT');
+		  script.type = 'text/javascript'; 
+		  script.src = src;
+		  head.appendChild(script);
+		  if(!/*@cc_on!@*/0) {
+			  script.onload = function(){ callback(); this.parentNode.removeChild(this); }
+		  }else{
+			  script.onreadystatechange = function () {
+				  if (this.readyState == 'loaded' || this.readyState == 'complete') { 
+					  callback();
+					  this.parentNode.removeChild(this);
+				  }
+			  }
+		  }
+	  }
+		
 	};
 })
 

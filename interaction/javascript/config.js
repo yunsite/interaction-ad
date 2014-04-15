@@ -103,13 +103,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 							imagesNodes.appendChild(dtInnerItem);
 							dtInnerItem.setAttribute('class',pageId+album_item+index);
 							itemDt.appendChild(dtInnerItem);
-//
-//						switch(showType){
-//							case 'slider3d':
-//							case 'scroll' :
-//							case 'image' :
-//							break;
-//						}
 
 						if( showType && that[showType] ){
 							dtInnerItem.innerHTML  = that[showType](albumContent);
@@ -176,7 +169,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 							className:content.content.className||'item-anchors'
 						}
 						
-					console.log(pushArg)
 					return temp.evaluate(pushArg);
 				});
 
@@ -328,16 +320,30 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 					var wraphtml = '',handler='';
 
 					for(;i<imagesLen;i++){
-						handler += '<li class=\'changeHandler'+i+'\' data-item=\'item+'+i+'\'></li>'; 
+						handler += '<li class=\'changeHandler'+i+'\' data-item=\'item'+i+'\'></li>'; 
 						wraphtml += temp.evaluate({imgSrc:images[i]['img'],title:images[i]['title'],style:style});
 					}
 
-					return '<div class=\'changeColor\' style=\''+style+'\'>'+ wraphtml +'</div><ul>'+handler+'</ul>';
+					return '<div class=\'changeColor\' style=\''+style+'\'>'+ wraphtml +'</div><ul class=\'changer\' >'+handler+'</ul>';
 				});		
 			// this.album(content)
 		},
 		changeColorEvent:function(parentNode,arg){
-			console.log(parentNode)
+			var li = temp.toArray(parentNode.querySelectorAll('ul li')),
+				images = temp.toArray(parentNode.querySelectorAll('.changeColor>img'));
+				li.forEach(function(handler,index){
+					handler.addEventListener('click',function(e){
+						var showColor = parentNode.querySelector('img.show');
+							showColor && (showColor.className = showColor.className.replace('show',''));
+							images[index].className = 'show';
+							
+						},false);
+					
+					
+					});
+
+			simulationEvent({ele:li[0]});
+				
 		},
 		productImg:function(content){
 				return this.point.call(this,content);
@@ -441,7 +447,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 			
 		},
 		pointEvent:function(parentNode,arg,insertPageId){
-			console.log(arg);	
 			// Arguments = {arg:arg,insertPageId:insertPageId,pageitem:pageitem}	
 			this.towLay.apply(this,[parentNode,{
 				arg:arg,
@@ -532,6 +537,54 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		customEvent:function(ele,arg){
 			arg.content.callback   && arg.content.callback(ele)
 		},
+		// 地图模块
+		autoNavMap:function(content){
+			var that=this,
+				TEMP=temp,
+				autoTemp = [
+							'<div class=\'mapContent\' style=\'#{style}\'></div><div class=\'mapPoints\' style=\'#{listStyle}\'><div style=\'#{scrollCon}\'><ul style=\'height:100%;width:100%\'>#{list}</ul></div></div>',
+							'<li style=\'#{style}\'><div class=\'mapPointLeft\'><h5>#{title}</h5><p>#{location}</p></div><div class=\'mapPointRight\'>#{href} #{tel}</div></li>'
+							];
+
+			return this.createPage({
+					temp:autoTemp[0],
+					style:content
+				},function(temp,style){
+
+					var	points    =  content.content.points,
+						pointLen  =  points.length,
+						listItem  =  [],
+						mapPoints =  TEMP.getAttribute(content.content);
+
+
+					for(var i=0;i<pointLen;i++){	
+						listItem.push(that.createPage.call(that,{
+								temp:autoTemp[1],
+								style:points[i]
+							},function(temp,style){
+								var POINT = points[i];
+								POINT.href.innerStyle && createStyle(POINT.href.innerStyle);
+								tel = POINT.tel.map(function(value){ return '<a href=\'tel:'+value+'\'>'+value+'</a>';});
+
+								return temp.evaluate({
+									style:'width:330px;',
+									title:POINT['title']||POINT['location']||'请添加title属性',
+									location:POINT['location']||'请添加location属性',
+									href:'<a class=\''+POINT['href']['className']+'\' href=\''+POINT['href']['href']+'\'>'+POINT['href']['title']+'</a>',
+									tel:tel.join('')});
+							}));	
+					}
+					return temp.evaluate({style:style,listStyle:mapPoints.style+';overflow:hidden;',list:listItem.join(''),scrollCon:'height:100%;width:'+ (pointLen*330) +'px;'});
+				});	
+			},
+		autoNavMapEvent:function(parentNode,arg){
+			var myScroll = new iScroll(parentNode.querySelector('.mapPoints'),{ vScroll:true,hScrollbar:true, vScrollbar: false });
+		//	temp.getScript('http://webapi.amap.com/maps?v=1.2&key=c0e37bb8a23b337c1b86bd2099e9ccee',function(){
+			//	
+			//	});
+			
+			
+			},
 		createPage:function( ARGUMENTS ,callback){
 			var _style = ARGUMENTS.style,
 				parseStyle  = temp.getAttribute(_style);
@@ -787,7 +840,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 						},200);
 					},
 					error:function(image){
-						//item.content.background = 'http://static.youku.com/index/img/header/yklogo.png';
 						setTimeout(function(){
 							i++ && i < 4 && thisCallee(item,index);
 						},800)
@@ -801,7 +853,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 		var navigater = Elements.body.navigater;
 		// 派发点击事件 
-		simulationEvent({ele:navigater[ navigater.list['0'] ]['node'] });
+		simulationEvent({ele:navigater[ navigater.list['1'] ]['node'] });
 
 
 

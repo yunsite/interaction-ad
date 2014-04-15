@@ -114,11 +114,28 @@ div[id^=imagesItem] img{position:absolute;}
 
 
 
+.changeColor img{display:none;}
+.changeColor img.show{display:block;}
+.set___point .changer li{width:40px;height:40px;position:absolute;z-index:10;top:295px;background-color:#f00;}
+.set___point .changer li:nth-child(1){left:575px;}
+.set___point .changer li:nth-child(2){left:525px;}
+.set___point .changer li:nth-child(3){left:475px;}
+.set___point .changer li:nth-child(4){left:425px;}
+.set___point .changer li:nth-child(5){left:375px;}
 
 
 
+@media screen and (max-width: 320px){
+
+.set___point .changer li{width:20px;height:20px;position:absolute;z-index:10;top:335px;background-color:#f00;}
+.set___point .changer li:nth-child(1){left:235px;}
+.set___point .changer li:nth-child(2){left:205px;}
+.set___point .changer li:nth-child(3){left:175px;}
+.set___point .changer li:nth-child(4){left:145px;}
+.set___point .changer li:nth-child(5){left:115px;}
 
 
+}
 
 
 

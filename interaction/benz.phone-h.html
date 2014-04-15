@@ -1,0 +1,238 @@
+<!DOCTYPE>
+<html>
+ <head>
+  <title> 三星产品PAD端功能展示  </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+
+  <link rel="stylesheet" href="./style/base.css" />
+ </head>
+
+ <body>
+
+	<script type="text/javascript">
+
+
+var totalImages=[];
+for(var i=2;i<52;i++){
+	totalImages.push('bmw/IMG/'+i+'.png');
+}
+
+
+
+		// 三星产品PAD端功能展示
+		//  PAD 端
+		Config = {
+			mainType:'menu', //scroll, menu , point
+			navigaterStyle:'#body #navigater{display:none;}',
+			pages:[
+				{
+					pageName:'精彩图集',
+					page:{
+						background:'./galaxy/index6.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						innerStyle:'.benzPoint dt{background:#ccc;border:25px solid rgba(225,225,225,0.7);}',
+						className:'benzPoint',
+						contents:[
+			//				{
+			//					type:'background',
+			//					height:'200',
+			//					width:'100',
+			//					top:'20',
+			//					left:'40',
+			//					'z-index':'1',
+			//					innerStyle:'',
+			//					content:{
+			//							className:'background_color'	
+			//						}
+			//				},
+							{
+								type    :'anchors',
+								top     :'230',
+								left    :'-60',
+								width   :'120',
+								height  :'40',
+								innerStyle:'.benzPoint .theone{background:url(\'./phone/phone-v/benz-v-lj.jpg\') no-repeat 50% 50%;background-size:contain;}',
+								'z-index':'2',
+								callback:function(){ alert('anchors')},
+								content :{
+									className:'theone',
+									title:'"赵四"搞怪变打油诗人',
+									href :'http://www.youku.com',
+								}
+							},	
+							{
+								type    :'point',
+								top     :'-190',  //  相册展示框的大小及位置
+								left    :'-370',
+								width   :'690',
+								height  :'355',
+								'z-index':'20',
+								callback:function(){},
+								innerStyle:'.pointShadow{background-color:rgba(0,0,0,0.5)}.popuClose{background:url(\'style/closeBut.gif\')}'+
+											'.leftBar,.rightBar{background:url(\'style/turnleftRight.png\')} .leftBar{background-position:100% 0;}.rightBar{}',
+								closeBox:{
+										className:'popuClose',
+										innerStyle:'',
+										left:'656',
+										top:'0',
+										height:'34',
+										width:'34',
+										'z-index':'34',
+									},
+								leftBar :{
+										className:'leftBar',
+										innerStyle:'',
+										left:'10',
+										top:'150',
+										height:'50',
+										width:'33',
+										'z-index':'34',
+									
+									},
+								rightBar:{
+										className:'rightBar',
+										innerStyle:'',
+										left:'640',
+										top:'150',
+										height:'50',
+										width:'33',
+										'z-index':'34',
+									
+									},
+								shadow:{
+										className:'pointShadow',
+										left:-(window.innerWidth),
+										top:-(window.innerHeight),
+										height:window.innerHeight*2,
+										width:window.innerWidth*2,
+										position:'fixed',
+									
+									},
+								content :[
+									{
+									    pointImg:'./galaxy/point.png', // 视频截图
+										left:'-40',
+										top:'-110',
+										width:'38',
+										height:'38',
+										type:'image',
+										'z-index':'2',
+										callback:function(){},
+										content :{
+											src:'./bz260/benz01.jpg',
+											title:'&nbsp;',
+											className:'test_image'
+										}
+												  // 图册 
+									},
+									{
+									    pointImg:'./galaxy/point.png', // 视频截图
+										type    :'image',
+										left:'-160',
+										top:'-50',
+										width:'38',
+										height:'38',
+										'z-index':'2',
+										innerStyle:'.eye3d{background-position:50% 50%;background-size:contain;background-repeat:no-repeat;}',
+										callback:function(){},
+										content :{
+											src:'./bz260/benz02.jpg',
+											title:'&nbsp;',
+											className:'test_image02'
+										}
+									},	
+									{
+									    pointImg:'./galaxy/point.png', // 视频截图
+										type    :'image',
+										left:'235',
+										top:'-58',
+										width:'38',
+										height:'38',
+										'z-index':'2',
+										innerStyle:'.eye3d{background-position:50% 50%;background-size:contain;background-repeat:no-repeat;}',
+										callback:function(){},
+										content :{
+											src:'./bz260/benz03.jpg',
+											title:'&nbsp;',
+											className:'test_image02'
+										}
+									},	
+									{
+									    pointImg:'./galaxy/point.png', // 视频截图
+										type    :'slider3d',
+										left:'-280',
+										top:'30',
+										width:'38',
+										height:'38',
+										'z-index':'2',
+										innerStyle:'',
+										callback:function(){},
+										content :{
+											discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
+											images:totalImages,
+										}
+									},	
+								//	{
+								//	      pointImg:'./galaxy/point.png', // 视频截图
+								//		  left:'-280',
+								//		  top:'30',
+								//		  width:'38',
+								//		  height:'38',
+								//		  'z-index':'2',
+								//		  type:'scroll',
+								//		  callback:function(){},
+								//		  content :{
+								//		  		discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
+								//		  		images:[
+								//		 			{title:'',img:'./galaxy/index4-1.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
+								//		 			{title:'',img:'./galaxy/index4-2.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
+								//		 			{title:'',img:'./galaxy/index4-3.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
+								//		 			{title:'',img:'./galaxy/index4-4.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'}
+								//		 		],
+								//		}
+								//	},
+									{
+									      pointImg:'./galaxy/point.png', // 视频截图
+										  left:'80',
+										  top:'50',
+										  width:'38',
+										  height:'38',
+										  'z-index':'2',
+										  type:'changeColor',
+										  innerStyle:'.set___point .changer li.changeHandler1{background-color:blue;}'+
+													 '.set___point .changer li.changeHandler2{background-color:#ccc;}'+
+													 '.set___point .changer li.changeHandler3{background-color:yellow;}',
+										  callback:function(){},
+										  content :{
+										  		discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
+										  		images:[
+										 			{title:'',img:'./bz260/benz.c.1.jpg',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
+										 			{title:'',img:'./bz260/benz.c.2.jpg',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
+										 			{title:'',img:'./bz260/benz.c.3.jpg',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
+										 			{title:'',img:'./bz260/benz.c.4.jpg',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'}
+										 		],
+										}
+									},
+								]
+							},	
+						
+						]
+
+					},
+
+				},
+
+			]
+
+		}
+
+
+	</script>
+	<script data-main='javascript/config' type="text/javascript" src='javascript/requier.2.1.js'></script>
+ </body>
+</html>
+
+
