@@ -202,14 +202,20 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 			// 调用config 中的event.eventType 触发event.callback
 			// temp.itemAddEvent(arg.content.videos,playvideo); // confAnchors,anchors
-
-			require(['http://player.youku.com/jsapi'], function (doc) {
-				temp.itemAddEvent({node:playVideo,type:'click',callback:function(thisNode){
-					var videoId = thisNode.parentNode.getAttribute('data-videoid');
-					temp.playVideo({id:videoId});
-					arg.callback && arg.callback(thisNode);
-				}});
-			});
+			temp.getScript('http://player.youku.com/jsapi',
+				{
+					load:function(){
+						temp.itemAddEvent({node:playVideo,type:'click',callback:function(thisNode){
+							var videoId = thisNode.parentNode.getAttribute('data-videoid');
+							temp.playVideo({id:videoId});
+							arg.callback && arg.callback(thisNode);
+						}});
+					},
+					error:function(){
+						alert('播放器加载失败');
+					}
+				
+				})
 
 		
 		},
@@ -586,13 +592,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 
 
-			window.BMap_loadScriptTime = (new Date).getTime()
-			temp.getScript('http://api.map.baidu.com/getscript?type=quick&file=api&ak=Rh7IIY1FumRGQaWsfUVumZz9&t=20140109092002',function(){
-				temp.getScript('http://api.map.baidu.com/getscript?type=quick&file=feature&ak=Rh7IIY1FumRGQaWsfUVumZz9&t=20140109092002',function(){
-		
-		
-					});
-				});
 
 			function createBDmap(){
 				var mapObj = new BMap.Map("mapContent"),myLoaction;	
@@ -651,27 +650,24 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 
 
-
-
-
-
-			// 计数器
-			var timmerCount = function(){
-					var i =0;
-					return function(){return i++;}
-				}();
-			// 轮询看地图是否加载完成
-			var timmer = setInterval(function(){
-					if( timmerCount() == 25){
-						clearInterval(timmer);
-						alert('地图加载失败');	
-					}
-					if( !!BMap ){
-						clearInterval(timmer);
-						createBDmap();
-					}
-				
-				},200);
+			window.BMap_loadScriptTime = (new Date).getTime();
+			temp.getScript('http://api.map.baidu.com/getscript?type=quick&file=api&ak=Rh7IIY1FumRGQaWsfUVumZz9&t=20140109092002',
+				{
+					load:function(){
+						temp.getScript('http://api.map.baidu.com/getscript?type=quick&file=feature&ak=Rh7IIY1FumRGQaWsfUVumZz9&t=20140109092002',
+							{
+								load:function(){
+									createBDmap();
+								},
+								error:function(){
+									alert('地图加载失败');
+								}
+							});
+					},
+					error:function(){
+							alert('地图加载失败');
+						}
+				});
 
 
 
@@ -896,15 +892,17 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 					}
 					});
 		}
-		if(!mark){
+		if(!mark && !arg.done){
 			var styleAttr =[];
-			var style = document.createElement("style");
+			style = document.createElement("style");
 			style.setAttribute("type", "text/css");
 			style.setAttribute("id", "setScale");
 			for(var m in arg.style){  styleAttr.push(m +':'+arg.style[m]); } ;
 			style.appendChild(document.createTextNode( arg.selector+'{'+ styleAttr.join(';')+'}'  ));
-			!document.querySelector('#setScale') && document.querySelector('head').appendChild(style);
-			return arguments.callee(arg);
+			if(!document.querySelector('#setScale') && 	document.querySelector('head').appendChild(style)){
+				arg.done = true;
+				return arguments.callee(arg);
+			}
 		}else{
 			return sheetRule;
 		}
@@ -959,7 +957,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 		var navigater = Elements.body.navigater;
 		// 派发点击事件 
-		simulationEvent({ele:navigater[ navigater.list['1'] ]['node'] });
+		simulationEvent({ele:navigater[ navigater.list['0'] ]['node'] });
 
 
 

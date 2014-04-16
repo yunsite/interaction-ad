@@ -534,27 +534,22 @@ define(function(){
 		},
 		getScript:function( src, callback ){
 		  if(typeof(arguments[0]) != 'string'){ return; }
-		  var callback = typeof(arguments[1]) == 'function' ? callback : function(){};
+		  var callback = Object.prototype.toString.call({}).slice(8,-1) === 'Object' ? callback : {load:function(){},error:function(){}};
 		  var head = document.querySelector('head');
 		  var script = document.createElement('script');
 		  script.type = 'text/javascript'; 
 		  script.charset = 'utf-8'; 
 		  script.src = src;
 		  head.appendChild(script);
-		  if(!/*@cc_on!@*/0) {
-			  script.onload = function(){ callback(); 
-			  
-			  //this.parentNode.removeChild(this);
-			  
-			  }
-		  }else{
-			  script.onreadystatechange = function () {
-				  if (this.readyState == 'loaded' || this.readyState == 'complete') { 
-					  callback();
-					  this.parentNode.removeChild(this);
-				  }
-			  }
-		  }
+
+			script.addEventListener('load',function(){
+					callback.load();
+					this.parentNode.removeChild(this);
+				},false);
+			script.addEventListener('error',function(){
+					callback.error();
+				},false);
+
 	  }
 		
 	};
