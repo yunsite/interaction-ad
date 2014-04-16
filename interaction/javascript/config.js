@@ -10,7 +10,8 @@ require.config({
 		'iscroll'               :'./iscroll',
 		'jsapi'                 :'http://player.youku.com/jsapi',
 
-		'threesixty'            :'./360/threesixty'
+		'threesixty'            :'./360/threesixty',
+		'autoNavi'              :'http://webapi.amap.com/maps?v=1.2&key=c0e37bb8a23b337c1b86bd2099e9ccee'
 	}
 });
 
@@ -29,7 +30,6 @@ define('createStyle',function(){
 
 require(['template.loading','iscroll','createStyle'],function(temp,iScroll,createStyle){
 	
-
 	// 事件模拟
 	function simulationEvent(listener,callback){
 		// {ele:添加事件元素 ,type:事件类型}
@@ -542,8 +542,8 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 			var that=this,
 				TEMP=temp,
 				autoTemp = [
-							'<div class=\'mapContent\' style=\'#{style}\'></div><div class=\'mapPoints\' style=\'#{listStyle}\'><div style=\'#{scrollCon}\'><ul style=\'height:100%;width:100%\'>#{list}</ul></div></div>',
-							'<li style=\'#{style}\'><div class=\'mapPointLeft\'><h5>#{title}</h5><p>#{location}</p></div><div class=\'mapPointRight\'>#{href} #{tel}</div></li>'
+							'<div id=\'mapContent\' class=\'mapContent\' style=\'#{style}\'></div><div class=\'mapPoints\' style=\'#{listStyle}\'><div style=\'#{scrollCon}\'><ul style=\'height:100%;width:100%\'>#{list}</ul></div></div>',
+							'<li style=\'#{style}\'><div class=\'mapPointLeft\'><h5>#{title}</h5><p>#{location}<br/>#{tel1}</p></div><div class=\'mapPointRight\'>#{href} #{tel}</div></li>'
 							];
 
 			return this.createPage({
@@ -556,7 +556,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 						listItem  =  [],
 						mapPoints =  TEMP.getAttribute(content.content);
 
-
+					var liwidth = 525;
 					for(var i=0;i<pointLen;i++){	
 						listItem.push(that.createPage.call(that,{
 								temp:autoTemp[1],
@@ -567,21 +567,127 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 								tel = POINT.tel.map(function(value){ return '<a href=\'tel:'+value+'\'>'+value+'</a>';});
 
 								return temp.evaluate({
-									style:'width:330px;',
+									style:'width:'+liwidth+'px;margin-right:3px;',
 									title:POINT['title']||POINT['location']||'请添加title属性',
 									location:POINT['location']||'请添加location属性',
+									tel1:POINT.tel[0],
 									href:'<a class=\''+POINT['href']['className']+'\' href=\''+POINT['href']['href']+'\'>'+POINT['href']['title']+'</a>',
 									tel:tel.join('')});
 							}));	
 					}
-					return temp.evaluate({style:style,listStyle:mapPoints.style+';overflow:hidden;',list:listItem.join(''),scrollCon:'height:100%;width:'+ (pointLen*330) +'px;'});
+					return temp.evaluate({style:style,listStyle:mapPoints.style+';overflow:hidden;',list:listItem.join(''),scrollCon:'height:100%;width:'+ (pointLen*(liwidth+3)) +'px;'});
 				});	
 			},
 		autoNavMapEvent:function(parentNode,arg){
+			window.BMap;	
 			var myScroll = new iScroll(parentNode.querySelector('.mapPoints'),{ vScroll:true,hScrollbar:true, vScrollbar: false });
-		//	temp.getScript('http://webapi.amap.com/maps?v=1.2&key=c0e37bb8a23b337c1b86bd2099e9ccee',function(){
-			//	
-			//	});
+				setTimeout(function(){ myScroll.refresh();},0);
+			var points = arg.content.points;
+
+
+
+			window.BMap_loadScriptTime = (new Date).getTime()
+			temp.getScript('http://api.map.baidu.com/getscript?type=quick&file=api&ak=Rh7IIY1FumRGQaWsfUVumZz9&t=20140109092002',function(){
+				temp.getScript('http://api.map.baidu.com/getscript?type=quick&file=feature&ak=Rh7IIY1FumRGQaWsfUVumZz9&t=20140109092002',function(){
+		
+		
+					});
+				});
+
+			function createBDmap(){
+				var mapObj = new BMap.Map("mapContent"),myLoaction;	
+				function markMyLocation(point){  // 创建图标对象     
+					var myIcon = new BMap.Icon("http://r4.ykimg.com/0510000052D75BA36714C031CF06546D.png",   
+							new BMap.Size(23, 26), {      
+							anchor: new BMap.Size(7, 25),        
+							});   
+
+						var marker = new BMap.Marker(point, {icon: myIcon});  
+						marker.addEventListener("click", function(){ });
+						mapObj.addOverlay(marker);      
+					}
+
+				function addAllMarkes(){
+						var	myGeo = new BMap.Geocoder();
+						points.forEach(function(value){
+								myGeo.getPoint(value['location'], function(point){
+									point && mapObj.addOverlay(new BMap.Marker(point)) 
+									value['point'] = point;
+								},value['city']);
+							});
+							myGeo = null;
+					}
+
+				if(navigator.geolocation){
+					navigator.geolocation.getCurrentPosition(function(position){
+							//添加我的坐标点
+							var coords = position.coords,
+							myPoi=new BMap.Point(coords.longitude, coords.latitude);
+							markMyLocation(myPoi);
+
+							mapObj.centerAndZoom(myPoi,15);                    
+							mapObj.addControl(new BMap.ZoomControl());      
+							addAllMarkes();
+						},function(){
+							addAllMarkes();
+						});
+				}
+
+				;(function(){
+					
+					var showPoints= temp.toArray(parentNode.querySelectorAll('.mapPoints li .mapPointLeft'));
+						showPoints.forEach(function(liNode,index){
+								liNode.addEventListener('click',function(){
+										mapObj.panTo(new BMap.Point(points[index]['point']['lng'],points[index]['point']['lat']))
+									
+									},false);
+							
+							})
+						
+
+					})();
+
+			}
+
+
+
+
+
+
+
+			// 计数器
+			var timmerCount = function(){
+					var i =0;
+					return function(){return i++;}
+				}();
+			// 轮询看地图是否加载完成
+			var timmer = setInterval(function(){
+					if( timmerCount() == 25){
+						clearInterval(timmer);
+						alert('地图加载失败');	
+					}
+					if( !!BMap ){
+						clearInterval(timmer);
+						createBDmap();
+					}
+				
+				},200);
+
+
+
+
+
+
+
+			window.addEventListener('load',function(){
+			console.log('loading')	
+			var mapObj = new AMap.map('mapContent',{
+				    center:new AMap.LngLat(116.397428,39.90923), //地图中心点
+					    level:13  //地图显示的比例尺级别
+						    })
+				
+				
+				},200)
 			
 			
 			},

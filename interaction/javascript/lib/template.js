@@ -1,4 +1,19 @@
 /* Te v1.10.0 - template by shanwenhe  contents QQ 562127378*/
+Array.prototype.forEach =  Array.prototype.forEach || function(f){
+	var leng = this.length;
+	for(var i =0;i<leng;i++){
+		f(this[i],i,this);
+	}	
+}
+
+Array.prototype.map =  Array.prototype.map || function(f){
+	var leng = this.length,r=[];
+	for(var i =0;i<leng;i++){
+		r.push(f(this[i],i,this));
+	}
+	return r;
+}
+
 ;(function(){
 
 //	// the template (our formatting expression)
@@ -520,13 +535,18 @@ define(function(){
 		getScript:function( src, callback ){
 		  if(typeof(arguments[0]) != 'string'){ return; }
 		  var callback = typeof(arguments[1]) == 'function' ? callback : function(){};
-		  var head = document.getElementsByTagName('HEAD')[0];
-		  var script = document.createElement('SCRIPT');
+		  var head = document.querySelector('head');
+		  var script = document.createElement('script');
 		  script.type = 'text/javascript'; 
+		  script.charset = 'utf-8'; 
 		  script.src = src;
 		  head.appendChild(script);
 		  if(!/*@cc_on!@*/0) {
-			  script.onload = function(){ callback(); this.parentNode.removeChild(this); }
+			  script.onload = function(){ callback(); 
+			  
+			  //this.parentNode.removeChild(this);
+			  
+			  }
 		  }else{
 			  script.onreadystatechange = function () {
 				  if (this.readyState == 'loaded' || this.readyState == 'complete') { 
