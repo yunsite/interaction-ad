@@ -1,7 +1,7 @@
 <!DOCTYPE>
 <html>
  <head>
-  <title> 三星产品PAD端功能展示  </title>
+  <title>bmw.phone-v产品功能展示  </title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
   <meta name="format-detection" content="telephone=no"/>
@@ -30,21 +30,22 @@ for(var i=2;i<52;i++){
 				{
 					pageName:'首页',
 					page:{
-						background:'./bmw/index.jpg',
+						background:'./phone/phone-v/bmw.v.1.jpg',
 						// 当节点构建完成后调用该callback
 						callback:function(){},
-						innerStyle:'',
-						className:'pagesindex',
+						innerStyle:'.bmwIndex .ljgd{background:url(\'./phone/phone-h/bmw.lj.jpg\')}',
+						className:'bmwIndex',
 						contents:[
 							{
 								type    :'anchors',
-								top     :'-145',
-								left    :'-435',
+								top     :'-70',
+								left    :'-120',
 								width   :'120',
 								height  :'40',
 								'z-index':'2',
 								callback:function(){ alert('anchors')},
 								content :{
+									className:'ljgd',
 									title:'"赵四"搞怪变打油诗人',
 									href :'http://www.youku.com',
 								}
@@ -57,7 +58,7 @@ for(var i=2;i<52;i++){
 				{
 					pageName:'活动介绍',
 					page:{
-						background:'./bmw/index2.jpg',
+						background:'./phone/phone-v/bmw.v.2.jpg',
 						// 当节点构建完成后调用该callback
 						callback:function(){},
 						innerStyle:'',
@@ -65,17 +66,17 @@ for(var i=2;i<52;i++){
 						contents:[
 							{
 								type    :'custom',
-								top     :'-200',
-								left    :'-200',
-								width   :'500',
-								height  :'300',
+								top     :'-130',
+								left    :'-150',
+								width   :'300',
+								height  :'330',
 								'z-index':'100',
-								innerStyle:'#body #pages .introduction img.car{width:512px;height:287px;}.introduction{position:relative;width:570px;height:400px;text-align:left;}.introduction dt{padding-left:10px}'+
-								'.introduction dd{padding:20px 40px 30px;background:url(\'./bmw/introduction.png\') repeat 0 0;-webkit-border-radius:10px;-webkit-box-shadow:inset 0 0 10px rgba(0,0,0,0.67)}'+
-								'.introduction .hdjs,.introduction .rcjs,.introduction .hdjs,.introduction .csxz{-webkit-box-shadow:0 0  5px rgba(0,0,0,0.35);font:800 24px/57px \'微软雅黑\';margin-right:-8px;-webkit-border-radius:5px;-webkit-border-bottom-left-radius:0;-webkit-border-bottom-right-radius:0;display:inline-block; padding:0 15px;background:-webkit-gradient(linear ,0 0,0 100%,from(#90a4c0),color-stop(0.5, #90a4c0),color-stop(0.5, #8199b7),to(#8199b7) );}'+
+								innerStyle:'#body #pages .introduction img.car{width:256px;height:144px;}.introduction{position:relative;width:300px;height:400px;text-align:left;}.introduction dt{padding-left:10px}'+
+								'.introduction dd{padding:10px 20px 15px;background:url(\'./bmw/introduction.png\') repeat 0 0;-webkit-border-radius:10px;-webkit-box-shadow:inset 0 0 10px rgba(0,0,0,0.67)}'+
+								'.introduction .hdjs,.introduction .rcjs,.introduction .hdjs,.introduction .csxz{-webkit-box-shadow:0 0  5px rgba(0,0,0,0.35);font:800 14px/30px \'微软雅黑\';margin-right:-8px;-webkit-border-radius:5px;-webkit-border-bottom-left-radius:0;-webkit-border-bottom-right-radius:0;display:inline-block; padding:0 15px;background:-webkit-gradient(linear ,0 0,0 100%,from(#90a4c0),color-stop(0.5, #90a4c0),color-stop(0.5, #8199b7),to(#8199b7) );}'+
 								'.introduction dt .active{background:-webkit-gradient(linear ,0 0,0 100%,from(#d0e0f9),color-stop(0.5, #d0e0f9),color-stop(0.5, #acc6e3),to(#acc6e3) );z-index:2;position:relative;}'+
-								'.introduction dd div{font:200 16px/32px \'微软雅黑\'; color:#fff;}'+
-								'.introduction img{position:absolute;left:-1000px;-webkit-transition: left 800ms ease-in ;top:300px;}',
+								'.introduction dd div{font:200 14px/22px \'微软雅黑\'; color:#fff;}'+
+								'.introduction img{position:absolute;left:-1000px;-webkit-transition: left 800ms ease-in ;top:240px;}',
 								content :{
 									callback:function(ele){
 										console.log(ele);
@@ -99,7 +100,7 @@ for(var i=2;i<52;i++){
 										
 										});
 										setTimeout(function(){
-											ele.querySelector('.car').style.left = '-380px';
+											ele.querySelector('.car').style.left = '-30px';
 										},20);
 									},
 									thumb:'./galaxy/index2-1.jpg',
@@ -136,7 +137,7 @@ for(var i=2;i<52;i++){
 				{
 					pageName:'活动展示',
 					page:{
-						background:'./galaxy/bmw.jpg',
+						background:'./phone/phone-v/bmw.v.3.jpg',
 						// 当节点构建完成后调用该callback
 						callback:function(){},
 						innerStyle:'',
@@ -144,10 +145,10 @@ for(var i=2;i<52;i++){
 						contents:[
 							{
 								type    :'scroll',
-								top     :'-170',
-								left    :'-85',
-								width   :'545',
-								height  :'361',
+								top     :'-130',
+								left    :'-150',
+								width   :'300',
+								height  :'80',
 								'z-index':'10',
 								innerStyle:'.scrollImg li b{display:block;width:100%;height:63px;bottom:-75;left:0;text-align:left;padding:10px 0.8em;-webkit-box-sizing:border-box;position:absolute;font:200 16px/25px \'微软雅黑\';color:#fff;background:rgba(0,41,91,0.8);}',
 								callback:function(){},
@@ -163,9 +164,9 @@ for(var i=2;i<52;i++){
 							},	
 							{
 								type    :'video',
-								top     :'-170',
-								left    :'-420',
-								width   :'320',
+								top     :'40',
+								left    :'-150',
+								width   :'145',
 								height  :'180',
 								'z-index':'2',
 								innerStyle:'#pages_2 .scrollCon{padding-bottom:75px;}.set___video .playVideo{background-size:auto auto;}#body .set___video b{background:rgba(0,41,91,0.8);}.set___video b{bottom:-30px;}',
@@ -178,9 +179,9 @@ for(var i=2;i<52;i++){
 							},	
 							{
 								type    :'video',
-								top     :'55',
-								left    :'-420',
-								width   :'320',
+								top     :'40',
+								left    :'5',
+								width   :'145',
 								height  :'180',
 								'z-index':'2',
 								callback:function(){},
@@ -198,7 +199,7 @@ for(var i=2;i<52;i++){
 				{
 					pageName:'预约试驾',
 					page:{
-						background:'./bmw/index4.jpg',
+						background:'./phone/phone-v/bmw.v.4.jpg',
 						// 当节点构建完成后调用该callback
 						callback:function(){},
 						className:'pages2',
@@ -206,19 +207,19 @@ for(var i=2;i<52;i++){
 						contents:[
 							{
 								type    :'custom',
-								top     :'-200',
-								left    :'-380',
-								width   :'500',
-								height  :'300',
+								top     :'-170',
+								left    :'-150',
+								width   :'300',
+								height  :'400',
 								'z-index':'1',
-								innerStyle:'.custom_active{position:relative;}.custom_active tr{height:40px;}.custom_active input,.custom_active select{ text-indent:0.2em;width:245px; height:30px;} .custom_active .nianfen{margin-right:5px;} .custom_active .nianfen,.custom_active .yuefen{width:120px;}'+
-								'.custom_active img{position:absolute;left:-900px;-webkit-transition: left 800ms ease-in ;top:210px;}',
+								innerStyle:'.custom_active{position:relative;}.custom_active tr{height:35px;}.custom_active input,.custom_active select{ text-indent:0.2em;width:145px; height:30px;} .custom_active .nianfen{margin-right:5px;} .custom_active .nianfen,.custom_active .yuefen{width:70px;}'+
+								'.custom_active img{position:absolute;left:-900px;-webkit-transition: left 800ms ease-in ;top:240px;height:144px;width:237px;}',
 								callback:function(){},
 								content :{
 									thumb:'./galaxy/index2-1.jpg',
 									innerHTML:'<div class=\'custom_active\'>'+
 									  '<form action=\'\' method=\'get\'>'+
-										'<table width=\'530\' border=\'0\'>'+
+										'<table width=\'300\' border=\'0\'>'+
 										  '<tr>'+
 											'<td><input name=\'name\' type=\'text\'  value=\'姓名\'/></td>'+
 											'<td><input name=\'mail\' type=\'text\' value=\'邮箱\'/></td>'+
@@ -274,7 +275,7 @@ for(var i=2;i<52;i++){
 									  '</div>',
 									callback:function(ele){
 										setTimeout(function(){
-											ele.querySelector('.car').style.left = '-100px';
+											ele.querySelector('.car').style.left = '-30px';
 										},20);
 									}
 								}
