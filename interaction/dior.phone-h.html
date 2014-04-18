@@ -39,14 +39,29 @@ for(var i=2;i<52;i++){
 						contents:[
 							{
 								type    :'anchors',
-								innerStyle:'.dior01 .item-anchors{display:block;background:url(./dior/playbox.png) 50% 50%;overflow:hidden;text-indent:-300em;}', //位置在屏幕中心
-								top     :'-58',
-								left    :'-42',
-								width   :'83',
-								height  :'117',
+								innerStyle:'',
+								top     :'-150',
+								left    :'155',
+								width   :'90',
+								height  :'33',
 								'z-index':'2',
 								callback:function(){ alert('anchors')},
 								content :{
+									title:'"赵四"搞怪变打油诗人',
+									href :'http://www.youku.com',
+								}
+							},	
+							{
+								type    :'anchors',
+								innerStyle:'.dior01 .dior-anchors{display:block;background:url(./dior/playbox.png) no-repeat 50% 50% ;overflow:hidden;text-indent:-300em;background-size:contain;}', //位置在屏幕中心
+								top     :'-25',
+								left    :'18',
+								width   :'35.5',
+								height  :'50',
+								'z-index':'2',
+								callback:function(){ alert('anchors')},
+								content :{
+									className:'dior-anchors',
 									title:'"赵四"搞怪变打油诗人',
 									href :'http://www.youku.com',
 								}
@@ -62,15 +77,41 @@ for(var i=2;i<52;i++){
 						background:'./phone/phone-h/dior.h.2.jpg',
 						// 当节点构建完成后调用该callback
 						callback:function(){},
-						innerStyle:'',
+						innerStyle:'.background_color{background:rgba(2,0,0,0.2)}.set___video .small b{height:20px;overflow:hidden;font:200 12px/20px \'微软雅黑\';}.set___video .small .playVideo{background-size:25px 24.5px;}',
 						className:'pagesindex',
 						contents:[
 							{
+								type    :'anchors',
+								innerStyle:'',
+								top     :'-150',
+								left    :'155',
+								width   :'90',
+								height  :'33',
+								'z-index':'2',
+								callback:function(){ alert('anchors')},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									href :'http://www.youku.com',
+								}
+							},	
+							{
+								type:'background',
+								height:'200',
+								width:'422',
+								top:'-99',
+								left:'-240',
+								'z-index':'1',
+								innerStyle:'',
+								content:{
+										className:'background_color'	
+									}
+							},
+							{
 								type    :'video',
-								top     :'-170',
-								left    :'-370',
-								width   :'590',
-								height  :'355',
+								top     :'-90',
+								left    :'-230',
+								width   :'300',
+								height  :'180',
 								'z-index':'2',
 								callback:function(){},
 								content :{
@@ -81,13 +122,14 @@ for(var i=2;i<52;i++){
 							},	
 							{
 								type    :'video',
-								top     :'-170',
-								left    :'235',
-								width   :'194',
-								height  :'109',
+								top     :'-90',
+								left    :'80',
+								width   :'93',
+								height  :'53',
 								'z-index':'2',
 								callback:function(){},
 								content :{
+									className:'small',
 									title:'"赵四"搞怪变打油诗人',
 									videoId:'XNjgxMjg0OTky',
 									thumb:'./galaxy/index2-1.jpg',
@@ -95,13 +137,14 @@ for(var i=2;i<52;i++){
 							},	
 							{
 								type    :'video',
-								top     :'-48',
-								left    :'235',
-								width   :'194',
-								height  :'109',
+								top     :'-26',
+								left    :'80',
+								width   :'93',
+								height  :'53',
 								'z-index':'2',
 								callback:function(){},
 								content :{
+									className:'small',
 									title:'"赵四"搞怪变打油诗人',
 									videoId:'XNjgxMjg0OTky',
 									thumb:'./galaxy/index2-1.jpg',
@@ -109,19 +152,21 @@ for(var i=2;i<52;i++){
 							},	
 							{
 								type    :'video',
-								top     :'76',
-								left    :'235',
-								width   :'194',
-								height  :'109',
+								top     :'37',
+								left    :'80',
+								width   :'93',
+								height  :'53',
 								'z-index':'2',
 								callback:function(){},
 								content :{
-									title:'赵四搞怪变打油诗人',
+									className:'small',
+									title:'"赵四"搞怪变打油诗人',
 									videoId:'XNjgxMjg0OTky',
 									thumb:'./galaxy/index2-1.jpg',
 								}
 							},	
 						]
+
 
 					},
 
@@ -133,25 +178,42 @@ for(var i=2;i<52;i++){
 						background:'./phone/phone-h/dior.h.3.jpg',
 						// 当节点构建完成后调用该callback
 						callback:function(){},
-						innerStyle:'.product dt{background:#ccc;border:25px solid rgba(225,225,225,0.7);}',
+						innerStyle:'.product dt{background:#ccc;border:5px solid rgba(225,225,225,0.7);}',
 						className:'product',
 						contents:[
 							{
+								type    :'anchors',
+								innerStyle:'',
+								top     :'-150',
+								left    :'155',
+								width   :'90',
+								height  :'33',
+								'z-index':'2',
+								callback:function(){ alert('anchors')},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									href :'http://www.youku.com',
+								}
+							},	
+							{
 								type    :'productImg',
-								top     :'-190',  //  相册展示框的大小及位置
-								left    :'-370',
-								width   :'690',
-								height  :'355',
+								top     :'-100',  //  相册展示框的大小及位置
+								left    :'-190',
+								width   :'350',
+								height  :'200',
 								'z-index':'20',
 								callback:function(){},
 								innerStyle:'.pointShadow{background-color:rgba(0,0,0,0.5)}.popuClose{background:url(\'style/closeBut.gif\')}'+
-											'.leftBar,.rightBar{background:url(\'style/turnleftRight.png\')} .leftBar{background-position:100% 0;}.rightBar{}'+
-											'.custom_active{position:relative;}.infoImg{position: absolute;left: 10px;top: 10px;width: 360px;height:330px;}.info{left: 370px;position: absolute;top: 40px;padding: 10px;box-sizing: border-box;}',
+											'.leftBar,.rightBar{background:url(\'style/turnleftRight.png\') no-repeat 0 50%;background-size:63px 25px;} .leftBar{background-position:100% 50%;}.rightBar{}'+
+											'.custom_active{position:relative;}.infoImg{position: absolute;left:5px;top:5px;width:180px;height:190px;}'+
+											'.info{left:185px;position: absolute;top:10px;padding:5px;box-sizing: border-box;font:200 12px/20px \'微软雅黑\'}'+
+											'.info h2{font:800 14px/20px \'微软雅黑\';height:40px;overflow:hidden;}.info p{height:140px;overflow:hidden;}'+
+											'.product .popuClose{background-size:contain;}',
 								leftBar :{
 										className:'leftBar',
 										innerStyle:'',
-										left:'10',
-										top:'150',
+										left:'0',
+										top:'80',
 										height:'50',
 										width:'33',
 										'z-index':'34',
@@ -160,8 +222,8 @@ for(var i=2;i<52;i++){
 								rightBar:{
 										className:'rightBar',
 										innerStyle:'',
-										left:'640',
-										top:'150',
+										left:'320',
+										top:'80',
 										height:'50',
 										width:'33',
 										'z-index':'34',
@@ -179,19 +241,19 @@ for(var i=2;i<52;i++){
 								closeBox:{
 										className:'popuClose',
 										innerStyle:'',
-										left:'656',
+										left:'330',
 										top:'0',
-										height:'34',
-										width:'34',
+										height:'20',
+										width:'20',
 										'z-index':'34',
 									},
 								content :[
 									{
 										type    :'custom',
-										left:'-470',
-										top:'-170',
-										width:'297',
-										height:'260',
+										left:'-235',
+										top:'-60',
+										width:'148.8',
+										height:'130',
 										'z-index':'1',
 									    pointImg:'./galaxy/dior-1.jpg', // 视频截图
 										innerStyle:'',
@@ -205,19 +267,15 @@ for(var i=2;i<52;i++){
 													'<p>1111桀骜清新淡香水中佛手柑纯净馥郁的气息，完美诠释DIOR迪奥•桀傲的现代时尚风格。蕴含的独特麝香芳香，宛若经典永恒的纯白衬衫般，散发随意迷醉气息极简的优雅：毫无造作之感，尽显时尚典范。卡拉布里的佛手柑——摩洛哥的葡萄柚——白麝香</p>'+
 												'</div>'+
 											  '</div>',
-											callback:function(ele){
-												setTimeout(function(){
-													ele.querySelector('.car').style.left = '-100px';
-												},20);
-											}
+											callback:function(ele){	}
 										}
 									},	
 									{
 										type    :'custom',
-										left:'-150',
-										top:'-170',
-										width:'297',
-										height:'260',
+										left:'-75',
+										top:'-60',
+										width:'148.8',
+										height:'130',
 										'z-index':'2',
 									    pointImg:'./galaxy/dior-2.jpg', // 视频截图
 										innerStyle:'',
@@ -231,19 +289,15 @@ for(var i=2;i<52;i++){
 													'<p>2222桀骜清新淡香水中佛手柑纯净馥郁的气息，完美诠释DIOR迪奥•桀傲的现代时尚风格。蕴含的独特麝香芳香，宛若经典永恒的纯白衬衫般，散发随意迷醉气息极简的优雅：毫无造作之感，尽显时尚典范。卡拉布里的佛手柑——摩洛哥的葡萄柚——白麝香</p>'+
 												'</div>'+
 											  '</div>',
-											callback:function(ele){
-												setTimeout(function(){
-													ele.querySelector('.car').style.left = '-100px';
-												},20);
-											}
+											callback:function(ele){	}
 										}
 									},	
 									{
 										type    :'custom',
-										left:'170',
-										top:'-170',
-										width:'297',
-										height:'260',
+										left:'85',
+										top:'-60',
+										width:'148.8',
+										height:'130',
 										'z-index':'2',
 									    pointImg:'./galaxy/dior-3.jpg', // 视频截图
 										innerStyle:'',
@@ -257,11 +311,7 @@ for(var i=2;i<52;i++){
 													'<p>3333桀骜清新淡香水中佛手柑纯净馥郁的气息，完美诠释DIOR迪奥•桀傲的现代时尚风格。蕴含的独特麝香芳香，宛若经典永恒的纯白衬衫般，散发随意迷醉气息极简的优雅：毫无造作之感，尽显时尚典范。卡拉布里的佛手柑——摩洛哥的葡萄柚——白麝香</p>'+
 												'</div>'+
 											  '</div>',
-											callback:function(ele){
-												setTimeout(function(){
-													ele.querySelector('.car').style.left = '-100px';
-												},20);
-											}
+											callback:function(ele){	}
 										}
 									},	
 								]
@@ -282,16 +332,30 @@ for(var i=2;i<52;i++){
 						innerStyle:'',
 						contents:[
 							{
+								type    :'anchors',
+								innerStyle:'',
+								top     :'-150',
+								left    :'155',
+								width   :'90',
+								height  :'33',
+								'z-index':'2',
+								callback:function(){ alert('anchors')},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									href :'http://www.youku.com',
+								}
+							},	
+							{
 								type    :'custom',
-								top     :'-240',
-								left    :'-400',
-								width   :'500',
-								height  :'300',
+								top     :'-100',
+								left    :'-200',
+								width   :'250',
+								height  :'150',
 								'z-index':'1',
-								innerStyle:'.custom_a{color:#fff;font:200 21px/60px \'宋体\';text-align:left;width:900px;}'+
-											'.custom_a h1{font:800 48px/100px \'宋体\';}'+
-											'.custom_c input{width:425px;height:40px;font:800 21px/40px \'宋体\';text-indent:0.3em;background:#333;border:1px solid #000;color:#fff;}'+
-											'.custom_d input{height:40px;font:800 21px/40px \'宋体\';}',
+								innerStyle:'.custom_a{color:#fff;font:200 16px/40px \'宋体\';text-align:left;width:900px;}'+
+											'.custom_a h1{font:800 20px/50px \'宋体\';}'+
+											'.custom_c input{width:225px;height:30px;font:800 16px/30px \'宋体\';text-indent:0.3em;background:#333;border:1px solid #000;color:#fff;}'+
+											'.custom_d input{height:30px;font:800 16px/30px \'宋体\';}',
 								callback:function(){},
 								content :{
 									innerHTML:'<div class=\'custom_a\'><h1>探索更多</h1><div class=\'custom_b\'>订阅Dior迪奥电子快报，了解Dior迪奥桀骜男士香氛的所有资讯</div><div class=\'custom_c\'>电子邮箱：<input type=\'text\' placeholder=\'电子邮箱\'></div><div class=\'custom_d\'>点击确认，表明您已同意接收来自Dior迪奥的最新资讯<br/><input type=\'button\' value=\' 提 交 \'></div></div>',
