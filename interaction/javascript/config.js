@@ -737,7 +737,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		//	    |-----#pages
 		//	    |-----#navigater
 
-		var navigaterStyle = mainType=='menu'? 'width:100%;bottom:0;':'';
+		var navigaterStyle = mainType=='menu'? 'width:100%;':'';
 		var bodyStyle =  mainType=='menu'? '':'';
 
 		createElements(
