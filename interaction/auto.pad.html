@@ -1,0 +1,309 @@
+<!DOCTYPE>
+<html>
+ <head>
+  <title> 汽车产品PAD端功能展示  </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+
+  <link rel="stylesheet" href="./style/base.css" />
+ </head>
+
+ <body>
+
+	<script type="text/javascript">
+
+
+var totalImages=[];
+for(var i=2;i<52;i++){
+	totalImages.push('bmw/IMG/'+i+'.png');
+}
+
+
+
+		// 三星产品PAD端功能展示
+		//  PAD 端
+		Config = {
+			mainType:'menu', //scroll, menu , point
+			navigaterStyle:'#body #navigater a{display:block; -webkit-box-flex:1;width:400px;background:#000;height:45px;font:200 21px/45px \'微软雅黑\';color:#fff;}#body #navigater a:nth-child(2n){background:#1b1f22;}#body #navigater a.active{background:#0072dc;}',
+			//mainType:'scroll-Y', //scroll-X,scroll-Y, menu , point
+			//navigaterStyle:'#body #navigater{right:10px;bottom:50%;display:block;}#body #navigater a{display:block; -webkit-box-flex:1;width:10px;background:#000;height:10px;-webkit-border-radius:5px;margin-bottom:5px;-webkit-box-shadow:0 0 2px rgba(225,225,225,0.6)}#body #navigater a:nth-child(2n){background:#1b1f22;}#body #navigater a.active{background:#0072dc;}',
+			pages:[
+				{
+					pageName:'首页',
+					page:{
+						background:'./pad/auto/auto.1.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						innerStyle:'',
+						className:'autoIndex',
+						contents:[
+							{
+								type    :'anchors',
+								top     :'140',
+								left    :'300',
+								width   :'189',
+								height  :'48',
+								'z-index':'2',
+								innerStyle:'.autoIndex .ljgd{background:url(\'./pad/auto/auto.1.0.png\') no-repeat 0 0}',
+								callback:function(){ alert('anchors')},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									href :'http://www.youku.com',
+									className:'ljgd'
+								}
+							},	
+							{
+								type    :'anchors',
+								top     :'200',
+								left    :'206',
+								width   :'284',
+								height  :'42',
+								'z-index':'2',
+								innerStyle:'.autoIndex .chushou{background:url(\'./pad/auto/auto.1.1.png\') no-repeat 0 0}',
+								callback:function(){ alert('anchors')},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									href :'http://www.baidu.com/',
+									className:'chushou'
+								}
+							},	
+						]
+
+					},
+
+				},
+				{
+					pageName:'360 赏车',
+					page:{
+						background:'./pad/auto/auto.2.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						innerStyle:'',
+						className:'autoTh',
+						contents:[
+							{
+								type    :'background',
+								top     :'210',
+								left    :'-80',
+								width   :'480',
+								height  :'71',
+								'z-index':'2',
+								innerStyle:'.autoTh .shangche{background:url(\'./pad/auto/alum.info.png\')};',
+								callback:function(){ },
+								content :{
+									className:'shangche'
+								}
+							},	
+							{
+								type    :'point',
+								top     :'-324',  //  相册展示框的大小及位置
+								left    :'-491',
+								width   :'980',
+								height  :'522',
+								'z-index':'20',
+								callback:function(parentNode){
+										// 事件模拟
+										function simulationEvent(listener,callback){
+											// {ele:添加事件元素 ,type:事件类型}
+												var evt = document.createEvent('Event'); 
+												evt.initEvent( listener.type || 'click' ,true,true); 
+												listener.ele.dispatchEvent(evt); 
+												callback && callback(listener.ele);
+										}
+										simulationEvent({ele:parentNode.querySelector('dd>div'),tyle:'click'});
+									},
+								innerStyle:'.pointShadow{background-color:rgba(0,0,0,0.5)}.popuClose{background:url(\'style/closeBut.gif\')}'+
+											'.leftBar,.rightBar{background:url(\'style/turnleftRight.png\')} .leftBar{background-position:100% 0;}.rightBar{}'+
+											'.autoTh .set___point dd div img{display:none;}'+
+											'.autoTh .pointImage2 ,.autoTh .pointImage1 ,.autoTh .slider3d{ background:url(\'./pad/auto/alum.nacl.png\') no-repeat 0 0;background-size:61px 241px;background-origin:border-box;box-sizing:border-box;-webkit-border-radius:10px;}'+
+											'.autoTh dd div.active{border:2px solid #fff;}'+
+											'.autoTh .pointImage1{background-position:0 -91px;}'+
+											'.autoTh .pointImage2{background-position:0 -180px;}',
+								closeBox:{
+										className:'',
+										innerStyle:'',
+										left:'0',
+										top:'0',
+										height:'0',
+										width:'0',
+										'z-index':'4',
+									},
+								leftBar :{
+										className:'leftBar',
+										innerStyle:'',
+										left:'80',
+										top:'240',
+										height:'50',
+										width:'33',
+										'z-index':'34',
+									
+									},
+								rightBar:{
+										className:'rightBar',
+										innerStyle:'',
+										left:'870',
+										top:'240',
+										height:'50',
+										width:'33',
+										'z-index':'34',
+									
+									},
+								shadow:{
+										className:'',
+										left:-(window.innerWidth),
+										top:-(window.innerHeight),
+										height:1,
+										width:1,
+										position:'fixed',
+									
+									},
+								content :[
+									{
+									    pointImg:'./galaxy/point.png', // 视频截图
+										type    :'slider3d',
+										left:'-387',
+										top:'215',
+										width:'61',
+										height:'61',
+										'z-index':'2',
+										innerStyle:'',
+										className:'slider3d',
+										callback:function(){},
+										content :{
+											discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
+											images:[
+											'./pad/auto/auto.c.7.jpg',
+											'./pad/auto/auto.c.4.jpg',
+											'./pad/auto/auto.c.5.jpg',
+											'./pad/auto/auto.c.6.jpg',
+											'./pad/auto/auto.c.1.jpg',
+											]
+										}
+									},	
+									{
+									    pointImg:'./galaxy/point.png', // 视频截图
+										type    :'image',
+										left:'-180',
+										top:'215',
+										width:'61',
+										height:'61',
+										'z-index':'2',
+										innerStyle:'',
+										className:'pointImage2',
+										callback:function(){},
+										content :{
+											src:'./pad/auto/auto.c.2.jpg',
+											title:'&nbsp;',
+											className:'test_image02'
+										}
+									},	
+									{
+									    pointImg:'./galaxy/point.png', // 视频截图
+										type    :'image',
+										left:'-280',
+										top:'215',
+										width:'61',
+										height:'61',
+										'z-index':'2',
+										className:'pointImage1',
+										innerStyle:'',
+										callback:function(){},
+										content :{
+											src:'./pad/auto/auto.c.3.jpg',
+											title:'&nbsp;',
+											className:'test_image02'
+										}
+									},	
+								]
+							},	
+						]
+
+					},
+
+				},
+				{
+					pageName:'车型配置',
+					page:{
+						background:'./pad/auto/auto.3.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						innerStyle:'',
+						className:'pagesAlbum',
+						contents:[
+							{
+								type    :'background',
+								top     :'-270',
+								left    :'-370',
+								width   :'737',
+								height  :'562',
+								'z-index':'5',
+								innerStyle:'.autoConfig{background:url(./pad/auto/auto.config.png) no-repeat 0 0;}',
+								content :{
+									className:'autoConfig',
+								}
+							},	
+							{
+								type    :'anchors',
+								top     :'240',
+								left    :'-75',
+								width   :'150',
+								height  :'48',
+								'z-index':'10',
+								innerStyle:'.autoIndex .ljgd{background:url(\'./pad/auto/auto.1.0.png\') no-repeat 0 0}',
+								callback:function(){ console.lot(this);return false;},
+								content :{
+									title:'"赵四"搞怪变打油诗人',
+									href :'http://www.youku.com',
+									className:'ljgd'
+								}
+							},	
+						
+						]
+
+					},
+
+				},
+				{
+					pageName:'预约试驾',
+					page:{
+						background:'./pad/auto/auto.4.jpg',
+						// 当节点构建完成后调用该callback
+						callback:function(){},
+						className:'pages2',
+						innerStyle:'',
+						contents:[
+							{
+								type    :'custom',
+								top     :'-200',
+								left    :'-200',
+								width   :'500',
+								height  :'300',
+								'z-index':'100',
+								innerStyle:'.autoFrom .from{}',
+								content :{
+									callback:function(ele){
+										console.log(ele);
+									},
+									thumb:'./galaxy/index2-1.jpg',
+									innerHTML:'<div class=\'autoFrom\'><img class=\'from\' src=\'./pad/auto/auto.from.png\' /></div>',
+								}
+							},	
+						
+						]
+
+					},
+
+				},
+
+			]
+
+		}
+
+
+	</script>
+	<script data-main='javascript/config' type="text/javascript" src='javascript/requier.2.1.js'></script>
+ </body>
+</html>
+
+

@@ -246,6 +246,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 			// Arguments = {arg:arg,insertPageId:insertPageId,pageitem:pageitem}	
 			this.towLay.apply(this,[parentNode,{arg:arg,insertPageId:insertPageId,pageitem:'_album_item_'}]);
 			simulationEvent({ele:parentNode.querySelector('dd > div.albumItem ')});
+			arg.callback   && arg.callback(parentNode);
 
 
 		},
@@ -265,8 +266,8 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				callback:function(image,range){
 					arg.callback && arg.callback(image,range);
 				},
-				background:true,
-				blockImg :false,
+				background:false,
+				blockImg :true,
 			})
 		},
 
@@ -308,11 +309,10 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				onScrollEnd: function () {}
 			 });
 
-			 setTimeout(function(){
-				 myScroll.refresh();
-				},0)
+			 setTimeout(function(){myScroll.refresh();},0);
 
 
+			arg.callback   && arg.callback(parentNode);
 		},
 		changeColor:function(content){
 			return this.createPage({
@@ -342,13 +342,11 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 						var showColor = parentNode.querySelector('img.show');
 							showColor && (showColor.className = showColor.className.replace('show',''));
 							images[index].className = 'show';
-							
 						},false);
-					
-					
 					});
 
 			simulationEvent({ele:li[0]});
+			arg.callback   && arg.callback(parentNode);
 				
 		},
 		productImg:function(content){
@@ -426,6 +424,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				
 				}
 				}]);
+				arg.callback   && arg.callback(parentNode);
 			},
 		point:function(content){
 			var that = this;
@@ -521,13 +520,9 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 							simulationEvent({ele:NodeEle});
 							
 							},false);
-					
-					
-					
-
-				
 				}
 				}]);
+			arg.callback   && arg.callback(parentNode);
 		
 		},
 		// 页面自定义
@@ -544,11 +539,11 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 			arg.content.callback   && arg.content.callback(ele)
 		},
 		// 地图模块
-		autoNavMap:function(content){
+		bdMap:function(content){
 			var that=this,
 				TEMP=temp,
 				autoTemp = [
-							'<div id=\'mapContent\' class=\'mapContent\' style=\'#{style}\'></div><div class=\'mapPoints\' style=\'#{listStyle}\'><div style=\'#{scrollCon}\'><ul style=\'height:100%;width:100%\'>#{list}</ul></div></div>',
+							'<div id=\'mapContent'+parseInt(Math.random()*10000)+'\' class=\'mapContent\' style=\'#{style}\'></div><div class=\'mapPoints\' style=\'#{listStyle}\'><div style=\'#{scrollCon}\'><ul style=\'height:100%;width:100%\'>#{list}</ul></div></div>',
 							'<li style=\'#{style}\'><div class=\'mapPointLeft\'><h5>#{title}</h5><p>#{location}<br/>#{tel1}</p></div><div class=\'mapPointRight\'>#{href} #{tel}</div></li>'
 							];
 
@@ -584,17 +579,18 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 					return temp.evaluate({style:style,listStyle:mapPoints.style+';overflow:hidden;',list:listItem.join(''),scrollCon:'height:100%;width:'+ (pointLen*(liwidth+3)) +'px;'});
 				});	
 			},
-		autoNavMapEvent:function(parentNode,arg){
+		bdMapEvent:function(parentNode,arg){
 			window.BMap;	
 			var myScroll = new iScroll(parentNode.querySelector('.mapPoints'),{ vScroll:true,hScrollbar:true, vScrollbar: false });
 				setTimeout(function(){ myScroll.refresh();},0);
-			var points = arg.content.points;
+			var points     = arg.content.points,
+				mapContent = parentNode.querySelector('div[id^=mapContent]').id;
 
 
 
 
 			function createBDmap(){
-				var mapObj = new BMap.Map("mapContent"),myLoaction;	
+				var mapObj = new BMap.Map(mapContent),myLoaction;	
 				function markMyLocation(point){  // 创建图标对象     
 					var myIcon = new BMap.Icon("http://r4.ykimg.com/0510000052D75BA36714C031CF06546D.png",   
 							new BMap.Size(23, 26), {      
