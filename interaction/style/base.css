@@ -6,7 +6,7 @@ a{text-decoration:none;color:#545164}
 
 
 html,body,#body{overflow:hidden;}
-#body{position:relative;}
+#body{position:relative;background:#ccc;}
 #body #pages,#body #navigater{ position:absolute;}
 #body #navigater{ z-index:99999}
 #body #pages{overflow:hidden;-webkit-box-sizing:border-box;}

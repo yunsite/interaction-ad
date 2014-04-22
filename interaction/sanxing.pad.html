@@ -63,8 +63,21 @@ for(var i=2;i<52;i++){
 						// 当节点构建完成后调用该callback
 						callback:function(){},
 						innerStyle:'',
-						className:'pagesindex',
+						className:'pagevideo',
 						contents:[
+							{
+								type    :'background',
+								top     :'-180',
+								left    :'-380',
+								width   :'818',
+								height  :'375',
+								'z-index':'2',
+								innerStyle:'.pagevideo .videoBackground{background:rgba(0,0,0,0.3)}',
+								callback:function(){},
+								content :{
+									className:'videoBackground',
+								}
+							},	
 							{
 								type    :'video',
 								top     :'-170',
@@ -135,6 +148,19 @@ for(var i=2;i<52;i++){
 						innerStyle:'',
 						className:'pagesAlbum',
 						contents:[
+							{
+								type    :'background',
+								top     :'-180',
+								left    :'-380',
+								width   :'818',
+								height  :'375',
+								'z-index':'2',
+								innerStyle:'.pagesAlbum .Background{background:rgba(0,0,225,0.3)}',
+								callback:function(){},
+								content :{
+									className:'Background',
+								}
+							},	
 							{
 								type    :'album',
 								top     :'-170',  //  相册展示框的大小及位置
