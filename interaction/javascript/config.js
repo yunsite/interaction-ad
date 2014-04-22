@@ -931,7 +931,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 		var navigater = Elements.body.navigater;
 		// 派发点击事件 
-		simulationEvent({ele:navigater[ navigater.list['0'] ]['node'] });
+		simulationEvent({ele:navigater[ navigater.list['3'] ]['node'] });
 
 
 
