@@ -25,8 +25,9 @@ for(var i=2;i<52;i++){
 		//  PAD 端
 		Config = {
 			mainType:'menu', //scroll, menu , point
-			navigaterStyle:'#body #navigater a{display:block; -webkit-box-flex:1;width:400px;background:#000;height:45px;font:200 21px/45px \'微软雅黑\';color:#fff;}'+
-							'#body #navigater a:nth-child(2n){background:#1b1f22;}#body #navigater a.active{background:#0072dc;}'+
+			navigaterStyle:'#body{background:#222;}#navigater{padding-left:300px;-webkit-box-sizing:border-box;background:#000 url(./pad/sanxing/sanxing.logo.png) 20px 50%  no-repeat;}'+
+							'#body #navigater a{display:block; -webkit-box-flex:1;width:400px;height:45px;font:200 21px/45px \'微软雅黑\';color:#fff;border-top:0;border-bottom:0;}'+
+							'#body #navigater a.active{border-image:url(\'./pad/sanxing/sanxing.nav.png\') 0 41/0px 45px;background:url(\'./pad/sanxing/sanxing.nav.bg.png\') 0 -2px repeat;}'+
 							'#body #navigater{top:0;}',
 			pages:[
 				{
@@ -77,7 +78,7 @@ for(var i=2;i<52;i++){
 								callback:function(){},
 								content :{
 									title:'"赵四"搞怪变打油诗人',
-									videoId:'XNjgxMjg0OTky',
+									videoId:'XNjE4OTgwMTE2',
 									thumb:'./pad/sanxing/sanxing.p.2.v-1.jpg',
 								}
 							},	
@@ -91,7 +92,7 @@ for(var i=2;i<52;i++){
 								callback:function(){},
 								content :{
 									title:'"赵四"搞怪变打油诗人',
-									videoId:'XNjgxMjg0OTky',
+									videoId:'XNjQ5MzkwMzgw',
 									thumb:'./pad/sanxing/sanxing.p.2.v-2.jpg',
 								}
 							},	
@@ -105,7 +106,7 @@ for(var i=2;i<52;i++){
 								callback:function(){},
 								content :{
 									title:'"赵四"搞怪变打油诗人',
-									videoId:'XNjgxMjg0OTky',
+									videoId:'XNjQ5MjgyMzU2',
 									thumb:'./pad/sanxing/sanxing.p.2.v-3.jpg',
 								}
 							},	
@@ -119,7 +120,7 @@ for(var i=2;i<52;i++){
 								callback:function(){},
 								content :{
 									title:'"赵四"搞怪变打油诗人',
-									videoId:'XNjgxMjg0OTky',
+									videoId:'XNjU4NTgyNjYw',
 									thumb:'./pad/sanxing/sanxing.p.2.v-4.jpg',
 								}
 							},	
@@ -172,29 +173,134 @@ for(var i=2;i<52;i++){
 						contents:[
 							{
 								type    :'album',
-								top     :'-170',  //  相册展示框的大小及位置
+								top     :'-220',  //  相册展示框的大小及位置
 								left    :'-370',
-								width   :'590',
-								height  :'355',
+								width   :'730',
+								height  :'385',
 								'z-index':'2',
+								innerStyle:'.pages .albumItem.active{box-sizing: border-box;border:3px solid #fff;}',
 								callback:function(){},
+								rightBar :{
+										className:'rightBar',
+										innerStyle:'.pagesAlbum .rightBar{ background:url(\'./pad/sanxing/sanxing.p.4.1.png\') no-repeat 0 50%;}',
+										left:'-50',
+										top:'150',
+										height:'81',
+										width:'48',
+										'z-index':'34',
+									
+									},
+								leftBar:{
+										className:'leftBar',
+										innerStyle:'.pagesAlbum .leftBar{ background:url(\'./pad/sanxing/sanxing.p.4.1.png\') no-repeat 100% 50%;}',
+										left:732,
+										top:'150',
+										height:'81',
+										width:'48',
+										'z-index':'34',
+									
+									},
 								content :[
 									{
-									    thumbnail:'./pad/sanxing/sanxing.p.4-2.jpg', // 视频截图
-										type    :'image',
-										left:'-160',
-										top:'-50',
-										width:'135',
-										height:'70',
-										'z-index':'2',
-										innerStyle:'.eye3d{background-position:50% 50%;background-size:contain;background-repeat:no-repeat;}',
-										callback:function(){},
-										content :{
-											src:'./pad/sanxing/sanxing.p.4-1.jpg',
-											title:'&nbsp;',
-											className:'test_image02'
-										}
-									},	
+									thumbnail:'./pad/sanxing/sanxing.(1).jpg', // 视频截图
+											  type    :'image',
+											  left:'-422',
+											  top:'200',
+											  width:'135',
+											  height:'70',
+											  'z-index':'2',
+											  innerStyle:'',
+											  callback:function(){},
+											  content :{
+												src:'./pad/sanxing/sanxing.(13).jpg',
+												title:'&nbsp;',
+												className:'test_image02'
+											  }
+									},
+									{
+									thumbnail:'./pad/sanxing/sanxing.(14).jpg', // 视频截图
+											  type    :'image',
+											  left:'-280',
+											  top:'200',
+											  width:'135',
+											  height:'70',
+											  'z-index':'2',
+											  innerStyle:'',
+											  callback:function(){},
+											  content :{
+												src:'./pad/sanxing/sanxing.(2).jpg',
+												title:'&nbsp;',
+												className:'test_image02'
+											  }
+									},
+									{
+									thumbnail:'./pad/sanxing/sanxing.(15).jpg', // 视频截图
+											  type    :'image',
+											  left:'-140',
+											  top:'200',
+											  width:'135',
+											  height:'70',
+											  'z-index':'2',
+											  innerStyle:'',
+											  callback:function(){},
+											  content :{
+												src:'./pad/sanxing/sanxing.(3).jpg',
+												title:'&nbsp;',
+												className:'test_image02'
+											  }
+									},
+									
+									{
+									thumbnail:'./pad/sanxing/sanxing.(16).jpg', // 视频截图
+											  type    :'image',
+											  left:'0',
+											  top:'200',
+											  width:'135',
+											  height:'70',
+											  'z-index':'2',
+											  innerStyle:'',
+											  callback:function(){},
+											  content :{
+												src:'./pad/sanxing/sanxing.(4).jpg',
+												title:'&nbsp;',
+												className:'test_image02'
+											  }
+									},
+									{
+									thumbnail:'./pad/sanxing/sanxing.(17).jpg', // 视频截图
+											  type    :'image',
+											  left:'140',
+											  top:'200',
+											  width:'135',
+											  height:'70',
+											  'z-index':'2',
+											  innerStyle:'',
+											  callback:function(){},
+											  content :{
+												src:'./pad/sanxing/sanxing.(5).jpg',
+												title:'&nbsp;',
+												className:'test_image02'
+											  }
+									},
+									{
+									thumbnail:'./pad/sanxing/sanxing.(18).jpg', // 视频截图
+											  type    :'image',
+											  left:'280',
+											  top:'200',
+											  width:'135',
+											  height:'70',
+											  'z-index':'2',
+											  innerStyle:'',
+											  callback:function(){},
+											  content :{
+												src:'./pad/sanxing/sanxing.(6).jpg',
+												title:'&nbsp;',
+												className:'test_image02'
+											  }
+									},
+
+
+
 								]
 							},	
 						

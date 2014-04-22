@@ -244,7 +244,15 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		albumEvent:function(parentNode,arg,insertPageId,pageitem){
 
 			// Arguments = {arg:arg,insertPageId:insertPageId,pageitem:pageitem}	
-			this.towLay.apply(this,[parentNode,{arg:arg,insertPageId:insertPageId,pageitem:'_album_item_'}]);
+			var that = this;
+			this.towLay.apply(this,[parentNode,{
+				arg:arg,
+				insertPageId:insertPageId,
+				pageitem:'_album_item_',
+				callback:function(Arguments){
+					that.createAlbumAction(Arguments,arg,parentNode,this.insertPageId);
+				}
+			}]);
 			simulationEvent({ele:parentNode.querySelector('dd > div.albumItem ')});
 			arg.callback   && arg.callback(parentNode);
 
@@ -353,75 +361,13 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				return this.point.call(this,content);
 		},
 		productImgEvent:function(parentNode,arg,insertPageId){
-			
+			var that = this;	
 			this.towLay.apply(this,[parentNode,{
 				arg:arg,
 				insertPageId:insertPageId,
 				pageitem:'_product_item_',
 				callback:function(Arguments){
-					
-					var pointDt  = Arguments.parentNode.querySelector('dt');
-						pointDt.style.display = 'block';
-
-
-					if( Elements.body.pages.point &&
-						Elements.body.pages.point.close && 
-						Elements.body.pages.point.left  && 
-						Elements.body.pages.point.right &&
-						Elements.body.pages.point.shadow
-						){
-						
-						Elements.body.pages.point.shadow.node.style.display = 'block';
-						
-							return ;
-						}
-					var dtHeight = parseInt(pointDt.style.height),
-						dtWidth  = parseInt(pointDt.style.width),
-						dtTop    = parseInt(pointDt.style.top),
-						dtLeft   = parseInt(pointDt.style.left),
-						winHeight= window.innerHeight,
-						winWidth = window.innerWidth;
-						
-						pointDt.style['transition'] = 'all 200ms ease-out';	
-							
-                    var styleCloseBox = temp.getAttribute(arg.closeBox),
-                        styleLeftBar  = temp.getAttribute(arg.leftBar),
-                        styleShadow   = temp.getAttribute(arg.shadow),
-                        styleRightBar = temp.getAttribute(arg.rightBar);
-
-					var pointBox = document.createDocumentFragment(),
-						closeBox = createElements({'body.pages.point.close' :{'class':styleCloseBox.className  ,'id':'id'+styleCloseBox.className ,'style':styleCloseBox.style}}),
-						boxLeft  = createElements({'body.pages.point.left'  :{'class':styleLeftBar.className   ,'id':'id'+styleLeftBar.className  ,'style':styleLeftBar.style}}),
-						boxRight = createElements({'body.pages.point.right' :{'class':styleRightBar.className  ,'id':'id'+styleRightBar.className ,'style':styleRightBar.style}}),
-						boxShadow= createElements({'body.pages.point.shadow':{'class':styleShadow.className    ,'id':'id'+styleShadow.className   ,'style':styleShadow.style}});
-
-						pointBox.appendChild(closeBox);
-						pointBox.appendChild(boxLeft);
-						pointBox.appendChild(boxRight);
-						parentNode.appendChild(boxShadow);
-
-						pointDt.appendChild(pointBox);
-						closeBox.addEventListener('click',function(){ 
-							pointDt.style.display = 'none';
-							Elements.body.pages.point.shadow.node.style.display = 'none';
-							
-							},false);
-						boxLeft.addEventListener('click',function(){ 
-									
-							var thisNodeEle = parentNode.querySelector('dd > div.active ').nextSibling,
-								NodeEle     = thisNodeEle?thisNodeEle:parentNode.querySelector('dd > div:first-child');
-
-							simulationEvent({ele:NodeEle});
-							
-							},false);
-						boxRight.addEventListener('click',function(){ 
-							var thisNodeEle = parentNode.querySelector('dd > div.active ').previousSibling,
-								NodeEle     = thisNodeEle?thisNodeEle:parentNode.querySelector('dd > div:last-child');
-
-							simulationEvent({ele:NodeEle});
-							
-							},false);
-				
+					that.createAlbumAction(Arguments,arg,parentNode,this.insertPageId);
 				}
 				}]);
 				arg.callback   && arg.callback(parentNode);
@@ -453,73 +399,13 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		},
 		pointEvent:function(parentNode,arg,insertPageId){
 			// Arguments = {arg:arg,insertPageId:insertPageId,pageitem:pageitem}	
+			var that = this;
 			this.towLay.apply(this,[parentNode,{
 				arg:arg,
 				insertPageId:insertPageId,
 				pageitem:'_point_item_',
 				callback:function(Arguments){
-					
-//					Arguments.parentNode,Arguments.index,Arguments.len;
-					var pointDt  = Arguments.parentNode.querySelector('dt');
-						pointDt.style.display = 'block';
-
-
-					if( Elements.body.pages.point &&
-						Elements.body.pages.point.close && 
-						Elements.body.pages.point.left  && 
-						Elements.body.pages.point.right &&
-						Elements.body.pages.point.shadow
-						){
-						
-						Elements.body.pages.point.shadow.node.style.display = 'block';
-						
-							return ;
-						}
-					var dtHeight = parseInt(pointDt.style.height),
-						dtWidth  = parseInt(pointDt.style.width),
-						dtTop    = parseInt(pointDt.style.top),
-						dtLeft   = parseInt(pointDt.style.left),
-						winHeight= window.innerHeight,
-						winWidth = window.innerWidth;
-						
-						pointDt.style['transition'] = 'all 200ms ease-out';	
-							
-                    var styleCloseBox = temp.getAttribute(arg.closeBox),
-                        styleLeftBar  = temp.getAttribute(arg.leftBar),
-                        styleShadow   = temp.getAttribute(arg.shadow),
-                        styleRightBar = temp.getAttribute(arg.rightBar);
-					var pointBox = document.createDocumentFragment(),
-						closeBox = createElements({'body.pages.point.close' :{'class':styleCloseBox.className  ,'id':'id'+styleCloseBox.className ,'style':styleCloseBox.style}}),
-						boxLeft  = createElements({'body.pages.point.left'  :{'class':styleLeftBar.className   ,'id':'id'+styleLeftBar.className  ,'style':styleLeftBar.style}}),
-						boxRight = createElements({'body.pages.point.right' :{'class':styleRightBar.className  ,'id':'id'+styleRightBar.className ,'style':styleRightBar.style}}),
-						boxShadow= createElements({'body.pages.point.shadow':{'class':styleShadow.className    ,'id':'id'+styleShadow.className   ,'style':styleShadow.style}});
-
-						pointBox.appendChild(closeBox);
-						pointBox.appendChild(boxLeft);
-						pointBox.appendChild(boxRight);
-						parentNode.appendChild(boxShadow);
-
-						pointDt.appendChild(pointBox);
-						closeBox.addEventListener('click',function(){ 
-							pointDt.style.display = 'none';
-							Elements.body.pages.point.shadow.node.style.display = 'none';
-							
-							},false);
-						boxLeft.addEventListener('click',function(){ 
-									
-							var thisNodeEle = parentNode.querySelector('dd > div.active ').nextSibling,
-								NodeEle     = thisNodeEle?thisNodeEle:parentNode.querySelector('dd > div:first-child');
-
-							simulationEvent({ele:NodeEle});
-							
-							},false);
-						boxRight.addEventListener('click',function(){ 
-							var thisNodeEle = parentNode.querySelector('dd > div.active ').previousSibling,
-								NodeEle     = thisNodeEle?thisNodeEle:parentNode.querySelector('dd > div:last-child');
-
-							simulationEvent({ele:NodeEle});
-							
-							},false);
+					 that.createAlbumAction(Arguments,arg,parentNode,this.insertPageId);
 				}
 				}]);
 			arg.callback   && arg.callback(parentNode);
@@ -693,6 +579,95 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				temp_oneImg = null;
 			return  wraphtml_content;
 
+		},
+		createAlbumAction:function(Arguments,arg,parentNode,pageId){
+			// function(Arguments,arg){}
+//			{Arguments.parentNode,Arguments.index,Arguments.len};
+
+
+			var pointDt  = Arguments.parentNode.querySelector('dt');
+				pointDt.style.display = 'block';
+
+			if( Elements.body.pages['point'+pageId] &&(
+				Elements.body.pages['point'+pageId]['close'] ||
+				Elements.body.pages['point'+pageId]['left']  || 
+				Elements.body.pages['point'+pageId]['right']) 
+				){
+					if(	Elements.body.pages['point'+pageId]['shadow']){Elements.body.pages['point'+pageId]['shadow'].node.style.display = 'block';}
+					return ;
+				}
+
+
+
+			var dtHeight = parseInt(pointDt.style.height),
+				dtWidth  = parseInt(pointDt.style.width),
+				dtTop    = parseInt(pointDt.style.top),
+				dtLeft   = parseInt(pointDt.style.left),
+				winHeight= window.innerHeight,
+				winWidth = window.innerWidth;
+				
+				pointDt.style['transition'] = 'all 200ms ease-out';	
+			var pointBox = document.createDocumentFragment();
+
+			if(arg.closeBox){
+				var styleCloseBox = temp.getAttribute(arg.closeBox);
+					arg.closeBox.innerStyle && createStyle(arg.closeBox.innerStyle);
+				var PointClose ={};
+					PointClose['body.pages.point'+pageId+'.close' ] = {'class':styleCloseBox.className  ,'id':'id'+styleCloseBox.className ,'style':styleCloseBox.style};
+				var	closeBox = createElements(PointClose);
+				closeBox.addEventListener('click',function(){ 
+					pointDt.style.display = 'none';
+					Elements.body.pages.point.shadow.node.style.display = 'none';
+					
+					},false);
+				pointBox.appendChild(closeBox);
+
+				}
+			if(arg.leftBar){
+				var styleLeftBar  = temp.getAttribute(arg.leftBar);
+					arg.leftBar.innerStyle && createStyle(arg.leftBar.innerStyle);
+				var PointLeftBar = {};
+					PointLeftBar['body.pages.point'+pageId+'.left']={'class':styleLeftBar.className   ,'id':'id'+styleLeftBar.className  ,'style':styleLeftBar.style};
+				var	boxLeft  = createElements(PointLeftBar);
+				boxLeft.addEventListener('click',function(){ 
+					var thisNodeEle = parentNode.querySelector('dd > div.active ').nextSibling,
+						NodeEle     = thisNodeEle?thisNodeEle:parentNode.querySelector('dd > div:first-child');
+
+					simulationEvent({ele:NodeEle});
+					
+					},false);
+				pointBox.appendChild(boxLeft);
+				
+				}
+			if(arg.rightBar){
+				var styleRightBar = temp.getAttribute(arg.rightBar);
+					arg.rightBar.innerStyle && createStyle(arg.rightBar.innerStyle);
+				var PointRightBar = {};
+					PointRightBar['body.pages.point'+pageId+'.right']={'class':styleRightBar.className  ,'id':'id'+styleRightBar.className ,'style':styleRightBar.style};
+				var	boxRight = createElements(PointRightBar);
+				boxRight.addEventListener('click',function(){ 
+					var thisNodeEle = parentNode.querySelector('dd > div.active ').previousSibling,
+						NodeEle     = thisNodeEle?thisNodeEle:parentNode.querySelector('dd > div:last-child');
+
+					simulationEvent({ele:NodeEle});
+					
+					},false);
+				pointBox.appendChild(boxRight);
+				
+				}
+			if(arg.shadow){
+				var styleShadow   = temp.getAttribute(arg.shadow);
+					arg.shadow.innerStyle && createStyle(arg.shadow.innerStyle);
+				var PointShadow  = {};
+					PointShadow['body.pages.point'+pageId+'.shadow'] = {'class':styleShadow.className    ,'id':'id'+styleShadow.className   ,'style':styleShadow.style};
+				var	boxShadow= createElements(PointShadow);
+				parentNode.appendChild(boxShadow);
+				
+				}
+				pointDt.appendChild(pointBox);
+
+			
+			
 		}
 	}
 	
