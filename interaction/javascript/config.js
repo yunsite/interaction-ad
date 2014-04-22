@@ -593,7 +593,10 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				Elements.body.pages['point'+pageId]['left']  || 
 				Elements.body.pages['point'+pageId]['right']) 
 				){
-					if(	Elements.body.pages['point'+pageId]['shadow']){Elements.body.pages['point'+pageId]['shadow'].node.style.display = 'block';}
+					
+					if(	Elements.body.pages['point'+pageId]['shadow']){
+						Elements.body.pages['point'+pageId]['shadow'].node.style.display = 'block';
+						}
 					return ;
 				}
 
@@ -617,7 +620,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				var	closeBox = createElements(PointClose);
 				closeBox.addEventListener('click',function(){ 
 					pointDt.style.display = 'none';
-					Elements.body.pages.point.shadow.node.style.display = 'none';
+						Elements.body.pages['point'+pageId]['shadow'].node.style.display = 'none';
 					
 					},false);
 				pointBox.appendChild(closeBox);
