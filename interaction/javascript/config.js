@@ -293,7 +293,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		
 		},
 		scrollEvent:function(parentNode,arg){
-
 			var myScroll = new iScroll(parentNode.querySelector('.scrollCon'), {
 				snap: true,
 				momentum: false,
@@ -309,10 +308,11 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				onScrollEnd: function () {}
 			 });
 
-			 setTimeout(function(){myScroll.refresh();},0);
+		//	console.log(myScroll)
+			 setTimeout(function(){myScroll.refresh();},20);
 
 
-			arg.callback   && arg.callback(parentNode);
+		//	arg.callback   && arg.callback(parentNode);
 		},
 		changeColor:function(content){
 			return this.createPage({

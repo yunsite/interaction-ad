@@ -25,7 +25,7 @@ for(var i=2;i<52;i++){
 		//  PAD 端
 		Config = {
 			mainType:'menu', //scroll, menu , point
-			navigaterStyle:'#body #navigater{bottom:0;}#body #navigater a{display:block; -webkit-box-flex:1;width:400px;background:#000;height:45px;font:200 21px/45px \'微软雅黑\';color:#fff;}'+
+			navigaterStyle:'#body #navigater a{display:block; -webkit-box-flex:1;width:400px;background:#000;height:45px;font:200 21px/45px \'微软雅黑\';color:#fff;}'+
 							'#body #navigater a:nth-child(2n){background:#1b1f22;}#body #navigater a.active{background:#0072dc;}'+
 							'#body #navigater{top:0;}',
 			pages:[
@@ -36,17 +36,19 @@ for(var i=2;i<52;i++){
 						// 当节点构建完成后调用该callback
 						callback:function(){},
 						innerStyle:'',
-						className:'pagesindex',
+						className:'sanxingIndex',
 						contents:[
 							{
 								type    :'anchors',
-								top     :'-50',
-								left    :'-400',
-								width   :'160',
+								top     :'250',
+								left    :'280',
+								width   :'130',
 								height  :'40',
 								'z-index':'2',
+								innerStyle:'.sanxingIndex .ljgm{ background:url(\'./pad/sanxing/sanxing.p.1.gm.png\')}',
 								callback:function(){ alert('anchors')},
 								content :{
+									className:'ljgm',
 									title:'"赵四"搞怪变打油诗人',
 									href :'http://www.youku.com',
 								}
@@ -62,63 +64,63 @@ for(var i=2;i<52;i++){
 						background:'./pad/sanxing/sanxing.p.2.jpg',
 						// 当节点构建完成后调用该callback
 						callback:function(){},
-						innerStyle:'',
-						className:'pagesindex',
+						innerStyle:'.pagevideo .set___video b{display:none;}.set___video .playVideo{background:none;}',
+						className:'pagevideo',
 						contents:[
 							{
 								type    :'video',
-								top     :'-170',
-								left    :'-370',
-								width   :'590',
-								height  :'355',
+								top     :'-180',
+								left    :'-310',
+								width   :'632',
+								height  :'350',
 								'z-index':'2',
 								callback:function(){},
 								content :{
 									title:'"赵四"搞怪变打油诗人',
 									videoId:'XNjgxMjg0OTky',
-									thumb:'./galaxy/index2-1.jpg',
+									thumb:'./pad/sanxing/sanxing.p.2.v-1.jpg',
 								}
 							},	
 							{
 								type    :'video',
-								top     :'-170',
-								left    :'235',
-								width   :'194',
-								height  :'109',
+								top     :'190',
+								left    :'-310',
+								width   :'200',
+								height  :'100',
 								'z-index':'2',
 								callback:function(){},
 								content :{
 									title:'"赵四"搞怪变打油诗人',
 									videoId:'XNjgxMjg0OTky',
-									thumb:'./galaxy/index2-1.jpg',
+									thumb:'./pad/sanxing/sanxing.p.2.v-2.jpg',
 								}
 							},	
 							{
 								type    :'video',
-								top     :'-48',
-								left    :'235',
-								width   :'194',
-								height  :'109',
+								top     :'190',
+								left    :'-94',
+								width   :'200',
+								height  :'100',
 								'z-index':'2',
 								callback:function(){},
 								content :{
 									title:'"赵四"搞怪变打油诗人',
 									videoId:'XNjgxMjg0OTky',
-									thumb:'./galaxy/index2-1.jpg',
+									thumb:'./pad/sanxing/sanxing.p.2.v-3.jpg',
 								}
 							},	
 							{
 								type    :'video',
-								top     :'76',
-								left    :'235',
-								width   :'194',
-								height  :'109',
+								top     :'190',
+								left    :'122',
+								width   :'200',
+								height  :'100',
 								'z-index':'2',
 								callback:function(){},
 								content :{
 									title:'"赵四"搞怪变打油诗人',
 									videoId:'XNjgxMjg0OTky',
-									thumb:'./galaxy/index2-1.jpg',
+									thumb:'./pad/sanxing/sanxing.p.2.v-4.jpg',
 								}
 							},	
 						]
@@ -137,10 +139,10 @@ for(var i=2;i<52;i++){
 						contents:[
 							{
 								type    :'scroll',
-								top     :'-285',
-								left    :'-460',
+								top     :'-300',
+								left    :'-450',
 								width   :'900',
-								height  :'613',
+								height  :'640',
 								'z-index':'10',
 								callback:function(){},
 								content :{
@@ -178,62 +180,21 @@ for(var i=2;i<52;i++){
 								callback:function(){},
 								content :[
 									{
-									      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
-										  left:'235',
-										  top:'-170',
-										  width:'194',
-										  height:'109',
-										  innerStyle:'.pagesAlbum .eye3d{background-position: 50% 50%;background-size: contain;background-repeat: no-repeat;}',
-										  type:'slider3d',
-										  'z-index':'2',
-										  callback:function(){},
-										  content :{
-											discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
-											images: [
-												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
-												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
-												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
-												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
-												  'http://r1.ykimg.com/050C00005319E2536714C02D4902DFAB',
-												  'http://r2.ykimg.com/050C0000531D2E9D6714C02D9A04CB94',
-										 	]
-										}
-												  // 图册 
-									},
-									{
-									      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
-										type    :'slider3d',
-										left:'235',
-										top:'-48',
-										width:'194',
-										height:'109',
+									    thumbnail:'./pad/sanxing/sanxing.p.4-2.jpg', // 视频截图
+										type    :'image',
+										left:'-160',
+										top:'-50',
+										width:'135',
+										height:'70',
 										'z-index':'2',
-										innerStyle:'.eye3d{background-position:50% 50%;}',
+										innerStyle:'.eye3d{background-position:50% 50%;background-size:contain;background-repeat:no-repeat;}',
 										callback:function(){},
 										content :{
-											discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
-											images:totalImages,
+											src:'./pad/sanxing/sanxing.p.4-1.jpg',
+											title:'&nbsp;',
+											className:'test_image02'
 										}
 									},	
-									{
-									      thumbnail:'./galaxy/index2-1.jpg', // 视频截图
-										  left:'235',
-										  top:'76',
-										  width:'194',
-										  height:'109',
-										  'z-index':'2',
-										  type:'scroll',
-										  callback:function(){},
-										  content :{
-										    discribe:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变打油诗人搞怪变打油诗人',
-										 	images:[
-										 		{title:'',img:'./galaxy/index4-1.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
-										 		{title:'',img:'./galaxy/index4-2.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
-										 		{title:'',img:'./galaxy/index4-3.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'},
-										 		{title:'',img:'./galaxy/index4-4.png',lenTitle:'赵赵搞怪变打油诗人赵搞怪变打油诗人赵搞怪变'}
-										 	],
-										}
-									},
 								]
 							},	
 						
