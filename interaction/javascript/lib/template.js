@@ -253,7 +253,7 @@ Array.prototype.map =  Array.prototype.map || function(f){
 
 			closeBox  =  document.createElement('div');
 			closeBox.setAttribute('id', videoArg.closeId );
-			closeBox.setAttribute('style','display:block;width:35px;height:25px;opacity:0.8;position:absolute;top:5px;left:10px;z-index:1001;background:url(http://r4.ykimg.com/0510000052999E0B6714C031D205BC08) no-repeat 50% 50%;padding:0 0 15px 15px;background-size:30px 28px;');
+			closeBox.setAttribute('style','display:block;width:35px;height:25px;opacity:0.8;position:absolute;top:5px;right:10px;z-index:1001;background:url(http://r4.ykimg.com/0510000052999E0B6714C031D205BC08) no-repeat 50% 50%;padding:0 0 15px 15px;background-size:30px 28px;');
 			document.querySelector('#'+videoArg.boxWarp ).style.display='none';
 			body.appendChild(closeBox);
 			body.appendChild(playBox);
