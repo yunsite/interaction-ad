@@ -596,7 +596,9 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				var	closeBox = createElements(PointClose);
 				closeBox.addEventListener('click',function(){ 
 					pointDt.style.display = 'none';
-						Elements.body.pages['point'+pageId]['shadow'].node.style.display = 'none';
+						
+						if( Elements.body.pages['point'+pageId]['shadow'] &&  Elements.body.pages['point'+pageId]['shadow'].node)
+							{Elements.body.pages['point'+pageId]['shadow'].node.style.display = 'none';}
 					
 					},false);
 				pointBox.appendChild(closeBox);
@@ -668,13 +670,11 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		shareEvent:function(parentNode,arg){
 			require(['mraid'],function(Mraid){
 				parentNode.querySelector('a').addEventListener('click',function(){
-					
+						arg.callback && arg.callback(parentNode,arg);
 						Mraid.mraidReady(function(mraid){
 							mraid.share(arg.content.message);
 						});
-					
 					},false);
-						
 			})
 			
 		}
@@ -803,8 +803,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 						pageId:typeId
 					} ,function(ele,ADS){
 						
-
-						if( Elements['body']['pages'][ ADS.pageId ] && Elements['body']['pages'][ ADS.pageId ]['content'] ){ return ;}
+						if( Elements['body']['pages'][ ADS.pageId ] && Elements['body']['pages'][ ADS.pageId ]['content'] ){ return true ;}
 							//var startloading = new temp.loading(ele)
 
 
@@ -834,7 +833,12 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 											}
 							var pageWrapNode = createElements(pageWrap)	;
 								pageWrapNode.appendChild(pageNode);
-								ele.appendChild(pageWrapNode);	
+								ele.appendChild(pageWrapNode) &&								
+								ADS.page.callback &&
+								ADS.page.callback(pageWrapNode);
+
+
+
 
 
 					});

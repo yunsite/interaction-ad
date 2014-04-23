@@ -29,7 +29,7 @@
 					page:{
 						background:'./pad/adidas.1.jpg',
 						// 当节点构建完成后调用该callback
-						callback:function(){},
+						callback:function(node){ console.log(node)},
 						innerStyle:'',
 						className:'pagesindex',
 						contents:[
@@ -55,9 +55,25 @@
 								height  :'40',
 								'z-index':'2',
 								innerStyle:'.pagesindex .adidasShare{background:rgba(0,0,0,0.4)}',
+								callback:function(){ },
+								content :{
+									title:'分享至',
+									message:'跑，动能不停',
+									className:'adidasShare'
+								}
+							},	
+							{
+								type    :'anchors',
+								top     :'230',
+								left    :'300',
+								width   :'60',
+								height  :'40',
+								'z-index':'2',
+								innerStyle:'.pagesindex .adidasShare{background:rgba(0,0,0,0.4)}',
 								callback:function(){ alert('anchors')},
 								content :{
 									title:'分享至',
+									href:'http://www.baidu.com',
 									message:'跑，动能不停',
 									className:'adidasShare'
 								}
@@ -72,7 +88,7 @@
 					page:{
 						background:'./pad/adidas.2.jpg',
 						// 当节点构建完成后调用该callback
-						callback:function(){},
+						callback:function(node){ },
 						innerStyle:'.autoMap .mapContent{background-color:rgba(0,0,0,0.3);border:1px solid rgba(0, 0, 0,0.5);-webkit-border-radius:4px;} .autoMap .mapPoints{;}'+
 									'.autoMap .mapPoints li{float:left;height:100%;padding:5px 0 5px 5px;margin-right:3px;display:-webkit-box;text-align:left;background: -webkit-gradient(linear, left top, left bottom, from(rgb(225,225,225)), to(rgb(241,241,241)));border:1px solid #ccc;-webkit-box-sizing:border-box;}'+
 									'.autoMap .mapPointRight a.tianmao{background:url(\'./pad/adidas.tm.png\') no-repeat 50% 50%;}'+
