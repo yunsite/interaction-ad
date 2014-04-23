@@ -11,7 +11,7 @@ require.config({
 		'jsapi'                 :'http://player.youku.com/jsapi',
 
 		'threesixty'            :'./360/threesixty',
-		'autoNavi'              :'http://webapi.amap.com/maps?v=1.2&key=c0e37bb8a23b337c1b86bd2099e9ccee'
+		'mraid'                 :'./mraid'
 	}
 });
 
@@ -46,7 +46,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 	function InteractionAD(){
 		this.temp={
 		// 头图大图
-		anchors:'<a class=\'#{className}\' href=\'#{href}\' style=\'#{style}\'></a>',
+		anchors:'<a class=\'#{className}\' href=\'#{href}\' alt=\'#{title}\' style=\'#{style}\'>#{title}</a>',
 		// 全视频
 		video:'<div class=\'#{className}\' style=\'#{style}\' id=\'video-#{videoId}\'><a href=\'javascript:void(0)\' data-videoid=\'#{videoId}\'><img class=\'playVideo\' src=\'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\' /><img class=\'video\' src=\'#{thumbnail}\' /></a><b>#{title}</b></div>',
 		// 相册
@@ -472,9 +472,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 			var points     = arg.content.points,
 				mapContent = parentNode.querySelector('div[id^=mapContent]').id;
 
-
-
-
 			function createBDmap(){
 				var mapObj = new BMap.Map(mapContent),myLoaction;	
 				function markMyLocation(point){  // 创建图标对象     
@@ -529,9 +526,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 					})();
 
 			}
-
-
-
 			window.BMap_loadScriptTime = (new Date).getTime();
 			temp.getScript('http://api.map.baidu.com/getscript?type=quick&file=api&ak=Rh7IIY1FumRGQaWsfUVumZz9&t=20140109092002',
 				{
@@ -550,24 +544,6 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 							alert('地图加载失败');
 						}
 				});
-
-
-
-
-
-
-
-			window.addEventListener('load',function(){
-			console.log('loading')	
-			var mapObj = new AMap.map('mapContent',{
-				    center:new AMap.LngLat(116.397428,39.90923), //地图中心点
-					    level:13  //地图显示的比例尺级别
-						    })
-				
-				
-				},200)
-			
-			
 			},
 		createPage:function( ARGUMENTS ,callback){
 			var _style = ARGUMENTS.style,
@@ -670,6 +646,34 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				pointDt.appendChild(pointBox);
 
 			
+			
+		},
+		share:function(content){
+			return this.createPage({
+					temp:this.temp.anchors,
+					style:content
+				},function(temp,style){
+					var pushArg={
+							title:content.content.title||'优酷互动广告',
+							href:content.content.href||'javascript:void(0)',
+							style:style,
+							className:content.content.className||'item-anchors'
+						}
+						
+					return temp.evaluate(pushArg);
+				});
+			
+			
+		},
+		shareEvent:function(parentNode,arg){
+			require(['mraid'],function(Mraid){
+				Mraid.mraidReady(function(mraid){
+						alert(mraid);
+						
+					
+					});
+						
+			})
 			
 		}
 	}
@@ -931,7 +935,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 
 		var navigater = Elements.body.navigater;
 		// 派发点击事件 
-		simulationEvent({ele:navigater[ navigater.list['3'] ]['node'] });
+		simulationEvent({ele:navigater[ navigater.list['0'] ]['node'] });
 
 
 

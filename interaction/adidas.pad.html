@@ -16,13 +16,6 @@
 	<script type="text/javascript">
 
 
-var totalImages=[];
-for(var i=2;i<52;i++){
-	totalImages.push('bmw/IMG/'+i+'.png');
-}
-
-
-
 		// 三星产品PAD端功能展示
 		//  PAD 端
 		Config = {
@@ -55,16 +48,17 @@ for(var i=2;i<52;i++){
 								}
 							},	
 							{
-								type    :'anchors',
-								top     :'-50',
-								left    :'-400',
-								width   :'160',
+								type    :'share',
+								top     :'230',
+								left    :'380',
+								width   :'60',
 								height  :'40',
 								'z-index':'2',
+								innerStyle:'.pagesindex .adidasShare{background:rgba(0,0,0,0.4)}',
 								callback:function(){ alert('anchors')},
 								content :{
-									title:'"赵四"搞怪变打油诗人',
-									href :'http://www.youku.com',
+									title:'分享至',
+									className:'adidasShare'
 								}
 							},	
 						]
