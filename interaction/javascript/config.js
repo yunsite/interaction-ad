@@ -667,11 +667,13 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 		},
 		shareEvent:function(parentNode,arg){
 			require(['mraid'],function(Mraid){
-				Mraid.mraidReady(function(mraid){
-						alert(mraid);
-						
+				parentNode.querySelector('a').addEventListener('click',function(){
 					
-					});
+						Mraid.mraidReady(function(mraid){
+							mraid.share('测试一下能不能分享');
+						});
+					
+					},false);
 						
 			})
 			
