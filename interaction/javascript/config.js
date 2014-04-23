@@ -670,7 +670,7 @@ require(['template.loading','iscroll','createStyle'],function(temp,iScroll,creat
 				parentNode.querySelector('a').addEventListener('click',function(){
 					
 						Mraid.mraidReady(function(mraid){
-							mraid.share('测试一下能不能分享');
+							mraid.share(arg.content.message);
 						});
 					
 					},false);
